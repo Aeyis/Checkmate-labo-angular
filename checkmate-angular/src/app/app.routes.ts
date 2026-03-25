@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {isConnectedGuard} from '@core/guards/isConnected.guard';
 import {isNotConnectedGuard} from '@core/guards/isNotConnected.guard';
+import {adminGuard} from '@core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,12 @@ export const routes: Routes = [
     path: 'tournament/:id',
     loadComponent: () =>
       import('@features/tournament/tournament-detail-page/tournament-detail-page').then((m) => m.TournamentDetailPage),
+  },
+  {
+    path: 'admin/members',
+    loadComponent: () =>
+      import('@features/admin/member-list-page/member-list-page').then((m) => m.MemberListPage),
+    canActivate: [isConnectedGuard, adminGuard],
   },
   {
     path: "**",

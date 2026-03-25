@@ -1,0 +1,31 @@
+<div class="admin-wrapper">
+  <div class="admin-header">
+    <h1>Membres</h1>
+    <a routerLink="/admin/members/create" class="btn-create">+ Nouveau membre</a>
+  </div>
+
+  @if (members.length === 0) {
+    <p>Aucun membre.</p>
+  } @else {
+    <table class="members-table">
+      <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Elo</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (member of members; track member.id) {
+          <tr>
+            <td>{{ member.username }}</td>
+            <td>{{ member.email }}</td>
+            <td>{{ member.role }}</td>
+            <td>{{ member.elo }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

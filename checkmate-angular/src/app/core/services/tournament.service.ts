@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '@env';
-import {Tournament, TournamentList} from '@core/models/tournament.interface';
+import {CreateTournament, Tournament, TournamentList} from '@core/models/tournament.interface';
 import {firstValueFrom} from 'rxjs';
 
 @Injectable({
@@ -25,5 +25,25 @@ export class TournamentService {
 
   leave(id: number): Promise<void> {
     return firstValueFrom(this._httpClient.post<void>(this._apiURL + 'tournament/' + id + '/leave', {}));
+  }
+
+  create(data: CreateTournament): Promise<Tournament> {
+    return firstValueFrom(this._httpClient.post<Tournament>(this._apiURL + 'tournament', data));
+  }
+
+  delete(id: number): Promise<void> {
+    return firstValueFrom(this._httpClient.delete<void>(this._apiURL + 'tournament/' + id));
+  }
+
+  start(id: number): Promise<void> {
+    return firstValueFrom(this._httpClient.post<void>(this._apiURL + 'tournament/' + id + '/start', {}));
+  }
+
+  nextRound(id: number): Promise<void> {
+    return firstValueFrom(this._httpClient.patch<void>(this._apiURL + 'tournament/' + id + '/next-round', {}));
+  }
+
+  registerPlayer(id: number, memberId: number): Promise<void> {
+    return firstValueFrom(this._httpClient.post<void>(this._apiURL + 'tournament/' + id + '/register', { memberId }));
   }
 }
