@@ -48,6 +48,7 @@ export class AuthService {
     const response = await firstValueFrom(
       this._httpClient.post<loginResponse>(this._apiURL + 'auth/login', { email, password })
     );
+    console.log(response);
     this._authToken.set(response.token);
   }
 
