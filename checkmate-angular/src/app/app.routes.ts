@@ -32,6 +32,16 @@ export const routes: Routes = [
       import('@features/errors/not-found-page/not-found-page').then((m) => m.NotFoundPage),
   },
   {
+    path: 'tournament',
+    loadComponent:()=>
+      import('@features/tournament/tournament-list-page/tournament-list-page').then((m) => m.TournamentListPage),
+  },
+  {
+    path: 'tournament/:id',
+    loadComponent: () =>
+      import('@features/tournament/tournament-detail-page/tournament-detail-page').then((m) => m.TournamentDetailPage),
+  },
+  {
     path: "**",
     redirectTo: 'not-found',
   },

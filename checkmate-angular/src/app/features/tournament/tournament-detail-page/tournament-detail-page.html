@@ -1,0 +1,20 @@
+<div class="detail-wrapper">
+  @if (tournament) {
+    <div class="detail-card">
+      <h1>{{ tournament.name }}</h1>
+      <p><strong>Lieu :</strong> {{ tournament.location }}</p>
+      <p><strong>Statut :</strong> {{ tournament.status }}</p>
+      <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
+      <p><strong>Femmes uniquement :</strong> {{ tournament.womenOnly ? 'Oui' : 'Non' }}</p>
+
+      @if (isConnected()) {
+        <div class="actions">
+          <button (click)="join()">Rejoindre</button>
+          <button (click)="leave()">Quitter</button>
+        </div>
+      }
+    </div>
+  } @else {
+    <p>Chargement...</p>
+  }
+</div>
