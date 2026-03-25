@@ -49,6 +49,12 @@ export const routes: Routes = [
     canActivate: [isConnectedGuard, adminGuard],
   },
   {
+    path: 'admin/members/create',
+    loadComponent: () =>
+      import('@features/admin/member-create-page/member-create-page').then((m) => m.MemberCreatePage),
+    canActivate: [isConnectedGuard, adminGuard],
+  },
+  {
     path: "**",
     redirectTo: 'not-found',
   },
