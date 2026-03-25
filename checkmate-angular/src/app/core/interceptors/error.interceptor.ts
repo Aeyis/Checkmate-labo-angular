@@ -17,6 +17,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             authService.logout();
             router.navigate(['/', 'auth', 'login']);
             return throwError(()=> null);
+          case 403:
+            router.navigate(['/forbidden']); // TODO page 403
+            return throwError(()=> null);
           case 500:
             router.navigate(['/']); // TODO page d'erreur 500
             return throwError(()=> null);
