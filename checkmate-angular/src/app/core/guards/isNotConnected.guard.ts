@@ -3,16 +3,15 @@ import {CanActivateFn, Router} from '@angular/router';
 import {inject} from '@angular/core';
 
 
-export const isConnectedGuard: CanActivateFn = (route, state)=>{
+export const isNotConnectedGuard: CanActivateFn = (route, state)=>{
   const authService = inject(AuthService);
   const router = inject(Router);
-  const isConnected = authService.isConnected ();
-  if(isConnected) {
-    //si utilisateur co
+  const isConnected = authService.isConnected();
+  if(!isConnected) {
+    //si utilisateur pas co
     return true;
   }
-  //si utilisateur pas co
-  //redirection Login
-  router.navigate(['/','auth','login']);
+  //si utilisateur co -> redirection home
+  router.navigate(['/']);
   return false;
 };
