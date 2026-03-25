@@ -1,0 +1,76 @@
+.admin-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  min-height: calc(100vh - 64px);
+  background-color: #f4f4f8;
+}
+
+.manage-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.manage-card h1 {
+  margin: 0 0 1.5rem;
+  color: #1a1a2e;
+  font-size: 1.8rem;
+}
+
+.manage-card p {
+  margin: 0.6rem 0;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.actions button:hover {
+  opacity: 0.85;
+}
+
+.btn-start {
+  background-color: #e2b96f;
+  color: #1a1a2e;
+}
+
+.btn-next {
+  background-color: #1a1a2e;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: transparent;
+  border: 1px solid #e05c5c !important;
+  color: #e05c5c;
+}
+
+.manage-card a {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: #888;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.manage-card a:hover {
+  color: #1a1a2e;
+}

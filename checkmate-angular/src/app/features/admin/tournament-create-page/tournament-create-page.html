@@ -1,0 +1,41 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2 class="auth-card__title">Nouveau tournoi</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Nom</label>
+        <input id="name" type="text" formControlName="name" />
+      </div>
+      <div class="form-group">
+        <label for="location">Lieu</label>
+        <input id="location" type="text" formControlName="location" />
+      </div>
+      <div class="form-group">
+        <label for="minPlayers">Joueurs min</label>
+        <input id="minPlayers" type="number" formControlName="minPlayers" />
+      </div>
+      <div class="form-group">
+        <label for="maxPlayers">Joueurs max</label>
+        <input id="maxPlayers" type="number" formControlName="maxPlayers" />
+      </div>
+      <div class="form-group">
+        <label for="minElo">Elo min</label>
+        <input id="minElo" type="number" formControlName="minElo" />
+      </div>
+      <div class="form-group">
+        <label for="maxElo">Elo max</label>
+        <input id="maxElo" type="number" formControlName="maxElo" />
+      </div>
+      <div class="form-group">
+        <label for="endRegistrationDate">Fin des inscriptions</label>
+        <input id="endRegistrationDate" type="date" formControlName="endRegistrationDate" />
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" formControlName="womenOnly" /> Femmes uniquement
+        </label>
+      </div>
+      <button class="btn-submit" type="submit">Créer</button>
+    </form>
+  </div>
+</div>

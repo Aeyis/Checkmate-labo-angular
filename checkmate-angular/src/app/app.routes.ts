@@ -55,6 +55,18 @@ export const routes: Routes = [
     canActivate: [isConnectedGuard, adminGuard],
   },
   {
+    path: 'admin/tournament/create',
+    loadComponent: () =>
+      import('@features/admin/tournament-create-page/tournament-create-page').then((m) => m.TournamentCreatePage),
+    canActivate: [isConnectedGuard, adminGuard],
+  },
+  {
+    path: 'admin/tournament/:id',
+    loadComponent: () =>
+      import('@features/admin/tournament-manage-page/tournament-manage-page').then((m) => m.TournamentManagePage),
+    canActivate: [isConnectedGuard, adminGuard],
+  },
+  {
     path: "**",
     redirectTo: 'not-found',
   },
