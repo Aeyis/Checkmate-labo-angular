@@ -1,0 +1,19 @@
+<div class="tournament-list-wrapper">
+  <h1>Tournois</h1>
+
+  @if (tournaments.length === 0) {
+    <p>Aucun tournoi disponible.</p>
+  } @else {
+    <ul class="tournament-list">
+      @for (tournament of tournaments; track tournament.id) {
+        <li class="tournament-card">
+          <h2>{{ tournament.name }}</h2>
+          <p><strong>Lieu :</strong> {{ tournament.location }}</p>
+          <p><strong>Statut :</strong> {{ tournament.status }}</p>
+          <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
+          <a [routerLink]="['/tournament', tournament.id]">Voir le détail</a>
+        </li>
+      }
+    </ul>
+  }
+</div>
