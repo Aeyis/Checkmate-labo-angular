@@ -1,9 +1,18 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label for="email">Email</label>
-  <input id="email" type="email" formControlName="email" />
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2 class="auth-card__title">Connexion</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+      </div>
 
-  <label for="password">Mot de passe</label>
-  <input id="password" type="password" formControlName="password" />
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" />
+      </div>
 
-  <button type="submit">Se connecter</button>
-</form>
+      <button class="btn-submit" type="submit">Se connecter</button>
+    </form>
+  </div>
+</div>

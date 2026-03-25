@@ -1,13 +1,23 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2 class="auth-card__title">Inscription</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input id="username" type="text" formControlName="username" />
+      </div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label for="username">Nom d'utilisateur</label>
-  <input id="username" type="text" formControlName="username" />
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+      </div>
 
-  <label for="email">Email</label>
-  <input id="email" type="email" formControlName="email" />
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" />
+      </div>
 
-  <label for="password">Mot de passe</label>
-  <input id="password" type="password" formControlName="password" />
-
-  <button type="submit">S'inscrire</button>
-</form>
+      <button class="btn-submit" type="submit">S'inscrire</button>
+    </form>
+  </div>
+</div>

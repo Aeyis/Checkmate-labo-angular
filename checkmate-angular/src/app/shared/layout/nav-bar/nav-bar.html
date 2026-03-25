@@ -1,0 +1,24 @@
+<nav class="navbar">
+  <a class="navbar__brand" routerLink="/">Checkmate</a>
+
+  <ul class="navbar__links">
+    <li><a routerLink="/tournament" routerLinkActive="active">Tournois</a></li>
+
+    @if (isConnected()) {
+      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="/profile" routerLinkActive="active">Profil</a></li>
+      @if (isAdmin()) {
+        <li><a routerLink="/admin/members" routerLinkActive="active">Admin</a></li>
+      }
+    }
+  </ul>
+
+  <div class="navbar__actions">
+    @if (isConnected()) {
+      <button class="btn btn--logout" (click)="logout()">Déconnexion</button>
+    } @else {
+      <a class="btn btn--login" routerLink="/auth/login">Connexion</a>
+      <a class="btn btn--register" routerLink="/auth/register">Inscription</a>
+    }
+  </div>
+</nav>

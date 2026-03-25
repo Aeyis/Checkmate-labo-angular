@@ -4,13 +4,13 @@ import {isNotConnectedGuard} from '@core/guards/isNotConnected.guard';
 
 export const routes: Routes = [
   {
-    path: 'login',
+    path: 'auth/login',
     loadComponent:() =>
       import('@features/auth/login-page/login-page').then((m) => m.LoginPage),
-      canActivate:[isConnectedGuard],
+      canActivate:[isNotConnectedGuard],
   },
   {
-    path: 'register',
+    path: 'auth/register',
     loadComponent:() =>
       import('@features/auth/register-page/register-page').then((m) => m.RegisterPage),
       canActivate:[isNotConnectedGuard],
