@@ -1,31 +1,37 @@
-import {Component, inject} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {MemberService} from '@core/services/member.service';
-import {Member} from '@core/models/member.interface';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MemberService } from '@core/services/member.service';
+import { Member } from '@core/models/member.interface';
 
 @Component({
-    selector: 'app-edit-profile-page',
-    imports: [RouterLink, ReactiveFormsModule],
-    templateUrl: './edit-profile-page.html',
-    styleUrl: './edit-profile-page.css',
+  selector: 'app-edit-profile-page',
+  imports: [ReactiveFormsModule],
+  templateUrl: './edit-profile-page.html',
+  styleUrl: './edit-profile-page.css',
 })
-export class EditProfilePage {
-  private readonly _memberService= inject(MemberService);
-  private readonly _router  = inject(Router) ;
+export class EditProfilePage implements OnInit {
+  private readonly _memberService = inject(MemberService);
+  private readonly _router = inject(Router);
   private readonly _fb = inject(FormBuilder);
 
   member: Member | null = null;
 
-  profileForm=this._fb.group({
+  profileForm = this._fb.group({
     username: [''],
     email: [''],
     password: [''],
     birthdate: [''],
     gender: [''],
-  })
-/*TODO async ngOnInit(): Promise<void> {
+  });
+
+  async ngOnInit(): Promise<void> {
     this.member = await this._memberService.getMember();
-    this.profileForm matchValue(this.member);
- }*/
+    this.profileForm.patchValue(this.member);
+  }
+
+  async onSubmit(): Promise<void> {
+    await this._memberService.updateMember(this.profileForm.value as any);
+    this._router.navigate(['/profile']);
+  }
 }

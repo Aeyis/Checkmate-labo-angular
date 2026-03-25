@@ -67,6 +67,24 @@ export const routes: Routes = [
     canActivate: [isConnectedGuard, adminGuard],
   },
   {
+    path: 'admin/match/:matchId',
+    loadComponent: () =>
+      import('@features/admin/match-result-page/match-result-page').then((m) => m.MatchResultPage),
+    canActivate: [isConnectedGuard, adminGuard],
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('@features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
+    canActivate: [isConnectedGuard],
+  },
+  {
+    path: 'profile/edit',
+    loadComponent: () =>
+      import('@features/profile/edit-profile-page/edit-profile-page').then((m) => m.EditProfilePage),
+    canActivate: [isConnectedGuard],
+  },
+  {
     path: "**",
     redirectTo: 'not-found',
   },
