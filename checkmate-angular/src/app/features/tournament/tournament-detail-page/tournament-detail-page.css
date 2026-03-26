@@ -56,3 +56,45 @@
 .actions button:hover {
   opacity: 0.85;
 }
+
+.btn-manage {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.5rem;
+  background-color: #1a1a2e;
+  color: #e2b96f;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn-manage:hover {
+  opacity: 0.85;
+}
+
+.detail-card h3 {
+  margin: 2rem 0 0.75rem;
+  color: #1a1a2e;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.4rem;
+}
+
+.detail-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detail-card ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.detail-card ul li:last-child {
+  border-bottom: none;
+}
