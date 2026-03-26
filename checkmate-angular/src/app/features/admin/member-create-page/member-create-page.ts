@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MemberService } from '@core/services/member.service';
+import { strongPasswordValidator } from '@core/validators/strong-password.validator';
 
 @Component({
   selector: 'app-member-create-page',
@@ -17,7 +18,7 @@ export class MemberCreatePage {
   form = this._fb.group({
     username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, strongPasswordValidator()]],
     birthdate: ['', Validators.required],
     gender: ['', Validators.required],
   });

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MemberService } from '@core/services/member.service';
 import { Member } from '@core/models/member.interface';
+import { strongPasswordValidator } from '@core/validators/strong-password.validator';
 
 @Component({
   selector: 'app-edit-profile-page',
@@ -20,7 +21,7 @@ export class EditProfilePage implements OnInit {
   profileForm = this._fb.group({
     username: [''],
     email: [''],
-    password: [''],
+    password: ['', strongPasswordValidator()],
     birthdate: [''],
     gender: [''],
   });

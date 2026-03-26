@@ -1,1 +1,26 @@
-<p>forms-error-display works!</p>
+@if(control().touched && control().invalid){
+  @if(control().getError('required')){
+    <p>Le {{name()}} est requis.</p>
+  }
+  @if(control().getError('email')){
+    <p>Le {{name()}} n'est pas un email valide.</p>
+  }
+  @if(control().getError('minlength')){
+    <p>Le {{name()}} doit contenir au moins {{control().getError('minlength').requiredLength}} caractères.</p>
+  }
+  @if(control().getError('maxlength')){
+    <p>Le {{name()}} doit avoir maximum {{control().getError('maxlength').requiredLength}} caractères.</p>
+  }
+  @if(control().getError('lowercase')){
+    <p>Le {{name()}} doit contenir une minuscule.</p>
+  }
+  @if(control().getError('uppercase')){
+    <p>Le {{name()}} doit contenir une majuscule.</p>
+  }
+  @if(control().getError('number')){
+    <p>Le {{name()}} doit contenir un chiffre.</p>
+  }
+  @if(control().getError('specialChar')){
+    <p>Le {{name()}} doit contenir un caractère spécial.</p>
+  }
+}
