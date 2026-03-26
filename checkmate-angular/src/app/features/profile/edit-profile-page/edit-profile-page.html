@@ -4,28 +4,41 @@
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="username">Nom d'utilisateur</label>
-        <input id="username" type="text" formControlName="username" />
+        <input id="username" type="text" formControlName="username"
+          [class.input-error]="username.invalid && username.touched" />
+        <app-forms-error-display [control]="username" name="Nom d'utilisateur" />
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" />
+        <input id="email" type="email" formControlName="email"
+          [class.input-error]="email.invalid && email.touched" />
+        <app-forms-error-display [control]="email" name="Email" />
       </div>
       <div class="form-group">
         <label for="password">Nouveau mot de passe</label>
-        <input id="password" type="password" formControlName="password" />
+        <input id="password" type="password" formControlName="password"
+          [class.input-error]="password.invalid && password.touched" />
+        <app-forms-error-display [control]="password" name="Mot de passe" />
       </div>
       <div class="form-group">
         <label for="birthdate">Date de naissance</label>
-        <input id="birthdate" type="date" formControlName="birthdate" />
+        <input id="birthdate" type="date" formControlName="birthdate"
+          [class.input-error]="birthdate.invalid && birthdate.touched" />
+        <app-forms-error-display [control]="birthdate" name="Date de naissance" />
       </div>
       <div class="form-group">
         <label for="gender">Genre</label>
-        <select id="gender" formControlName="gender">
+        <select id="gender" formControlName="gender"
+          [class.input-error]="gender.invalid && gender.touched">
           <option value="M">Homme</option>
           <option value="F">Femme</option>
           <option value="O">Autre</option>
         </select>
+        <app-forms-error-display [control]="gender" name="Genre" />
       </div>
+      @if (errorMessage) {
+        <p class="error-global">{{ errorMessage }}</p>
+      }
       <button class="btn-submit" type="submit">Sauvegarder</button>
     </form>
   </div>

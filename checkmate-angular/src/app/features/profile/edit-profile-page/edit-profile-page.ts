@@ -1,30 +1,31 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MemberService } from '@core/services/member.service';
 import { Member } from '@core/models/member.interface';
 import { strongPasswordValidator } from '@core/validators/strong-password.validator';
+import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
 
 @Component({
   selector: 'app-edit-profile-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsErrorDisplay],
   templateUrl: './edit-profile-page.html',
   styleUrl: './edit-profile-page.css',
 })
 export class EditProfilePage implements OnInit {
   private readonly _memberService = inject(MemberService);
   private readonly _router = inject(Router);
-  private readonly _fb = inject(FormBuilder);
 
   member: Member | null = null;
+  errorMessage: string = '';
 
-  profileForm = this._fb.group({
-    username: [''],
-    email: [''],
-    password: ['', strongPasswordValidator()],
-    birthdate: [''],
-    gender: [''],
-  });
+  username = new FormControl('');
+  email = new FormControl('', [Validators.email]);
+  password = new FormControl('', [strongPasswordValidator()]);
+  birthdate = new FormControl('');
+  gender = new FormControl('');
+
+  profileForm = new FormGroup({ username: this.username, email: this.email, password: this.password, birthdate: this.birthdate, gender: this.gender });
 
   async ngOnInit(): Promise<void> {
     this.member = await this._memberService.getMember();
@@ -32,7 +33,12 @@ export class EditProfilePage implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-    await this._memberService.updateMember(this.profileForm.value as any);
-    this._router.navigate(['/profile']);
+    if (this.profileForm.invalid) return;
+    try {
+      await this._memberService.updateMember(this.profileForm.value as any);
+      await this._router.navigate(['/profile']);
+    } catch {
+      this.errorMessage = 'Une erreur est survenue lors de la mise à jour.';
+    }
   }
 }

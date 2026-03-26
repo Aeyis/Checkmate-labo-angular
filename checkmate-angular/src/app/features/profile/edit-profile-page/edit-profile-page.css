@@ -66,3 +66,13 @@
 .btn-submit:hover {
   opacity: 0.85;
 }
+
+.input-error {
+  border-color: #e05c5c;
+}
+
+.error-global {
+  color: #e05c5c;
+  font-size: 0.9rem;
+  text-align: center;
+}
