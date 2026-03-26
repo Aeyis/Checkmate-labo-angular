@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
@@ -11,11 +11,13 @@ import { AuthService } from '@core/services/auth.service';
 })
 export class NavBar {
   private readonly _authService = inject(AuthService);
+  private readonly _router = inject(Router);
 
   isConnected = this._authService.isConnected;
   isAdmin = this._authService.isAdmin;
 
   logout(): void {
     this._authService.logout();
+    this._router.navigate(['/auth/login']);
   }
 }
