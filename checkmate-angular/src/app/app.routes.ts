@@ -85,6 +85,12 @@ export const routes: Routes = [
     canActivate: [isConnectedGuard],
   },
   {
+    path: 'admin/tournament',
+    loadComponent: () =>
+      import('@features/admin/tournament-list-page/tournament-list-page').then((m) => m.TournamentListPage),
+    canActivate: [isConnectedGuard, adminGuard],
+  },
+  {
     path: "**",
     redirectTo: 'not-found',
   },

@@ -1,6 +1,8 @@
 <div class="tournament-list-wrapper">
   <h1>Tournois</h1>
-
+  @if (isAdmin()) {
+    <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
+  }
   @if (tournaments.length === 0) {
     <p>Aucun tournoi disponible.</p>
   } @else {
@@ -12,6 +14,9 @@
           <p><strong>Statut :</strong> {{ tournament.status }}</p>
           <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
           <a [routerLink]="['/tournament', tournament.id]">Voir le détail</a>
+          @if (isAdmin()) {
+            <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
+          }
         </li>
       }
     </ul>

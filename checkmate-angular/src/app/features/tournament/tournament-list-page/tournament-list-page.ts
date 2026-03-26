@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TournamentService} from '@core/services/tournament.service';
 import {Tournament} from '@core/models/tournament.interface';
+import {AuthService} from '@core/services/auth.service';
 
 @Component({
     selector: 'app-tournament-list-page',
@@ -11,6 +12,9 @@ import {Tournament} from '@core/models/tournament.interface';
 })
 export class TournamentListPage implements OnInit {
   private readonly _tournamentService= inject(TournamentService);
+  private readonly _authService= inject(AuthService);
+
+  isAdmin = this._authService.isAdmin;
 
   tournaments: Tournament[] = [];
 

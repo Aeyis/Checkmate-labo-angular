@@ -1,0 +1,35 @@
+<div class="admin-wrapper">
+  <div class="admin-header">
+    <h1>Tournois</h1>
+    <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
+  </div>
+
+  @if (tournaments.length === 0) {
+    <p>Aucun tournoi.</p>
+  } @else {
+    <table class="tournaments-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Lieu</th>
+          <th>Statut</th>
+          <th>Elo</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (tournament of tournaments; track tournament.id) {
+          <tr>
+            <td>{{ tournament.name }}</td>
+            <td>{{ tournament.location }}</td>
+            <td>{{ tournament.status }}</td>
+            <td>{{ tournament.minElo }} - {{ tournament.maxElo }}</td>
+            <td>
+              <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
