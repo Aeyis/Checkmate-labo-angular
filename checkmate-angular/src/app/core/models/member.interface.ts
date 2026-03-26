@@ -2,7 +2,7 @@ export interface Member {
   id: number;
   username: string;
   email: string;
-  birthdate: string;
+  birthDate: string;
   gender: string;
   elo: number;
   role: string;
@@ -13,4 +13,7 @@ export interface updateMember {
   password?: string;
   birthdate?: string;
   gender?: string;
+}
+export interface MemberDetails {
+  data:Member;
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MemberService } from '@core/services/member.service';
 import { Member } from '@core/models/member.interface';
@@ -12,9 +12,9 @@ import { Member } from '@core/models/member.interface';
 export class MemberListPage implements OnInit {
   private readonly _memberService = inject(MemberService);
 
-  members: Member[] = [];
+  members = signal<Member[]>([]);
 
   async ngOnInit(): Promise<void> {
-    this.members = await this._memberService.getAll();
+    this.members.set(await this._memberService.getAll());
   }
 }

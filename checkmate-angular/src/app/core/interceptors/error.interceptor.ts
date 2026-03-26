@@ -10,7 +10,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   return next(req).pipe(
     catchError((error: unknown)=> {
-      console.warn(error);
       if(error instanceof HttpErrorResponse){
         switch (error.status){
           case 401:

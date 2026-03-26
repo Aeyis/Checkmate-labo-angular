@@ -1,9 +1,9 @@
 <div class="admin-wrapper">
-  @if (tournament) {
+  @if (tournament()) {
     <div class="manage-card">
-      <h1>{{ tournament.name }}</h1>
-      <p><strong>Statut :</strong> {{ tournament.status }}</p>
-      <p><strong>Lieu :</strong> {{ tournament.location }}</p>
+      <h1>{{ tournament()!.name }}</h1>
+      <p><strong>Statut :</strong> {{ tournament()!.status }}</p>
+      <p><strong>Lieu :</strong> {{ tournament()!.location }}</p>
 
       <div class="actions">
         <button class="btn-start" (click)="start()">Démarrer</button>
@@ -11,7 +11,7 @@
         <button class="btn-delete" (click)="delete()">Supprimer</button>
       </div>
 
-      <a routerLink="/admin/members">Retour</a>
+      <a routerLink="/admin/tournament">Retour</a>
     </div>
   } @else {
     <p>Chargement...</p>

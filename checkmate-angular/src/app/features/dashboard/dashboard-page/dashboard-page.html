@@ -1,8 +1,8 @@
 <div class="dashboard-wrapper">
-  @if (member) {
+  @if (member()) {
     <div class="dashboard-welcome">
-      <h1>Bonjour, {{ member.username }} 👋</h1>
-      <p>Elo : <strong>{{ member.elo }}</strong> — Rôle : <strong>{{ member.role }}</strong></p>
+      <h1>Bonjour, {{ member()!.username }} 👋</h1>
+      <p>Elo : <strong>{{ member()!.elo }}</strong> — Rôle : <strong>{{ member()!.role }}</strong></p>
     </div>
 
     <div class="dashboard-links">
@@ -14,11 +14,11 @@
       }
     </div>
 
-    @if (tournaments.length > 0) {
+    @if (tournaments().length > 0) {
       <div class="dashboard-section">
         <h2>Tournois à venir</h2>
         <ul class="tournament-list">
-          @for (tournament of tournaments; track tournament.id) {
+          @for (tournament of tournaments(); track tournament.id) {
             <li class="tournament-item">
               <span>{{ tournament.name }}</span>
               <span class="tournament-status">{{ tournament.status }}</span>

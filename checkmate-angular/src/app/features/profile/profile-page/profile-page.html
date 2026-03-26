@@ -1,14 +1,13 @@
 <div class="profile-wrapper">
-  @if (member) {
+  @if (member()) {
     <div class="profile-card">
-      <h2>{{ member.username }}</h2>
-      <p><strong>Email :</strong> {{ member.email }}</p>
-      <p><strong>Rôle :</strong> {{ member.role }}</p>
-      <p><strong>Elo :</strong> {{ member.elo }}</p>
-      <p><strong>Genre :</strong> {{ member.gender }}</p>
-      <p><strong>Date de naissance :</strong> {{ member.birthdate }}</p>
+      <h2>{{ member()!.username }}</h2>
+      <p><strong>Email :</strong> {{ member()!.email }}</p>
+      <p><strong>Rôle :</strong> {{ member()!.role }}</p>
+      <p><strong>Elo :</strong> {{ member()!.elo }}</p>
+      <p><strong>Genre :</strong> {{ member()!.gender }}</p>
+      <p><strong>Date de naissance :</strong> {{ member()!.birthDate }}</p>
       <a routerLink="/profile/edit">Modifier mon profil</a>
-
     </div>
   } @else {
     <p>Chargement...</p>

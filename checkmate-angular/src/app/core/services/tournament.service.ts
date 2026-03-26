@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '@env';
-import {CreateTournament, Match, PlayerScore, Tournament, TournamentList} from '@core/models/tournament.interface';
+import {CreateTournament, Match, PlayerScore, Tournament, TournamentDetail, TournamentList} from '@core/models/tournament.interface';
 import {firstValueFrom} from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,9 @@ export class TournamentService {
   };
 
   getById(id: number): Promise<Tournament> {
-    return firstValueFrom(this._httpClient.get<Tournament>(this._apiURL + 'tournament/' + id));
+    return firstValueFrom(
+      this._httpClient.get<TournamentDetail>(this._apiURL + 'tournament/' + id)
+    ).then(res => res.data);
   };
 
   join(id: number): Promise<void> {

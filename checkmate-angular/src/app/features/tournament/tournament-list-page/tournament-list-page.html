@@ -3,11 +3,11 @@
   @if (isAdmin()) {
     <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
   }
-  @if (tournaments.length === 0) {
+  @if (tournaments().length === 0) {
     <p>Aucun tournoi disponible.</p>
   } @else {
     <ul class="tournament-list">
-      @for (tournament of tournaments; track tournament.id) {
+      @for (tournament of tournaments(); track tournament.id) {
         <li class="tournament-card">
           <h2>{{ tournament.name }}</h2>
           <p><strong>Lieu :</strong> {{ tournament.location }}</p>

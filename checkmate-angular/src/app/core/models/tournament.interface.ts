@@ -1,4 +1,4 @@
-export interface Tournament{
+export interface Tournament {
   id: number;
   name: string;
   location: string;
@@ -6,11 +6,22 @@ export interface Tournament{
   maxElo: number;
   womenOnly: boolean;
   status: string;
-  startDate: string;
+  endRegistrationDate: string;
+  currentRound: number;
+  nbrOfPlayers: number;
+  minPlayers: number;
+  maxPlayers: number;
+  categories: string[];
+  isRegistered: boolean;
+  canRegister: boolean;
 }
 export interface TournamentList{
   data: Tournament[];
   total: number;
+}
+
+export interface TournamentDetail {
+  data: Tournament;
 }
 
 export interface CreateTournament {

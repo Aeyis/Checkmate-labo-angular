@@ -4,7 +4,7 @@
     <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
   </div>
 
-  @if (tournaments.length === 0) {
+  @if (tournaments().length === 0) {
     <p>Aucun tournoi.</p>
   } @else {
     <table class="tournaments-table">
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (tournament of tournaments; track tournament.id) {
+        @for (tournament of tournaments(); track tournament.id) {
           <tr>
             <td>{{ tournament.name }}</td>
             <td>{{ tournament.location }}</td>
