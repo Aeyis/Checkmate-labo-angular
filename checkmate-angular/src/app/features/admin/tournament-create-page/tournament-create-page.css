@@ -64,3 +64,14 @@
 .btn-submit:hover {
   opacity: 0.85;
 }
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-direction: row;
+  font-size: 0.875rem;
+  color: #333;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
