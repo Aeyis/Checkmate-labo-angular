@@ -6,12 +6,30 @@
       <p><strong>Statut :</strong> {{ tournament.status }}</p>
       <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
       <p><strong>Femmes uniquement :</strong> {{ tournament.womenOnly ? 'Oui' : 'Non' }}</p>
-
+      @if (isAdmin()) {
+        <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer ce tournoi</a>
+      }
       @if (isConnected()) {
         <div class="actions">
           <button (click)="join()">Rejoindre</button>
           <button (click)="leave()">Quitter</button>
         </div>
+      }
+      @if (scores.length > 0) {
+        <h3>Classement</h3>
+        <ul>
+          @for (score of scores; track score.memberId) {
+            <li>{{ score.username }} — {{ score.score }} pts</li>
+          }
+        </ul>
+      }
+      @if (matches.length > 0) {
+        <h3>Match en cours</h3>
+        <ul>
+          @for (match of matches; track match.id) {
+            <li>Blanc: {{ match.whiteMemberId }} vs Noir: {{ match.blackMemberId }}</li>
+          }
+        </ul>
       }
     </div>
   } @else {

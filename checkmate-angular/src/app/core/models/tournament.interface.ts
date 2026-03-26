@@ -24,3 +24,16 @@ export interface CreateTournament {
   endRegistrationDate: string;
   categories: number[];
 }
+
+export interface PlayerScore {
+  memberId: number;
+  username: string;
+  score: number;
+}
+
+export interface Match {
+  id: number;
+  whiteMemberId: number;
+  blackMemberId: number;
+  result:string | null;
+}
