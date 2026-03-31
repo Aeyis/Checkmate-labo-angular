@@ -23,7 +23,7 @@ export class DashboardPage implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const result = await this._tournamentService.getAll();
-    this.tournaments.set(result.data.slice(0, 3));
+    this.tournaments.set(result.data.filter(t => t.status !== 'finished').slice(0, 3));
     this.member.set(await this._memberService.getMember());
   }
 }

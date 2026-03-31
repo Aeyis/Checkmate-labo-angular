@@ -15,6 +15,7 @@ export class MemberListPage implements OnInit {
   members = signal<Member[]>([]);
 
   async ngOnInit(): Promise<void> {
+    console.log(this.members);
     this.members.set(await this._memberService.getAll());
   }
 }
