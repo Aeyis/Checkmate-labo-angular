@@ -37,9 +37,14 @@ export interface CreateTournament {
 }
 
 export interface PlayerScore {
-  memberId: number;
+player : {
+  id:string;
   username: string;
-  score: number;
+};
+score: number;
+victory: number;
+draw: number;
+defeat: number;
 }
 
 export interface MatchPlayer {

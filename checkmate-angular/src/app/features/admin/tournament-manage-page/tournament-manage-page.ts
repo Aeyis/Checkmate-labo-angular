@@ -42,6 +42,7 @@ export class TournamentManagePage implements OnInit {
 
     if (this.matches().length === 0) {
       this.scores.set(await this._tournamentService.getScores(id));
+      console.log(this.scores())
     }
   }
 

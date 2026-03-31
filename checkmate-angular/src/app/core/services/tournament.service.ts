@@ -50,8 +50,11 @@ export class TournamentService {
   };
 
   getScores(id: number): Promise<PlayerScore[]> {
-    return firstValueFrom(this._httpClient.get<PlayerScore[]>(this._apiURL + 'tournament/' + id + '/scores'));
+    return firstValueFrom(
+      this._httpClient.get<{ data: PlayerScore[] }>(this._apiURL + 'tournament/' + id + '/scores')
+    ).then(res => res.data);
   }
+
 
   getCurrentMatches(id: number): Promise<Match[]> {
     return firstValueFrom(

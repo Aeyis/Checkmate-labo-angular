@@ -35,7 +35,7 @@
       @if (tournament()!.status === 'started' && matches().length === 0 && scores().length > 0) {
         <div class="winner">
           <h2>Tournoi terminé !</h2>
-          <p>Vainqueur : {{ scores()[0].username }} avec {{ scores()[0].score }} pts</p>
+          <p>Vainqueur : {{ scores()[0].player.username }} avec {{ scores()[0].score }} pts</p>
         </div>
       }
 
