@@ -14,6 +14,7 @@ export interface Tournament {
   categories: string[];
   isRegistered: boolean;
   canRegister: boolean;
+  players?: MatchPlayer[];
 }
 export interface TournamentList{
   data: Tournament[];

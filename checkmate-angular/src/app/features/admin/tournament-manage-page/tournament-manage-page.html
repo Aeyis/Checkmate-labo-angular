@@ -16,6 +16,15 @@
         <button class="btn-delete" (click)="delete()">Supprimer</button>
       </div>
 
+      @if (tournament()!.players && tournament()!.players!.length > 0) {
+        <h2>Joueurs inscrits ({{ tournament()!.players!.length }} / {{ tournament()!.maxPlayers }})</h2>
+        <ul>
+          @for (player of tournament()!.players!; track player.id) {
+            <li>{{ player.username }}</li>
+          }
+        </ul>
+      }
+
       @if (matches().length > 0) {
         <h2>Matchs du round {{ tournament()!.currentRound }}</h2>
         <ul class="match-list">
