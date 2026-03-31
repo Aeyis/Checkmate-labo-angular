@@ -21,6 +21,7 @@ export class TournamentDetailPage implements OnInit {
   isAdmin = this._authService.isAdmin;
   scores = signal<PlayerScore[]>([]);
   matches = signal<Match[]>([]);
+  successMessage = signal<string>('');
 
   async ngOnInit(): Promise<void> {
     try {
@@ -39,6 +40,8 @@ export class TournamentDetailPage implements OnInit {
   async join(): Promise<void> {
     const id = +this._route.snapshot.params['id'];
     await this._tournamentService.join(id);
+    this.tournament.set(await this._tournamentService.getById(id));
+    this.successMessage.set('Vous êtes bien inscrit au tournoi !');
   }
 
   async leave(): Promise<void> {

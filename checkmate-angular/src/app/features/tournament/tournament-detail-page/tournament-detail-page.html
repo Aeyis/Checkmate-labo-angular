@@ -16,6 +16,9 @@
           <button (click)="leave()">Quitter</button>
         </div>
       }
+      @if (successMessage()) {
+        <p class="success">{{ successMessage() }}</p>
+      }
       @if (scores().length > 0) {
         <h3>Classement</h3>
         <ul>
