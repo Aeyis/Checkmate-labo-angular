@@ -17,6 +17,7 @@ export class TournamentManagePage implements OnInit {
   tournament = signal<Tournament | null>(null);
   matches = signal<Match[]>([]);
   scores = signal<PlayerScore[]>([]);
+  errorMessage = signal<string>('');
 
   async ngOnInit(): Promise<void> {
     const id = +this._route.snapshot.params['id'];
@@ -27,10 +28,14 @@ export class TournamentManagePage implements OnInit {
   }
 
   async start(): Promise<void> {
+    try{
     const id = this.tournament()!.id;
     await this._tournamentService.start(id);
     this.tournament.set(await this._tournamentService.getById(id));
     this.matches.set(await this._tournamentService.getCurrentMatches(id));
+    } catch (error) {
+      this.errorMessage.set('Le nombre de joueurs doit être pair pour démarrer le tournoi');
+    }
   }
 
   async nextRound(): Promise<void> {

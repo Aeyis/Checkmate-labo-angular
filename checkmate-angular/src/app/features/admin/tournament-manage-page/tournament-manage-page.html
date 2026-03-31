@@ -7,6 +7,9 @@
       <p><strong>Joueurs inscrits :</strong> {{ tournament()!.nbrOfPlayers }}</p>
 
       <div class="actions">
+        @if (errorMessage()){
+        <p class="error">{{ errorMessage() }}</p>
+        }
         @if (tournament()!.status === 'waiting') {
           <button class="btn-start" (click)="start()">Démarrer</button>
         }
