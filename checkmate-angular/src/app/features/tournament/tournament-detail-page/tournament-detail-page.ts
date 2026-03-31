@@ -26,6 +26,7 @@ export class TournamentDetailPage implements OnInit {
     try {
       const id = +this._route.snapshot.params['id'];
       this.tournament.set(await this._tournamentService.getById(id));
+      console.log(this.tournament());
       if (this.tournament()!.status === 'started') {
         this.scores.set(await this._tournamentService.getScores(id));
         this.matches.set(await this._tournamentService.getCurrentMatches(id));

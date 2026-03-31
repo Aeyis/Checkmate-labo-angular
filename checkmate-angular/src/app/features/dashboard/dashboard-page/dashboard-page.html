@@ -29,6 +29,20 @@
         <a routerLink="/tournament" class="see-all">Voir tous les tournois →</a>
       </div>
     }
+    @if (myTournaments().length > 0) {
+      <div class="dashboard-section">
+        <h2>Mes tournois</h2>
+        <ul class="tournament-list">
+          @for (tournament of myTournaments(); track tournament.id) {
+            <li class="tournament-item">
+              <span>{{ tournament.name }}</span>
+              <span class="tournament-status">{{ tournament.status }}</span>
+              <a [routerLink]="['/tournament', tournament.id]">Voir</a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
   } @else {
     <p>Chargement...</p>
   }

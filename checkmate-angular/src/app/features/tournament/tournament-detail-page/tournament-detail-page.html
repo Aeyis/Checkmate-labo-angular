@@ -6,6 +6,7 @@
       <p><strong>Statut :</strong> {{ tournament()!.status }}</p>
       <p><strong>Elo :</strong> {{ tournament()!.minElo }} - {{ tournament()!.maxElo }}</p>
       <p><strong>Femmes uniquement :</strong> {{ tournament()!.womenOnly ? 'Oui' : 'Non' }}</p>
+      <p><strong>Joueurs : </strong> {{ tournament()!.players?.length ?? 0 }} / {{ tournament()!.maxPlayers }}</p>
       @if (isAdmin()) {
         <a [routerLink]="['/admin/tournament', tournament()!.id]" class="btn-manage">Gérer ce tournoi</a>
       }
@@ -18,8 +19,8 @@
       @if (scores().length > 0) {
         <h3>Classement</h3>
         <ul>
-          @for (score of scores(); track score.memberId) {
-            <li>{{ score.username }} — {{ score.score }} pts</li>
+          @for (score of scores(); track score.player.id) {
+            <li>{{ score.player.username }} — {{ score.score }} pts</li>
           }
         </ul>
       }

@@ -20,10 +20,12 @@ export class DashboardPage implements OnInit {
   tournaments = signal<Tournament[]>([]);
   member = signal<Member | null>(null);
   isAdmin = this._authService.isAdmin;
+  myTournaments = signal<Tournament[]>([]);
 
   async ngOnInit(): Promise<void> {
     const result = await this._tournamentService.getAll();
     this.tournaments.set(result.data.filter(t => t.status !== 'finished').slice(0, 3));
+    this.myTournaments.set(result.data.filter(t => t.isRegistered));
     this.member.set(await this._memberService.getMember());
   }
 }
