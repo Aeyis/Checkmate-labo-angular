@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '@env';
-import {CreateTournament, Match, PlayerScore, Tournament, TournamentDetail, TournamentList} from '@core/models/tournament.interface';
+import {CreateTournament, Match, PlayerScore, RoundMatches, Tournament, TournamentDetail, TournamentList} from '@core/models/tournament.interface';
 import {firstValueFrom} from 'rxjs';
 
 @Injectable({
@@ -54,6 +54,8 @@ export class TournamentService {
   }
 
   getCurrentMatches(id: number): Promise<Match[]> {
-    return firstValueFrom(this._httpClient.get<Match[]>(this._apiURL + 'tournament/' + id + '/match/current'));
+    return firstValueFrom(
+      this._httpClient.get<RoundMatches>(this._apiURL + 'tournament/' + id + '/match/current')
+    ).then(res => res.data.matches);
   }
 }

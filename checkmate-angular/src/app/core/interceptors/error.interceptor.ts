@@ -20,7 +20,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             router.navigate(['/forbidden']); // TODO page 403
             return throwError(()=> null);
           case 500:
-            router.navigate(['/']); // TODO page d'erreur 500
+            router.navigate(['/not-found']);
             return throwError(()=> null);
         }
       }

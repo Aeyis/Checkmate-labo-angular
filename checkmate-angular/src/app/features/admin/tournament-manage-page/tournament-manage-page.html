@@ -4,14 +4,42 @@
       <h1>{{ tournament()!.name }}</h1>
       <p><strong>Statut :</strong> {{ tournament()!.status }}</p>
       <p><strong>Lieu :</strong> {{ tournament()!.location }}</p>
+      <p><strong>Joueurs inscrits :</strong> {{ tournament()!.nbrOfPlayers }}</p>
 
       <div class="actions">
-        <button class="btn-start" (click)="start()">Démarrer</button>
-        <button class="btn-next" (click)="nextRound()">Round suivant</button>
+        @if (tournament()!.status === 'waiting') {
+          <button class="btn-start" (click)="start()">Démarrer</button>
+        }
+        @if (tournament()!.status === 'started') {
+          <button class="btn-next" (click)="nextRound()">Round suivant</button>
+        }
         <button class="btn-delete" (click)="delete()">Supprimer</button>
       </div>
 
-      <a routerLink="/admin/tournament">Retour</a>
+      @if (matches().length > 0) {
+        <h2>Matchs du round {{ tournament()!.currentRound }}</h2>
+        <ul class="match-list">
+          @for (match of matches(); track match.id) {
+            <li class="match-item">
+              <span>{{ match.whitePlayer.username }} vs {{ match.blackPlayer.username }}</span>
+              @if (!match.result) {
+                <a [routerLink]="['/admin/match', match.id]" class="btn-result">Saisir résultat</a>
+              } @else {
+                <span class="match-result">{{ match.result }}</span>
+              }
+            </li>
+          }
+        </ul>
+      }
+
+      @if (tournament()!.status === 'started' && matches().length === 0 && scores().length > 0) {
+        <div class="winner">
+          <h2>Tournoi terminé !</h2>
+          <p>Vainqueur : {{ scores()[0].username }} avec {{ scores()[0].score }} pts</p>
+        </div>
+      }
+
+      <a routerLink="/admin/tournament" class="btn-back">Retour</a>
     </div>
   } @else {
     <p>Chargement...</p>

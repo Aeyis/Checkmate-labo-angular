@@ -5,10 +5,16 @@ import {adminGuard} from '@core/guards/admin.guard';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'tournament',
+    pathMatch: 'full',
+  },
+  {
     path: 'auth/login',
     loadComponent:() =>
       import('@features/auth/login-page/login-page').then((m) => m.LoginPage),
       canActivate:[isNotConnectedGuard],
+
   },
   {
     path: 'auth/register',

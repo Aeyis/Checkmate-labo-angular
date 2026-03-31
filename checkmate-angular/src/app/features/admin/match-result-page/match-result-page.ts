@@ -15,19 +15,19 @@ export class MatchResultPage implements OnInit {
   private readonly _matchService = inject(MatchService);
   private readonly _fb = inject(FormBuilder);
 
-  matchId: number = 0;
+  matchId: string = '';
 
   form = this._fb.group({
     result: ['', Validators.required],
   });
 
   ngOnInit(): void {
-    this.matchId = +this._route.snapshot.params['matchId'];
+    this.matchId = this._route.snapshot.params['matchId'];
   }
 
   async onSubmit(): Promise<void> {
     if (this.form.invalid) return;
     await this._matchService.setResult(this.matchId, this.form.value.result!);
-    this._router.navigate(['/admin/members']);
+    this._router.navigate(['/admin/tournament']);
   }
 }

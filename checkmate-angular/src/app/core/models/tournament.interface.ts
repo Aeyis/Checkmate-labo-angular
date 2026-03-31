@@ -42,9 +42,24 @@ export interface PlayerScore {
   score: number;
 }
 
+export interface MatchPlayer {
+  id: string;
+  username: string;
+  gender: string;
+  elo: number;
+}
+
 export interface Match {
   id: number;
-  whiteMemberId: number;
-  blackMemberId: number;
-  result:string | null;
+  whitePlayer: MatchPlayer;
+  blackPlayer: MatchPlayer;
+  result: string | null;
+  round: number;
+}
+
+export interface RoundMatches {
+  data: {
+    round: number;
+    matches: Match[];
+  };
 }

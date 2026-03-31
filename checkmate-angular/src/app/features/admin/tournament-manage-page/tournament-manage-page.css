@@ -74,3 +74,55 @@
 .manage-card a:hover {
   color: #1a1a2e;
 }
+
+.manage-card h2 {
+  margin: 2rem 0 0.75rem;
+  color: #1a1a2e;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.4rem;
+}
+
+.match-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.match-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.match-item:last-child {
+  border-bottom: none;
+}
+
+.btn-result {
+  display: inline-block;
+  margin-top: 0 !important;
+  padding: 0.3rem 0.8rem;
+  background-color: #e2b96f;
+  color: #1a1a2e !important;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-back {
+  color: #888;
+}
+
+.match-result {
+  font-size: 0.85rem;
+  background-color: #f0f0f0;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  color: #666;
+}

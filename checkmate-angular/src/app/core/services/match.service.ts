@@ -11,7 +11,7 @@ export class MatchService {
   private readonly _apiURL = environment.apiURL;
 
   setResult(
-    matchId: number,
+    matchId: string,
     result: string,
   ): Promise<void> {
     return firstValueFrom(this._httpClient.patch<void>(this._apiURL + 'match/' + matchId + '/result', { result }));

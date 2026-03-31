@@ -27,7 +27,7 @@
         <h3>Matchs en cours</h3>
         <ul>
           @for (match of matches(); track match.id) {
-            <li>Blanc: {{ match.whiteMemberId }} vs Noir: {{ match.blackMemberId }}</li>
+            <li>{{ match.whitePlayer.username }} vs {{ match.blackPlayer.username }}</li>
           }
         </ul>
       }
