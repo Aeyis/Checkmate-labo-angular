@@ -9,23 +9,23 @@
       <p><strong>Joueurs : </strong> {{ tournament()!.players?.length ?? 0 }} / {{ tournament()!.maxPlayers }}</p>
       @if (tournament()!.players && tournament()!.players!.length > 0) {
         <h3>Joueurs inscrits</h3>
-      <table>
-        <thead>
-        <tr>
-          <th>Username</th>
-          <th>Elo</th>
-        </tr>
-        </thead>
-        <tbody>
-          @for (player of tournament()!.players!; track player.id) {
+        <table>
+          <thead>
             <tr>
-              <td>{{ player.username }}</td>
-              <td>{{ player.elo }}</td>
+              <th>Username</th>
+              <th>Elo</th>
             </tr>
-          }
-        </tbody>
-      </table>
-    }
+          </thead>
+          <tbody>
+            @for (player of tournament()!.players!; track player.id) {
+              <tr>
+                <td>{{ player.username }}</td>
+                <td>{{ player.elo }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
       @if (isAdmin()) {
         <a [routerLink]="['/admin/tournament', tournament()!.id]" class="btn-manage">Gérer ce tournoi</a>
       }
@@ -41,35 +41,54 @@
       @if (successMessage()) {
         <p class="success">{{ successMessage() }}</p>
       }
-      @if (errorMessage()){
+      @if (errorMessage()) {
         <p class="error">{{ errorMessage() }}</p>
-      }
-      @if (scores().length > 0) {
-        <h3>Classement</h3>
-        <ul>
-          @for (score of scores(); track score.player.id) {
-            <li>{{ score.player.username }} — {{ score.score }} pts</li>
-          }
-        </ul>
       }
       @if (matches().length > 0) {
         <h3>Matchs en cours</h3>
         <table>
           <thead>
-          <tr>
-            <th>Blanc</th>
-            <th>VS</th>
-            <th>Noir</th>
-          </tr>
+            <tr>
+              <th>Blanc</th>
+              <th>VS</th>
+              <th>Noir</th>
+            </tr>
           </thead>
           <tbody>
-          @for (match of matches(); track match.id) {
+            @for (match of matches(); track match.id) {
+              <tr>
+                <td>{{ match.whitePlayer.username }}</td>
+                <td>{{ getResult(match.result) }}</td>
+                <td>{{ match.blackPlayer.username }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      @if (scores().length > 0) {
+        <h3>Classement</h3>
+        <table>
+          <thead>
             <tr>
-              <td>{{ match.whitePlayer.username}}</td>
-              <td>{{ getResult(match.result) }}</td>
-              <td>{{ match.blackPlayer.username}}</td>
+              <th>Rang</th>
+              <th>Joueur</th>
+              <th>V</th>
+              <th>N</th>
+              <th>D</th>
+              <th>Score</th>
             </tr>
-          }
+          </thead>
+          <tbody>
+            @for (score of scores(); track score.player.id; let i = $index) {
+              <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ score.player.username }}</td>
+                <td>{{ score.victory }}</td>
+                <td>{{ score.draw }}</td>
+                <td>{{ score.defeat }}</td>
+                <td>{{ score.score }}</td>
+              </tr>
+            }
           </tbody>
         </table>
       }
