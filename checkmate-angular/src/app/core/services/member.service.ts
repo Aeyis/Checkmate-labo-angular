@@ -27,4 +27,8 @@ export class MemberService {
   create(data: RegisterData): Promise<Member> {
     return firstValueFrom(this._httpClient.post<Member>(this._apiURL + 'member', data));
   }
+
+  delete(id:number): Promise<void> {
+    return firstValueFrom(this._httpClient.delete<void>(this._apiURL + 'member/' + id));
+  }
 }

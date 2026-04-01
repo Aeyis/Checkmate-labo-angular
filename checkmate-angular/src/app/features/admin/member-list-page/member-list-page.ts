@@ -19,6 +19,13 @@ export class MemberListPage implements OnInit {
     this.members.set(await this._memberService.getAll());
   }
 
+  async delete(id: number, username: string): Promise<void> {
+    const confirmed = confirm(`Supprimer le membre ${username} ?`);
+    if (!confirmed) return;
+    await this._memberService.delete(id);
+    this.members.set(this.members().filter( m => m.id !== id));
+  }
+
   toggleMember(id: number): void {
     this.expandedMemberId.set(this.expandedMemberId() === id ? null : id);
   }

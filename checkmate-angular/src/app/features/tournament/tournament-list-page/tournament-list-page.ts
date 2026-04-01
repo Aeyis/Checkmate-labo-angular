@@ -23,5 +23,12 @@ export class TournamentListPage implements OnInit {
   }
   async join(id: number): Promise<void> {
     await this._tournamentService.join(id);
+    const result = await this._tournamentService.getAll();
+    this.tournaments.set(result.data);
+  }
+  async leave(id: number): Promise<void> {
+    await this._tournamentService.leave(id);
+    const result = await this._tournamentService.getAll();
+    this.tournaments.set(result.data);
   }
 }
