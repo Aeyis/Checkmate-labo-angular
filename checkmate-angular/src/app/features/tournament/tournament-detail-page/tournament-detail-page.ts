@@ -53,4 +53,10 @@ export class TournamentDetailPage implements OnInit {
     this.tournament.set(await this._tournamentService.getById(id));
     this.successMessage.set('Vous êtes bien désinscrit du tournoi. ')
   }
+  getResult(result: string | null): string {
+    if (result === 'white_win') return '1-0';
+    if (result === 'black_win') return '0-1';
+    if (result === 'draw') return '½-½';
+    return 'En cours';
+  }
 }
