@@ -3,33 +3,69 @@
   @if (isAdmin()) {
     <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
   }
-  @if (tournaments().length === 0) {
-    <p>Aucun tournoi disponible.</p>
-  } @else {
-    <ul class="tournament-list">
-      @for (tournament of tournaments(); track tournament.id) {
-        <li class="tournament-card">
-          <h2>{{ tournament.name }}</h2>
+
+  @if (startedTournaments().length > 0) {
+    <div class="section-live">
+      <h2>En cours</h2>
+      @for (tournament of startedTournaments(); track tournament.id) {
+        <div class="tournament-card-live">
+          <h3>{{ tournament.name }}</h3>
           <p><strong>Lieu :</strong> {{ tournament.location }}</p>
-          <p><strong>Statut :</strong> {{tournament.status | tournamentStatus }}</p>
           <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
           @if (isAdmin()) {
             <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
           } @else {
-            @if (tournament.status === 'waiting') {
-            @if (tournament.isRegistered) {
-            <button (click)="leave(tournament.id)">Se désinscrire</button>
-            } @else {
-              <button (click)="join(tournament.id)">S'inscrire</button>
-            }
-            }
-            <a [routerLink]="['/tournament', tournament.id]">Voir le détail</a>
+            <a [routerLink]="['/tournament', tournament.id]" class="btn-live">Voir le live</a>
           }
-          @if (errorMessages()[tournament.id]) {
-            <p class="error">{{ errorMessages()[tournament.id] }}</p>
-          }
-        </li>
+        </div>
       }
-    </ul>
+    </div>
+  }
+
+  @if (waitingTournaments().length > 0) {
+    <div class="section-waiting">
+      <h2>À venir</h2>
+      <ul class="tournament-list">
+        @for (tournament of waitingTournaments(); track tournament.id) {
+          <li class="tournament-card">
+            <h3>{{ tournament.name }}</h3>
+            <p><strong>Lieu :</strong> {{ tournament.location }}</p>
+            <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
+            @if (isAdmin()) {
+              <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
+            } @else {
+              @if (tournament.isRegistered) {
+                <button (click)="leave(tournament.id)">Se désinscrire</button>
+              } @else {
+                <button (click)="join(tournament.id)">S'inscrire</button>
+              }
+              <a [routerLink]="['/tournament', tournament.id]">Voir le détail</a>
+            }
+            @if (errorMessages()[tournament.id]) {
+              <p class="error">{{ errorMessages()[tournament.id] }}</p>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  @if (finishedTournaments().length > 0) {
+    <div class="section-finished">
+      <h2>Terminés</h2>
+      @for (tournament of finishedTournaments(); track tournament.id) {
+        <div class="tournament-row" (click)="toggleTournament(tournament.id)">
+          <span>{{ expandedTournamentId() === tournament.id ? '▲' : '▼' }}</span>
+          <span>{{ tournament.name }}</span>
+          <span>{{ tournament.location }}</span>
+        </div>
+        @if (expandedTournamentId() === tournament.id) {
+          <div class="tournament-row-details">
+            <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
+            <a [routerLink]="['/tournament', tournament.id]">Voir les résultats</a>
+          </div>
+        }
+      }
+    </div>
   }
 </div>

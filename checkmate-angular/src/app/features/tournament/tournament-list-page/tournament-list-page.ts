@@ -15,21 +15,28 @@ export class TournamentListPage implements OnInit {
   private readonly _tournamentService = inject(TournamentService);
   private readonly _authService = inject(AuthService);
 
-  tournaments = signal<Tournament[]>([]);
+  startedTournaments = signal<Tournament[]>([]);
+  waitingTournaments = signal<Tournament[]>([]);
+  finishedTournaments = signal<Tournament[]>([]);
+  expandedTournamentId = signal<number | null>(null);
   isAdmin = this._authService.isAdmin;
 
   errorMessages = signal<Record<number, string>>({});
 
   async ngOnInit(): Promise<void> {
     const result = await this._tournamentService.getAll();
-    this.tournaments.set(result.data);
+    this.startedTournaments.set(result.data.filter(t => t.status === 'started'));
+    this.waitingTournaments.set(result.data.filter(t => t.status === 'waiting'));
+    this.finishedTournaments.set(result.data.filter(t => t.status === 'finished'));
   }
   async join(id: number): Promise<void> {
     try{
       await this._tournamentService.join(id);
 
     const result = await this._tournamentService.getAll();
-    this.tournaments.set(result.data);
+      this.startedTournaments.set(result.data.filter(t => t.status === 'started'));
+      this.waitingTournaments.set(result.data.filter(t => t.status === 'waiting'));
+      this.finishedTournaments.set(result.data.filter(t => t.status === 'finished'));
     } catch(e){
       this.errorMessages.update(msgs => ({ ...msgs, [id]: 'Ce tournoi est réservé aux femmes.'}));
     }
@@ -37,6 +44,11 @@ export class TournamentListPage implements OnInit {
   async leave(id: number): Promise<void> {
     await this._tournamentService.leave(id);
     const result = await this._tournamentService.getAll();
-    this.tournaments.set(result.data);
+    this.startedTournaments.set(result.data.filter(t => t.status === 'started'));
+    this.waitingTournaments.set(result.data.filter(t => t.status === 'waiting'));
+    this.finishedTournaments.set(result.data.filter(t => t.status === 'finished'));
+  }
+  toggleTournament(id: number){
+    this.expandedTournamentId.set(this.expandedTournamentId() === id ? null : id);
   }
 }
