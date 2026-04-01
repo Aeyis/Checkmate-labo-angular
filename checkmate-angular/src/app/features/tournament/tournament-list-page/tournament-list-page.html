@@ -16,6 +16,7 @@
           @if (isAdmin()) {
             <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
           } @else {
+            <button (click)="join(tournament.id)">S'inscrire</button>
             <a [routerLink]="['/tournament', tournament.id]">Voir le détail</a>
           }
         </li>

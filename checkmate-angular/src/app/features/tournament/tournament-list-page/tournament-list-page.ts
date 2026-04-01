@@ -21,4 +21,7 @@ export class TournamentListPage implements OnInit {
     const result = await this._tournamentService.getAll();
     this.tournaments.set(result.data);
   }
+  async join(id: number): Promise<void> {
+    await this._tournamentService.join(id);
+  }
 }

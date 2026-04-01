@@ -12,8 +12,11 @@
       }
       @if (isConnected()) {
         <div class="actions">
-          <button (click)="join()">Rejoindre</button>
-          <button (click)="leave()">Quitter</button>
+          @if (tournament()!.isRegistered) {
+            <button (click)="leave()">Se désinscrire</button>
+          } @else {
+            <button (click)="join()">S'inscrire</button>
+          }
         </div>
       }
       @if (successMessage()) {

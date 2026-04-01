@@ -27,7 +27,7 @@ export class TournamentDetailPage implements OnInit {
     try {
       const id = +this._route.snapshot.params['id'];
       this.tournament.set(await this._tournamentService.getById(id));
-      console.log(this.tournament());
+      console.log(this.tournament()!.isRegistered);
       if (this.tournament()!.status === 'started') {
         this.scores.set(await this._tournamentService.getScores(id));
         this.matches.set(await this._tournamentService.getCurrentMatches(id));
@@ -47,5 +47,7 @@ export class TournamentDetailPage implements OnInit {
   async leave(): Promise<void> {
     const id = +this._route.snapshot.params['id'];
     await this._tournamentService.leave(id);
+    this.tournament.set(await this._tournamentService.getById(id));
+    this.successMessage.set('Vous êtes bien désinscrit du tournoi. ')
   }
 }
