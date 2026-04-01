@@ -3,7 +3,7 @@
     <div class="detail-card">
       <h1>{{ tournament()!.name }}</h1>
       <p><strong>Lieu :</strong> {{ tournament()!.location }}</p>
-      <p><strong>Statut :</strong> {{ tournament()!.status }}</p>
+      <p><strong>Statut :</strong> {{ tournament()!.status | tournamentStatus }}</p>
       <p><strong>Elo :</strong> {{ tournament()!.minElo }} - {{ tournament()!.maxElo }}</p>
       <p><strong>Femmes uniquement :</strong> {{ tournament()!.womenOnly ? 'Oui' : 'Non' }}</p>
       <p><strong>Joueurs : </strong> {{ tournament()!.players?.length ?? 0 }} / {{ tournament()!.maxPlayers }}</p>

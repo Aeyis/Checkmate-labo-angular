@@ -11,7 +11,7 @@
         <li class="tournament-card">
           <h2>{{ tournament.name }}</h2>
           <p><strong>Lieu :</strong> {{ tournament.location }}</p>
-          <p><strong>Statut :</strong> {{ tournament.status }}</p>
+          <p><strong>Statut :</strong> {{tournament.status | tournamentStatus }}</p>
           <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
           @if (isAdmin()) {
             <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>

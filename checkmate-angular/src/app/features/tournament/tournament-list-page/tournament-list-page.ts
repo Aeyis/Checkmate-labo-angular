@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { TournamentService } from '@core/services/tournament.service';
 import { Tournament } from '@core/models/tournament.interface';
 import { AuthService } from '@core/services/auth.service';
+import {TournamentStatusPipe} from '@core/pipes/tournament-status-pipe';
 
 @Component({
   selector: 'app-tournament-list-page',
-  imports: [RouterLink],
+  imports: [RouterLink, TournamentStatusPipe],
   templateUrl: './tournament-list-page.html',
   styleUrl: './tournament-list-page.css',
 })
