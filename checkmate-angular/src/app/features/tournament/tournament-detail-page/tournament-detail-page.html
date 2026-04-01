@@ -7,6 +7,25 @@
       <p><strong>Elo :</strong> {{ tournament()!.minElo }} - {{ tournament()!.maxElo }}</p>
       <p><strong>Femmes uniquement :</strong> {{ tournament()!.womenOnly ? 'Oui' : 'Non' }}</p>
       <p><strong>Joueurs : </strong> {{ tournament()!.players?.length ?? 0 }} / {{ tournament()!.maxPlayers }}</p>
+      @if (tournament()!.players && tournament()!.players!.length > 0) {
+        <h3>Joueurs inscrits</h3>
+      <table>
+        <thead>
+        <tr>
+          <th>Username</th>
+          <th>Elo</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (player of tournament()!.players!; track player.id) {
+            <tr>
+              <td>{{ player.username }}</td>
+              <td>{{ player.elo }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
       @if (isAdmin()) {
         <a [routerLink]="['/admin/tournament', tournament()!.id]" class="btn-manage">Gérer ce tournoi</a>
       }

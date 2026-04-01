@@ -98,3 +98,28 @@
 .detail-card ul li:last-child {
   border-bottom: none;
 }
+
+.detail-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.detail-card table th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  background-color: #1a1a2e;
+  color: #e2b96f;
+  font-weight: 600;
+}
+
+.detail-card table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
+}
+
+.detail-card table tr:last-child td {
+  border-bottom: none;
+}
