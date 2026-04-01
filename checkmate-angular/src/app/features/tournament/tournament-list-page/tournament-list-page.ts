@@ -17,14 +17,21 @@ export class TournamentListPage implements OnInit {
   tournaments = signal<Tournament[]>([]);
   isAdmin = this._authService.isAdmin;
 
+  errorMessages = signal<Record<number, string>>({});
+
   async ngOnInit(): Promise<void> {
     const result = await this._tournamentService.getAll();
     this.tournaments.set(result.data);
   }
   async join(id: number): Promise<void> {
-    await this._tournamentService.join(id);
+    try{
+      await this._tournamentService.join(id);
+
     const result = await this._tournamentService.getAll();
     this.tournaments.set(result.data);
+    } catch(e){
+      this.errorMessages.update(msgs => ({ ...msgs, [id]: 'Ce tournoi est réservé aux femmes.'}));
+    }
   }
   async leave(id: number): Promise<void> {
     await this._tournamentService.leave(id);

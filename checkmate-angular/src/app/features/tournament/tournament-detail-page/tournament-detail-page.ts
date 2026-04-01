@@ -22,6 +22,7 @@ export class TournamentDetailPage implements OnInit {
   scores = signal<PlayerScore[]>([]);
   matches = signal<Match[]>([]);
   successMessage = signal<string>('');
+  errorMessage = signal<string>('');
 
   async ngOnInit(): Promise<void> {
     try {
@@ -38,10 +39,12 @@ export class TournamentDetailPage implements OnInit {
   }
 
   async join(): Promise<void> {
-    const id = +this._route.snapshot.params['id'];
+    try {
+      const id = +this._route.snapshot.params['id'];
     await this._tournamentService.join(id);
     this.tournament.set(await this._tournamentService.getById(id));
     this.successMessage.set('Vous êtes bien inscrit au tournoi !');
+    } catch (e) { this.errorMessage.set('Ce tournoi est réservé aux femmes.'); }
   }
 
   async leave(): Promise<void> {

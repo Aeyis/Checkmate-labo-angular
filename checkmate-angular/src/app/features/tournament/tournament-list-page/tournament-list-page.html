@@ -23,6 +23,9 @@
             }
             <a [routerLink]="['/tournament', tournament.id]">Voir le détail</a>
           }
+          @if (errorMessages()[tournament.id]) {
+            <p class="error">{{ errorMessages()[tournament.id] }}</p>
+          }
         </li>
       }
     </ul>
