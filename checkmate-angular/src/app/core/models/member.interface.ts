@@ -6,6 +6,7 @@ export interface Member {
   gender: string;
   elo: number;
   role: string;
+  tournaments?: { id: number; name: string }[];
 }
 export interface updateMember {
   username?: string;

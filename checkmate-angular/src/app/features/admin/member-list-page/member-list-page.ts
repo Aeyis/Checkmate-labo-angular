@@ -13,9 +13,13 @@ export class MemberListPage implements OnInit {
   private readonly _memberService = inject(MemberService);
 
   members = signal<Member[]>([]);
+  expandedMemberId = signal<number | null>(null);
 
   async ngOnInit(): Promise<void> {
-    console.log(this.members);
     this.members.set(await this._memberService.getAll());
+  }
+
+  toggleMember(id: number): void {
+    this.expandedMemberId.set(this.expandedMemberId() === id ? null : id);
   }
 }
