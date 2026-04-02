@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 import { MemberService } from '@core/services/member.service';
 import { strongPasswordValidator } from '@core/validators/strong-password.validator';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
+import { FormCard } from '@shared/components/form-card/form-card';
+import { MessageDisplay } from '@shared/components/message-display/message-display';
 
 @Component({
   selector: 'app-member-create-page',
-  imports: [ReactiveFormsModule, FormsErrorDisplay],
+  imports: [ReactiveFormsModule, FormsErrorDisplay, FormCard, MessageDisplay],
   templateUrl: './member-create-page.html',
   styleUrl: './member-create-page.css',
 })

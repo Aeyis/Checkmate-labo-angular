@@ -6,10 +6,11 @@ import { Member } from '@core/models/member.interface';
 import { TournamentService } from '@core/services/tournament.service';
 import { Tournament } from '@core/models/tournament.interface';
 import {TournamentStatusPipe} from '@core/pipes/tournament-status-pipe';
+import { Loading } from '@shared/components/loading/loading';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [RouterLink, TournamentStatusPipe],
+  imports: [RouterLink, TournamentStatusPipe, Loading],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css',
 })

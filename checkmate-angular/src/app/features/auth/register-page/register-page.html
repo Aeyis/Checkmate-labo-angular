@@ -1,69 +1,64 @@
 <a routerLink="/tournament" class="back-link">← Retour aux tournois</a>
-<div class="auth-wrapper">
-  <div class="auth-card">
-    <h2 class="auth-card__title">Créer un compte</h2>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<app-form-card title="Créer un compte">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input id="username" type="text" formControlName="username" placeholder="ex: john_doe"
+        [class.input-error]="username.invalid && username.touched" />
+      <app-forms-error-display [control]="username" name="Nom d'utilisateur" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="votre@email.com"
+        [class.input-error]="email.invalid && email.touched" />
+      <app-forms-error-display [control]="email" name="Email" />
+    </div>
+
+    <div class="form-row">
       <div class="form-group">
-        <label for="username">Nom d'utilisateur</label>
-        <input id="username" type="text" formControlName="username" placeholder="ex: john_doe"
-          [class.input-error]="username.invalid && username.touched" />
-        <app-forms-error-display [control]="username" name="Nom d'utilisateur" />
+        <label for="birthDate">Date de naissance</label>
+        <input id="birthDate" type="date" formControlName="birthDate"
+          [class.input-error]="birthDate.invalid && birthDate.touched" />
+        <app-forms-error-display [control]="birthDate" name="Date de naissance" />
       </div>
-
       <div class="form-group">
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" placeholder="votre@email.com"
-          [class.input-error]="email.invalid && email.touched" />
-        <app-forms-error-display [control]="email" name="Email" />
+        <label for="gender">Genre</label>
+        <select id="gender" formControlName="gender"
+          [class.input-error]="gender.invalid && gender.touched">
+          <option value="" disabled>Sélectionner</option>
+          <option value="M">Homme</option>
+          <option value="F">Femme</option>
+          <option value="O">Autre</option>
+        </select>
+        <app-forms-error-display [control]="gender" name="Genre" />
       </div>
+    </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="birthDate">Date de naissance</label>
-          <input id="birthDate" type="date" formControlName="birthDate"
-            [class.input-error]="birthDate.invalid && birthDate.touched" />
-          <app-forms-error-display [control]="birthDate" name="Date de naissance" />
-        </div>
-        <div class="form-group">
-          <label for="gender">Genre</label>
-          <select id="gender" formControlName="gender"
-            [class.input-error]="gender.invalid && gender.touched">
-            <option value="" disabled>Sélectionner</option>
-            <option value="M">Homme</option>
-            <option value="F">Femme</option>
-            <option value="O">Autre</option>
-          </select>
-          <app-forms-error-display [control]="gender" name="Genre" />
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input id="password" type="password" formControlName="password" placeholder="Minimum 8 caractères"
-          [class.input-error]="password.invalid && password.touched"
-          (focus)="showPasswordRules.set(true)"
-          (blur)="showPasswordRules.set(false)" />
-        @if (showPasswordRules() || (password.dirty && password.invalid)) {
-          <app-password-rules [value]="password.value ?? ''" />
-        }
-      </div>
-
-      <div class="form-group">
-        <label for="elo">Elo</label>
-        <input id="elo" type="number" formControlName="elo" placeholder="1200"
-          [class.input-error]="elo.invalid && elo.touched" />
-        <app-forms-error-display [control]="elo" name="Elo" />
-      </div>
-
-      @if (errorMessage) {
-        <p class="error-global">{{ errorMessage }}</p>
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input id="password" type="password" formControlName="password" placeholder="Minimum 8 caractères"
+        [class.input-error]="password.invalid && password.touched"
+        (focus)="showPasswordRules.set(true)"
+        (blur)="showPasswordRules.set(false)" />
+      @if (showPasswordRules() || (password.dirty && password.invalid)) {
+        <app-password-rules [value]="password.value ?? ''" />
       }
+    </div>
 
-      <button class="btn-submit" type="submit">S'inscrire</button>
+    <div class="form-group">
+      <label for="elo">Elo</label>
+      <input id="elo" type="number" formControlName="elo" placeholder="1200"
+        [class.input-error]="elo.invalid && elo.touched" />
+      <app-forms-error-display [control]="elo" name="Elo" />
+    </div>
 
-      <p class="login-link">Déjà un compte ? <a routerLink="/auth/login">Se connecter</a></p>
+    <app-message-display [error]="errorMessage" />
 
-    </form>
-  </div>
-</div>
+    <button class="btn-submit" type="submit">S'inscrire</button>
+
+    <p class="login-link">Déjà un compte ? <a routerLink="/auth/login">Se connecter</a></p>
+
+  </form>
+</app-form-card>

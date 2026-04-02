@@ -38,12 +38,7 @@
           }
         </div>
       }
-      @if (successMessage()) {
-        <p class="success">{{ successMessage() }}</p>
-      }
-      @if (errorMessage()) {
-        <p class="error">{{ errorMessage() }}</p>
-      }
+      <app-message-display [error]="errorMessage()" [success]="successMessage()" />
       @if (matches().length > 0) {
         <h3>Matchs en cours</h3>
         <table>
@@ -94,6 +89,6 @@
       }
     </div>
   } @else {
-    <p>Chargement...</p>
+    <app-loading />
   }
 </div>

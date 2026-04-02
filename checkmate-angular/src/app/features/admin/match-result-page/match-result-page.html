@@ -1,16 +1,13 @@
-<div class="auth-wrapper">
-  <div class="auth-card">
-    <h2 class="auth-card__title">Résultat du match</h2>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="result">Résultat</label>
-        <select id="result" formControlName="result">
-          <option value="white_win">Victoire blancs</option>
-          <option value="black_win">Victoire noirs</option>
-          <option value="draw">Match nul</option>
-        </select>
-      </div>
-      <button class="btn-submit" type="submit">Valider</button>
-    </form>
-  </div>
-</div>
+<app-form-card title="Résultat du match">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="result">Résultat</label>
+      <select id="result" formControlName="result">
+        <option value="white_win">Victoire blancs</option>
+        <option value="black_win">Victoire noirs</option>
+        <option value="draw">Match nul</option>
+      </select>
+    </div>
+    <button class="btn-submit" type="submit">Valider</button>
+  </form>
+</app-form-card>

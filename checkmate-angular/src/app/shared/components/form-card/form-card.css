@@ -1,0 +1,25 @@
+.form-card__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 64px);
+  background-color: #f4f4f8;
+  padding: 2rem 1rem;
+}
+
+.form-card {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 560px;
+}
+
+.form-card__title {
+  margin: 0 0 1.5rem;
+  font-size: 1.6rem;
+  color: #1a1a2e;
+  text-align: center;
+  font-weight: 700;
+}

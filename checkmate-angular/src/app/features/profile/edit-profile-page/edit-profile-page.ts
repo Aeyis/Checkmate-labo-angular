@@ -5,10 +5,12 @@ import { MemberService } from '@core/services/member.service';
 import { Member } from '@core/models/member.interface';
 import { strongPasswordValidator } from '@core/validators/strong-password.validator';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
+import { FormCard } from '@shared/components/form-card/form-card';
+import { MessageDisplay } from '@shared/components/message-display/message-display';
 
 @Component({
   selector: 'app-edit-profile-page',
-  imports: [ReactiveFormsModule, FormsErrorDisplay],
+  imports: [ReactiveFormsModule, FormsErrorDisplay, FormCard, MessageDisplay],
   templateUrl: './edit-profile-page.html',
   styleUrl: './edit-profile-page.css',
 })

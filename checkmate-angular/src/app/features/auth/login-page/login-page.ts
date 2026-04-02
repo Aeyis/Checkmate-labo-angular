@@ -3,10 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '@core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
+import { FormCard } from '@shared/components/form-card/form-card';
+import { MessageDisplay } from '@shared/components/message-display/message-display';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsErrorDisplay, RouterLink],
+  imports: [ReactiveFormsModule, FormsErrorDisplay, RouterLink, FormCard, MessageDisplay],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })

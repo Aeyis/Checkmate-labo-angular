@@ -4,10 +4,11 @@ import { MemberService } from '@core/services/member.service';
 import { Member } from '@core/models/member.interface';
 import { AuthService } from '@core/services/auth.service';
 import {DatePipe} from '@angular/common';
+import { Loading } from '@shared/components/loading/loading';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, Loading],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })

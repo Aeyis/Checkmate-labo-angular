@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatchService } from '@core/services/match.service';
 
+import { FormCard } from '@shared/components/form-card/form-card';
+
 @Component({
   selector: 'app-match-result-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormCard],
   templateUrl: './match-result-page.html',
   styleUrl: './match-result-page.css',
 })

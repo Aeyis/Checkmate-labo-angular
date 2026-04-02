@@ -4,9 +4,11 @@ import { Router } from '@angular/router';
 import { CreateTournament } from '@core/models/tournament.interface';
 import { TournamentService } from '@core/services/tournament.service';
 
+import { FormCard } from '@shared/components/form-card/form-card';
+
 @Component({
   selector: 'app-tournament-create-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormCard],
   templateUrl: './tournament-create-page.html',
   styleUrl: './tournament-create-page.css',
 })

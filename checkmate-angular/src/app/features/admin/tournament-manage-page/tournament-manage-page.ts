@@ -3,9 +3,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TournamentService } from '@core/services/tournament.service';
 import {Tournament, Match, PlayerScore} from '@core/models/tournament.interface';
 
+import { Loading } from '@shared/components/loading/loading';
+
 @Component({
   selector: 'app-tournament-manage-page',
-  imports: [RouterLink],
+  imports: [RouterLink, Loading],
   templateUrl: './tournament-manage-page.html',
   styleUrl: './tournament-manage-page.css',
 })

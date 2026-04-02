@@ -4,10 +4,12 @@ import { TournamentService } from '@core/services/tournament.service';
 import { AuthService } from '@core/services/auth.service';
 import { Match, PlayerScore, Tournament } from '@core/models/tournament.interface';
 import {TournamentStatusPipe} from '@core/pipes/tournament-status-pipe';
+import { MessageDisplay } from '@shared/components/message-display/message-display';
+import { Loading } from '@shared/components/loading/loading';
 
 @Component({
   selector: 'app-tournament-detail-page',
-  imports: [RouterLink, TournamentStatusPipe],
+  imports: [RouterLink, TournamentStatusPipe, MessageDisplay, Loading],
   templateUrl: './tournament-detail-page.html',
   styleUrl: './tournament-detail-page.css',
 })
