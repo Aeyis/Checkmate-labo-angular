@@ -7,18 +7,21 @@
   @if (startedTournaments().length > 0) {
     <div class="section-live">
       <h2>En cours</h2>
-      @for (tournament of startedTournaments(); track tournament.id) {
+      <div class="live-carousel">
+        <button class="carousel-arrow" (click)="prevLive()" [disabled]="currentLiveIndex() === 0">‹</button>
         <div class="tournament-card-live">
-          <h3>{{ tournament.name }}</h3>
-          <p><strong>Lieu :</strong> {{ tournament.location }}</p>
-          <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
+          <h3>{{ startedTournaments()[currentLiveIndex()].name }}</h3>
+          <p><strong>Lieu :</strong> {{ startedTournaments()[currentLiveIndex()].location }}</p>
+          <p><strong>Elo :</strong> {{ startedTournaments()[currentLiveIndex()].minElo }} - {{ startedTournaments()[currentLiveIndex()].maxElo }}</p>
           @if (isAdmin()) {
-            <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
+            <a [routerLink]="['/admin/tournament', startedTournaments()[currentLiveIndex()].id]" class="btn-manage">Gérer</a>
           } @else {
-            <a [routerLink]="['/tournament', tournament.id]" class="btn-live">Voir le live</a>
+            <a [routerLink]="['/tournament', startedTournaments()[currentLiveIndex()].id]" class="btn-live">Voir le live</a>
           }
         </div>
-      }
+        <button class="carousel-arrow" (click)="nextLive()" [disabled]="currentLiveIndex() === startedTournaments().length - 1">›</button>
+      </div>
+      <p class="carousel-dots">{{ currentLiveIndex() + 1 }} / {{ startedTournaments().length }}</p>
     </div>
   }
 

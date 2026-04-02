@@ -28,6 +28,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .dashboard-card {
@@ -52,8 +53,107 @@
   color: #e2b96f;
 }
 
+/* ── EN COURS ── */
+.section-live {
+  background: #fff0f0;
+  border: 2px solid #e05c5c;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.section-live h2 {
+  color: #e05c5c;
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+}
+
+.tournament-card-live {
+  background: #fff;
+  border-left: 4px solid #e05c5c;
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(224, 92, 92, 0.1);
+}
+
+.tournament-card-live:last-child {
+  margin-bottom: 0;
+}
+
+.tournament-card-live h3 {
+  margin: 0 0 0.5rem;
+  color: #1a1a2e;
+  font-size: 1.1rem;
+}
+
+.tournament-card-live p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.btn-live {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #e05c5c;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn-live:hover {
+  opacity: 0.85;
+}
+
+.live-carousel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.live-carousel .tournament-card-live {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.carousel-arrow {
+  background: #e05c5c;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+  line-height: 1;
+}
+
+.carousel-arrow:disabled {
+  background: #ccc;
+  cursor: default;
+}
+
+.carousel-arrow:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.carousel-dots {
+  text-align: center;
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #e05c5c;
+  font-weight: 600;
+}
+
+/* ── SECTIONS ── */
 .dashboard-section {
-  margin-top: 2rem;
+  margin-bottom: 2rem;
   background: #fff;
   border-radius: 8px;
   padding: 1.5rem;
@@ -66,43 +166,90 @@
   font-size: 1.2rem;
 }
 
-.tournament-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* ── CAROUSEL ── */
+.carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
 }
 
-.tournament-item {
+.carousel-card {
+  min-width: 220px;
+  border-radius: 8px;
+  padding: 1.25rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.carousel-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #1a1a2e;
+}
+
+.carousel-card p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.carousel-card a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.carousel-card a:hover {
+  opacity: 0.85;
+}
+
+/* Mes tournois — doré */
+.my-card {
+  background: #fffaf0;
+  border-left: 4px solid #e2b96f;
+}
+
+.my-card a {
+  background-color: #e2b96f;
+  color: #1a1a2e;
+}
+
+/* À venir — bleu */
+.waiting-card {
+  background: #f0f4ff;
+  border-left: 4px solid #3b82f6;
+}
+
+.waiting-card a {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+/* ── TERMINÉS ── */
+.tournament-row-finished {
   display: flex;
+  gap: 1.5rem;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #eee;
-  font-size: 0.95rem;
-  color: #444;
-}
-
-.tournament-item:last-child {
-  border-bottom: none;
-}
-
-.tournament-status {
-  font-size: 0.8rem;
-  background-color: #f0f0f0;
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
-  color: #666;
-}
-
-.tournament-item a {
-  color: #e2b96f;
-  font-weight: 600;
-  text-decoration: none;
+  padding: 0.75rem 1rem;
+  background: #f4f4f8;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  color: #888;
   font-size: 0.9rem;
 }
 
-.tournament-item a:hover {
-  opacity: 0.85;
+.tournament-row-finished a {
+  color: #aaa;
+  font-size: 0.85rem;
+  text-decoration: underline;
 }
 
 .see-all {

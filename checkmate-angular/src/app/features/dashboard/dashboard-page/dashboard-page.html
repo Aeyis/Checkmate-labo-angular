@@ -14,35 +14,68 @@
       }
     </div>
 
-    @if (tournaments().length > 0) {
-      <div class="dashboard-section">
-        <h2>Tournois à venir</h2>
-        <ul class="tournament-list">
-          @for (tournament of tournaments(); track tournament.id) {
-            <li class="tournament-item">
-              <span>{{ tournament.name }}</span>
-              <span class="tournament-status">{{ tournament.status }}</span>
-              <a [routerLink]="['/tournament', tournament.id]">Voir</a>
-            </li>
-          }
-        </ul>
-        <a routerLink="/tournament" class="see-all">Voir tous les tournois →</a>
+    @if (startedTournaments().length > 0) {
+      <div class="section-live">
+        <h2>En cours</h2>
+        <div class="live-carousel">
+          <button class="carousel-arrow" (click)="prevLive()" [disabled]="currentLiveIndex() === 0">‹</button>
+          <div class="tournament-card-live">
+            <h3>{{ startedTournaments()[currentLiveIndex()].name }}</h3>
+            <p><strong>Lieu :</strong> {{ startedTournaments()[currentLiveIndex()].location }}</p>
+            <p><strong>Elo :</strong> {{ startedTournaments()[currentLiveIndex()].minElo }} - {{ startedTournaments()[currentLiveIndex()].maxElo }}</p>
+            <a [routerLink]="['/tournament', startedTournaments()[currentLiveIndex()].id]" class="btn-live">Voir le live</a>
+          </div>
+          <button class="carousel-arrow" (click)="nextLive()" [disabled]="currentLiveIndex() === startedTournaments().length - 1">›</button>
+        </div>
+        <p class="carousel-dots">{{ currentLiveIndex() + 1 }} / {{ startedTournaments().length }}</p>
       </div>
     }
     @if (myTournaments().length > 0) {
       <div class="dashboard-section">
         <h2>Mes tournois</h2>
-        <ul class="tournament-list">
+        <div class="carousel">
           @for (tournament of myTournaments(); track tournament.id) {
-            <li class="tournament-item">
-              <span>{{ tournament.name }}</span>
-              <span class="tournament-status">{{ tournament.status }}</span>
+            <div class="carousel-card my-card">
+              <h3>{{ tournament.name }}</h3>
+              <p><strong>Lieu :</strong> {{ tournament.location }}</p>
+              <p><strong>Statut :</strong> {{ tournament.status | tournamentStatus }}</p>
               <a [routerLink]="['/tournament', tournament.id]">Voir</a>
-            </li>
+            </div>
           }
-        </ul>
+        </div>
       </div>
     }
+
+    @if (waitingTournaments().length > 0) {
+      <div class="dashboard-section">
+        <h2>À venir</h2>
+        <div class="carousel">
+          @for (tournament of waitingTournaments(); track tournament.id) {
+            <div class="carousel-card waiting-card">
+              <h3>{{ tournament.name }}</h3>
+              <p><strong>Lieu :</strong> {{ tournament.location }}</p>
+              <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
+              <a [routerLink]="['/tournament', tournament.id]">Voir</a>
+            </div>
+          }
+        </div>
+        <a routerLink="/tournament" class="see-all">Voir tous les tournois →</a>
+      </div>
+    }
+
+    @if (finishedTournaments().length > 0) {
+      <div class="dashboard-section">
+        <h2>Terminés</h2>
+        @for (tournament of finishedTournaments(); track tournament.id) {
+          <div class="tournament-row-finished">
+            <span>{{ tournament.name }}</span>
+            <span>{{ tournament.location }}</span>
+            <a [routerLink]="['/tournament', tournament.id]">Résultats</a>
+          </div>
+        }
+      </div>
+    }
+
   } @else {
     <p>Chargement...</p>
   }

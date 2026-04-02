@@ -82,6 +82,48 @@ h1 {
   opacity: 0.85;
 }
 
+.live-carousel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.live-carousel .tournament-card-live {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.carousel-arrow {
+  background: #e05c5c;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+  line-height: 1;
+}
+
+.carousel-arrow:disabled {
+  background: #ccc;
+  cursor: default;
+}
+
+.carousel-arrow:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.carousel-dots {
+  text-align: center;
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #e05c5c;
+  font-weight: 600;
+}
+
 /* ── À VENIR ── */
 .section-waiting {
   margin-bottom: 2rem;

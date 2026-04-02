@@ -19,6 +19,7 @@ export class TournamentListPage implements OnInit {
   waitingTournaments = signal<Tournament[]>([]);
   finishedTournaments = signal<Tournament[]>([]);
   expandedTournamentId = signal<number | null>(null);
+  currentLiveIndex = signal<number>(0);
   isAdmin = this._authService.isAdmin;
 
   errorMessages = signal<Record<number, string>>({});
@@ -48,7 +49,19 @@ export class TournamentListPage implements OnInit {
     this.waitingTournaments.set(result.data.filter(t => t.status === 'waiting'));
     this.finishedTournaments.set(result.data.filter(t => t.status === 'finished'));
   }
-  toggleTournament(id: number){
+  toggleTournament(id: number): void {
     this.expandedTournamentId.set(this.expandedTournamentId() === id ? null : id);
+  }
+
+  nextLive(): void {
+    if (this.currentLiveIndex() < this.startedTournaments().length - 1) {
+      this.currentLiveIndex.update(i => i + 1);
+    }
+  }
+
+  prevLive(): void {
+    if (this.currentLiveIndex() > 0) {
+      this.currentLiveIndex.update(i => i - 1);
+    }
   }
 }

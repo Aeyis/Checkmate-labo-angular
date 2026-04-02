@@ -5,10 +5,11 @@ import { AuthService } from '@core/services/auth.service';
 import { Member } from '@core/models/member.interface';
 import { TournamentService } from '@core/services/tournament.service';
 import { Tournament } from '@core/models/tournament.interface';
+import {TournamentStatusPipe} from '@core/pipes/tournament-status-pipe';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [RouterLink],
+  imports: [RouterLink, TournamentStatusPipe],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css',
 })
@@ -17,15 +18,31 @@ export class DashboardPage implements OnInit {
   private readonly _authService = inject(AuthService);
   private readonly _tournamentService = inject(TournamentService);
 
-  tournaments = signal<Tournament[]>([]);
+  startedTournaments = signal<Tournament[]>([]);
+  waitingTournaments = signal<Tournament[]>([]);
+  finishedTournaments = signal<Tournament[]>([]);
   member = signal<Member | null>(null);
   isAdmin = this._authService.isAdmin;
   myTournaments = signal<Tournament[]>([]);
+  currentLiveIndex = signal<number>(0);
 
   async ngOnInit(): Promise<void> {
     const result = await this._tournamentService.getAll();
-    this.tournaments.set(result.data.filter(t => t.status !== 'finished').slice(0, 3));
-    this.myTournaments.set(result.data.filter(t => t.isRegistered));
+    this.startedTournaments.set(result.data.filter(t => t.status === 'started'));
+    this.waitingTournaments.set(result.data.filter(t => t.status === 'waiting'));
+    this.finishedTournaments.set(result.data.filter(t => t.status === 'finished'));
+    this.myTournaments.set(result.data.filter(t => t.isRegistered && t.status === 'waiting'));
     this.member.set(await this._memberService.getMember());
   }
+  nextLive(): void{
+    if (this.currentLiveIndex() <= this.startedTournaments().length - 1){
+      this.currentLiveIndex.update(i => i+1);
+    }
+  }
+  prevLive(): void{
+    if (this.currentLiveIndex() > 0){
+      this.currentLiveIndex.update(i => i-1);
+    }
+  }
+
 }
