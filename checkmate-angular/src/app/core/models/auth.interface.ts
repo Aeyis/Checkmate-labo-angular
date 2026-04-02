@@ -5,6 +5,7 @@ export interface JwtDecoded{
   id: number;
   role: string;
   exp: number;
+  gender: string;
 }
 export interface RegisterData{
   email: string;

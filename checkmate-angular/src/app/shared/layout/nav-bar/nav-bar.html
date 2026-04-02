@@ -6,7 +6,6 @@
 
     @if (isConnected()) {
       <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-      <li><a routerLink="/profile" routerLinkActive="active">Profil</a></li>
       @if (isAdmin()) {
         <li><a routerLink="/admin/members" routerLinkActive="active">Membres</a></li>
       }
@@ -15,7 +14,14 @@
 
   <div class="navbar__actions">
     @if (isConnected()) {
-      <button class="btn btn--logout" (click)="logout()">Déconnexion</button>
+      <div class="avatar-wrapper">
+        <img [src]="gender() === 'F' ? 'avatar-woman.png' : gender() === 'M' ? 'avatar-man.png' : 'avatar-admin.png'" alt="Profil" class="avatar-img"
+        />
+        <div class="avatar-dropdown">
+          <a routerLink="/profile">Mon profil</a>
+          <button (click)="logout()">Se déconnecter</button>
+        </div>
+      </div>
     } @else {
       <a class="btn btn--login" routerLink="/auth/login">Connexion</a>
       <a class="btn btn--register" routerLink="/auth/register">Inscription</a>

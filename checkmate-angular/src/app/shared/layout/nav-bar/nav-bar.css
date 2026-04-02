@@ -73,3 +73,58 @@
   border: 1px solid #e05c5c;
   color: #e05c5c;
 }
+
+/* ── AVATAR ── */
+.avatar-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2b96f;
+  display: block;
+  background-color: #fff;
+}
+
+.avatar-dropdown {
+  padding-top: 0.5rem;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  z-index: 100;
+}
+
+.avatar-wrapper:hover .avatar-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-dropdown a,
+.avatar-dropdown button {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #1a1a2e;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: 100%;
+}
+
+.avatar-dropdown a:hover,
+.avatar-dropdown button:hover {
+  background: #f4f4f8;
+  color: #e2b96f;
+}

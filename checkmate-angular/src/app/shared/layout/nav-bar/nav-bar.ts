@@ -15,6 +15,7 @@ export class NavBar {
 
   isConnected = this._authService.isConnected;
   isAdmin = this._authService.isAdmin;
+  gender = this._authService.gender;
 
   logout(): void {
     this._authService.logout();

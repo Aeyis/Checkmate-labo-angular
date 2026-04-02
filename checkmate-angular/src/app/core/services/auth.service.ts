@@ -17,6 +17,8 @@ export class AuthService {
   authToken = this._authToken.asReadonly();
   private _role = signal<UserRole | null>(null);
   role = this._role.asReadonly();
+  _gender = signal<string>('')
+  gender = this._gender.asReadonly();
 
   isAdmin = computed(() => this.role() === UserRole.Admin);
   isConnected = computed(() => !!this.authToken());
@@ -27,12 +29,14 @@ export class AuthService {
       if (!token) {
         localStorage.removeItem('token');
         this._role.set(null);
+        this._gender.set('');
         return;
       }
       localStorage.setItem('token', token);
       const decoded = jwtDecode<JwtDecoded>(token);
       if (decoded.exp && decoded.exp * 1000 > Date.now()) {
         this._role.set(decoded.role as UserRole);
+        this._gender.set(decoded.gender);
       } else {
         this._authToken.set('');
       }
