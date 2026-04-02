@@ -17,6 +17,7 @@ export class ProfilePage implements OnInit {
 
   member = signal<Member | null>(null);
   isAdmin = this._authService.isAdmin;
+  gender = this._authService.gender;
 
   async ngOnInit(): Promise<void> {
     const m = await this._memberService.getMember();

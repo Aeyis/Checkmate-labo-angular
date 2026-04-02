@@ -29,7 +29,7 @@
       @if (isAdmin()) {
         <a [routerLink]="['/admin/tournament', tournament()!.id]" class="btn-manage">Gérer ce tournoi</a>
       }
-      @if (isConnected() && tournament()!.status === 'waiting') {
+      @if (isConnected() && !isAdmin() && tournament()!.status === 'waiting') {
         <div class="actions">
           @if (tournament()!.isRegistered) {
             <button (click)="leave()">Se désinscrire</button>
