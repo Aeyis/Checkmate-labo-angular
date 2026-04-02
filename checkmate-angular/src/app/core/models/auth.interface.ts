@@ -11,5 +11,8 @@ export interface RegisterData{
   email: string;
   password: string;
   username: string;
+  birthdate: string;
+  gender: string;
+  elo: number;
 }
 
