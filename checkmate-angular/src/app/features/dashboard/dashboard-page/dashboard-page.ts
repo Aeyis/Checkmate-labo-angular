@@ -30,6 +30,7 @@ export class DashboardPage implements OnInit {
   currentLiveIndex = signal<number>(0);
   myMatches = signal<MyMatch[]>([]);
   visibleMatchCount = signal(5);
+  myStartedTournaments = signal<Tournament[]>([]);
 
   async ngOnInit(): Promise<void> {
     const result = await this._tournamentService.getAll();
@@ -37,6 +38,7 @@ export class DashboardPage implements OnInit {
     this.waitingTournaments.set(result.data.filter(t => t.status === 'waiting'));
     this.finishedTournaments.set(result.data.filter(t => t.status === 'finished'));
     this.myTournaments.set(result.data.filter(t => t.isRegistered && t.status === 'waiting'));
+    this.myStartedTournaments.set(result.data.filter(t => t.status === 'started' && t.isRegistered));
     this.member.set(await this._memberService.getMember());
     this.myMatches.set(await this._matchService.getMyMatches());
   }

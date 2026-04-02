@@ -13,20 +13,20 @@
       }
     </div>
 
-    @if (startedTournaments().length > 0) {
+    @if (myStartedTournaments().length > 0) {
       <div class="section-live">
-        <h2>En cours</h2>
+        <h2>En jeu</h2>
         <div class="live-carousel">
           <button class="carousel-arrow" (click)="prevLive()" [disabled]="currentLiveIndex() === 0">‹</button>
           <div class="tournament-card-live">
-            <h3>{{ startedTournaments()[currentLiveIndex()].name }}</h3>
-            <p><strong>Lieu :</strong> {{ startedTournaments()[currentLiveIndex()].location }}</p>
-            <p><strong>Elo :</strong> {{ startedTournaments()[currentLiveIndex()].minElo }} - {{ startedTournaments()[currentLiveIndex()].maxElo }}</p>
-            <a [routerLink]="['/tournament', startedTournaments()[currentLiveIndex()].id]" class="btn-live">Voir le live</a>
+            <h3>{{ myStartedTournaments()[currentLiveIndex()].name }}</h3>
+            <p><strong>Lieu :</strong> {{ myStartedTournaments()[currentLiveIndex()].location }}</p>
+            <p><strong>Elo :</strong> {{ myStartedTournaments()[currentLiveIndex()].minElo }} - {{ myStartedTournaments()[currentLiveIndex()].maxElo }}</p>
+            <a [routerLink]="['/tournament', myStartedTournaments()[currentLiveIndex()].id]" class="btn-live">Jouer</a>
           </div>
-          <button class="carousel-arrow" (click)="nextLive()" [disabled]="currentLiveIndex() === startedTournaments().length - 1">›</button>
+          <button class="carousel-arrow" (click)="nextLive()" [disabled]="currentLiveIndex() === myStartedTournaments().length - 1">›</button>
         </div>
-        <p class="carousel-dots">{{ currentLiveIndex() + 1 }} / {{ startedTournaments().length }}</p>
+        <p class="carousel-dots">{{ currentLiveIndex() + 1 }} / {{ myStartedTournaments().length }}</p>
       </div>
     }
     @if (myTournaments().length > 0) {
