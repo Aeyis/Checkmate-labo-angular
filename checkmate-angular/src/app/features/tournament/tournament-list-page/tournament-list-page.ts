@@ -20,6 +20,7 @@ export class TournamentListPage implements OnInit {
   finishedTournaments = signal<Tournament[]>([]);
   expandedTournamentId = signal<number | null>(null);
   currentLiveIndex = signal<number>(0);
+  visibleFinishedCount = signal(5);
   isAdmin = this._authService.isAdmin;
 
   errorMessages = signal<Record<number, string>>({});
@@ -63,5 +64,9 @@ export class TournamentListPage implements OnInit {
     if (this.currentLiveIndex() > 0) {
       this.currentLiveIndex.update(i => i - 1);
     }
+  }
+
+  showMoreFinished(): void {
+    this.visibleFinishedCount.update(n => n + 5);
   }
 }

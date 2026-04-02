@@ -56,7 +56,7 @@
   @if (finishedTournaments().length > 0) {
     <div class="section-finished">
       <h2>Terminés</h2>
-      @for (tournament of finishedTournaments(); track tournament.id) {
+      @for (tournament of finishedTournaments().slice(0, visibleFinishedCount()); track tournament.id) {
         <div class="tournament-row" (click)="toggleTournament(tournament.id)">
           <span>{{ expandedTournamentId() === tournament.id ? '▲' : '▼' }}</span>
           <span>{{ tournament.name }}</span>
@@ -68,6 +68,9 @@
             <a [routerLink]="['/tournament', tournament.id]">Voir les résultats</a>
           </div>
         }
+      }
+      @if (visibleFinishedCount() < finishedTournaments().length) {
+        <button class="btn-more" (click)="showMoreFinished()">Afficher plus</button>
       }
     </div>
   }

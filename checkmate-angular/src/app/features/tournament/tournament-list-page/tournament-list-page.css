@@ -263,3 +263,21 @@ h1 {
   font-size: 0.85rem;
   text-decoration: underline;
 }
+
+.btn-more {
+  display: block;
+  margin: 0.75rem auto 0;
+  background: transparent;
+  border: 1px solid #e2b96f;
+  color: #e2b96f;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-more:hover {
+  background: #e2b96f;
+  color: #1a1a2e;
+}
