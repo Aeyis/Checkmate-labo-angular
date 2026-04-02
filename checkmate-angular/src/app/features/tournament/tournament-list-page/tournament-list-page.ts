@@ -22,6 +22,7 @@ export class TournamentListPage implements OnInit {
   currentLiveIndex = signal<number>(0);
   visibleFinishedCount = signal(5);
   isAdmin = this._authService.isAdmin;
+  isConnected = this._authService.isConnected;
 
   errorMessages = signal<Record<number, string>>({});
 

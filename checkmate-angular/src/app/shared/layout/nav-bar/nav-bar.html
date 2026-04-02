@@ -1,7 +1,7 @@
 <nav class="navbar">
   <a class="navbar__brand" routerLink="/">Checkmate</a>
 
-  @if (!isAuthPage()) {
+  @if (!isAuthPage() && isConnected()) {
   <ul class="navbar__links">
     <li>
       <a routerLink="/tournament" routerLinkActive="active">
@@ -9,21 +9,19 @@
         <span class="nav-label">Tournois</span>
       </a>
     </li>
-    @if (isConnected()) {
+    <li>
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <img src="dashboard.png" alt="" class="nav-icon" />
+        <span class="nav-label">Dashboard</span>
+      </a>
+    </li>
+    @if (isAdmin()) {
       <li>
-        <a routerLink="/dashboard" routerLinkActive="active">
-          <img src="dashboard.png" alt="" class="nav-icon" />
-          <span class="nav-label">Dashboard</span>
+        <a routerLink="/admin/members" routerLinkActive="active">
+          <img src="gestion-membres.png" alt="" class="nav-icon" />
+          <span class="nav-label">Membres</span>
         </a>
       </li>
-      @if (isAdmin()) {
-        <li>
-          <a routerLink="/admin/members" routerLinkActive="active">
-            <img src="gestion-membres.png" alt="" class="nav-icon" />
-            <span class="nav-label">Membres</span>
-          </a>
-        </li>
-      }
     }
   </ul>
   }
