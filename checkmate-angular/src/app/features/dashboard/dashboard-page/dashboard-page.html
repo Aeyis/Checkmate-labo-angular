@@ -42,35 +42,29 @@
             </div>
           }
         </div>
-      </div>
-    }
-
-    @if (waitingTournaments().length > 0) {
-      <div class="dashboard-section">
-        <h2>À venir</h2>
-        <div class="carousel">
-          @for (tournament of waitingTournaments(); track tournament.id) {
-            <div class="carousel-card waiting-card">
-              <h3>{{ tournament.name }}</h3>
-              <p><strong>Lieu :</strong> {{ tournament.location }}</p>
-              <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
-              <a [routerLink]="['/tournament', tournament.id]">Voir</a>
-            </div>
-          }
-        </div>
         <a routerLink="/tournament" class="see-all">Voir tous les tournois →</a>
       </div>
     }
 
-    @if (finishedTournaments().length > 0) {
+    @if (myMatches().length > 0) {
       <div class="dashboard-section">
-        <h2>Terminés</h2>
-        @for (tournament of finishedTournaments(); track tournament.id) {
-          <div class="tournament-row-finished">
-            <span>{{ tournament.name }}</span>
-            <span>{{ tournament.location }}</span>
-            <a [routerLink]="['/tournament', tournament.id]">Résultats</a>
+        <h2>Mes dernières parties</h2>
+        @for (match of myMatches().slice(0, visibleMatchCount()); track match.id) {
+          <div class="match-row">
+            <span class="match-tournament">{{ match.tournament.name }} · Ronde {{ match.round }}</span>
+            <span class="match-result"
+              [class.win]="(match.result === 'white_win' && match.whitePlayer.id === member()!.id) || (match.result === 'black_win' && match.blackPlayer.id === member()!.id)"
+              [class.loss]="(match.result === 'black_win' && match.whitePlayer.id === member()!.id) || (match.result === 'white_win' && match.blackPlayer.id === member()!.id)"
+              [class.draw]="match.result === 'draw'">
+              @if (match.result === 'draw') { Nul }
+              @else if ((match.result === 'white_win' && match.whitePlayer.id === member()!.id) || (match.result === 'black_win' && match.blackPlayer.id === member()!.id)) { Victoire }
+              @else if (match.result === null) { En cours }
+              @else { Défaite }
+            </span>
           </div>
+        }
+        @if (visibleMatchCount() < myMatches().length) {
+          <button class="btn-more" (click)="showMoreMatches()">Afficher plus</button>
         }
       </div>
     }

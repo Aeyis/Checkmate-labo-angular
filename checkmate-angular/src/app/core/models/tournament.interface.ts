@@ -69,3 +69,12 @@ export interface RoundMatches {
     matches: Match[];
   };
 }
+
+export interface MyMatch {
+  id: string;
+  round: number;
+  result: string | null;
+  whitePlayer: { id: number; username: string };
+  blackPlayer: { id: number; username: string };
+  tournament: { id: number; name: string };
+}
