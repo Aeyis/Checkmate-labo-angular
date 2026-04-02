@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsErrorDisplay],
+  imports: [ReactiveFormsModule, FormsErrorDisplay, RouterLink],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })

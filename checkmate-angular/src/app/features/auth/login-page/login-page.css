@@ -1,3 +1,19 @@
+.back-link {
+  position: fixed;
+  top: 80px;
+  left: 2rem;
+  color: #e2b96f;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.back-link:hover {
+  opacity: 0.75;
+}
+
 .auth-wrapper {
   display: flex;
   justify-content: center;
@@ -67,6 +83,23 @@
 
 .input-error {
   border-color: #e05c5c;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.register-link a {
+  color: #e2b96f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  opacity: 0.85;
 }
 
 .error-global {
