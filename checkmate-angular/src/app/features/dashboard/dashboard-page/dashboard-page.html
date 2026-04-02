@@ -3,11 +3,10 @@
     <div class="dashboard-welcome">
       <h1>Bonjour, {{ member()!.username }} 👋</h1>
       <p>Elo : <strong>{{ member()!.elo }}</strong> — Rôle : <strong>{{ member()!.role }}</strong></p>
+      <a routerLink="/profile" class="profile-link">Voir mon profil →</a>
     </div>
 
     <div class="dashboard-links">
-      <a routerLink="/profile" class="dashboard-card">Mon profil</a>
-      <a routerLink="/tournament" class="dashboard-card">Tous les tournois</a>
       @if (isAdmin()) {
         <a routerLink="/admin/members" class="dashboard-card admin">Admin membres</a>
         <a routerLink="/admin/tournament/create" class="dashboard-card admin">Créer un tournoi</a>

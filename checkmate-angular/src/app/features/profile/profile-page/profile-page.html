@@ -6,7 +6,7 @@
       <p><strong>Rôle :</strong> {{ member()!.role }}</p>
       <p><strong>Elo :</strong> {{ member()!.elo }}</p>
       <p><strong>Genre :</strong> {{ member()!.gender }}</p>
-      <p><strong>Date de naissance :</strong> {{ member()!.birthDate }}</p>
+      <p><strong>Date de naissance :</strong> {{ member()!.birthDate | date:'dd-MM-yyyy' }} </p>
       <a routerLink="/profile/edit">Modifier mon profil</a>
     </div>
   } @else {

@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { MemberService } from '@core/services/member.service';
 import { Member } from '@core/models/member.interface';
 import { AuthService } from '@core/services/auth.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })

@@ -81,21 +81,26 @@
 }
 
 .avatar-img {
-  width: 38px;
-  height: 38px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e2b96f;
   display: block;
   background-color: #fff;
+  transition: transform 0.2s;
+  transform-origin: top right;
+}
+.avatar-wrapper:hover .avatar-img {
+  transform: scale(1.15);
 }
 
 .avatar-dropdown {
-  padding-top: 0.5rem;
   display: none;
   position: absolute;
-  top: 100%;
-  right: 0;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
   background: #fff;
   border-radius: 6px;
   overflow: hidden;
@@ -104,9 +109,19 @@
   z-index: 100;
 }
 
+.avatar-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  height: 20px;
+}
+
 .avatar-wrapper:hover .avatar-dropdown {
   display: flex;
   flex-direction: column;
+  transform: translateX(-50%);
 }
 
 .avatar-dropdown a,
