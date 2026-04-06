@@ -6,10 +6,10 @@
   z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 6rem;
   padding: 0 2rem;
   height: 64px;
-  background: rgba(26, 26, 46, 0.6);
+  background: rgba(17, 24, 39, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(226, 185, 111, 0.2);
@@ -20,14 +20,14 @@
 .navbar__brand {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #e2b96f;
+  color: #FFD700;
   text-decoration: none;
   letter-spacing: 1px;
 }
 
 .navbar__links {
   display: flex;
-  gap: 1.5rem;
+  gap: 2.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -47,20 +47,20 @@
 }
 
 .navbar__links a:hover {
-  color: #e2b96f;
+  color: #FFD700;
   background: rgba(226, 185, 111, 0.1);
 }
 
 .navbar__links a.active {
   color: #1a1a2e;
-  background: #e2b96f;
+  background: #FFD700;
   font-weight: 600;
 }
 
-.nav-icon {
-  width: 38px;
-  height: 38px;
-  object-fit: contain;
+.nav-icon-chess {
+  font-size: 1.6rem;
+  line-height: 1;
+  display: block;
 }
 
 .nav-icon-emoji {
@@ -85,6 +85,7 @@
 .navbar__actions {
   display: flex;
   gap: 0.75rem;
+  margin-left: auto;
 }
 
 .btn {
@@ -103,12 +104,12 @@
 
 .btn--login {
   background: transparent;
-  border: 1px solid #e2b96f;
-  color: #e2b96f;
+  border: 1px solid #FFD700;
+  color: #FFD700;
 }
 
 .btn--register {
-  background-color: #e2b96f;
+  background-color: #FFD700;
   color: #1a1a2e;
   font-weight: 600;
 }
@@ -130,7 +131,7 @@
   height: 46px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e2b96f;
+  border: 2px solid #FFD700;
   display: block;
   background-color: rgba(255, 255, 255, 0.15);
   transition: transform 0.2s;
@@ -146,12 +147,13 @@
   top: 60px;
   left: 50%;
   transform: translateX(-50%);
-  background: #fff;
+  background: #1e2740;
   border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   min-width: 160px;
   z-index: 100;
+  border: 1px solid rgba(245, 197, 24, 0.15);
 }
 
 .avatar-wrapper::after {
@@ -174,7 +176,7 @@
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
   text-decoration: none;
-  color: #1a1a2e;
+  color: #f0f0f0;
   background: transparent;
   border: none;
   text-align: left;
@@ -185,6 +187,6 @@
 
 .avatar-dropdown a:hover,
 .avatar-dropdown button:hover {
-  background: #f4f4f8;
-  color: #e2b96f;
+  background: #243056;
+  color: #FFD700;
 }

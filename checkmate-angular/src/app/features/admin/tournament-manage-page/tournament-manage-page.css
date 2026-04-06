@@ -48,7 +48,7 @@
 }
 
 .btn-start {
-  background-color: #e2b96f;
+  background-color: #FFD700;
   color: #1a1a2e;
 }
 
@@ -107,7 +107,7 @@
   display: inline-block;
   margin-top: 0 !important;
   padding: 0.3rem 0.8rem;
-  background-color: #e2b96f;
+  background-color: #FFD700;
   color: #1a1a2e !important;
   border-radius: 4px;
   font-size: 0.85rem;

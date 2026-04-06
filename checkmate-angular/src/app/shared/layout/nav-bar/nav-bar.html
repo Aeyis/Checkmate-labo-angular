@@ -1,24 +1,24 @@
 <nav class="navbar">
-  <a class="navbar__brand" routerLink="/">Checkmate</a>
+  <a class="navbar__brand" routerLink="/">Checkmate</a> <!-- TODO remplacer par un logo perso -->
 
   @if (!isAuthPage() && isConnected()) {
   <ul class="navbar__links">
     <li>
       <a routerLink="/tournament" routerLinkActive="active">
-        <img src="tournoi.png" alt="" class="nav-icon" />
+        <span class="nav-icon-chess">♟</span>
         <span class="nav-label">Tournois</span>
       </a>
     </li>
     <li>
       <a routerLink="/dashboard" routerLinkActive="active">
-        <img src="dashboard.png" alt="" class="nav-icon" />
-        <span class="nav-label">tableau de bord</span>
+        <span class="nav-icon-chess">♔</span>
+        <span class="nav-label">Tableau de bord</span>
       </a>
     </li>
     @if (isAdmin()) {
       <li>
         <a routerLink="/admin/members" routerLinkActive="active">
-          <img src="gestion-membres.png" alt="" class="nav-icon" />
+          <span class="nav-icon-chess">♞</span>
           <span class="nav-label">Membres</span>
         </a>
       </li>

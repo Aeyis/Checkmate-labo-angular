@@ -1,79 +1,150 @@
-<div class="tournament-list-wrapper">
-  <h1>Tournois</h1>
-  @if (isAdmin()) {
-    <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
-  }
+@if (startedTournaments().length > 0) {
+  <div class="section-live">
+    <div class="section-label">Live</div>
 
-  @if (startedTournaments().length > 0) {
-    <div class="section-live">
-      <h2>En cours</h2>
-      <div class="live-carousel">
-        <button class="carousel-arrow" (click)="prevLive()" [disabled]="currentLiveIndex() === 0">‹</button>
-        <div class="tournament-card-live">
-          <h3>{{ startedTournaments()[currentLiveIndex()].name }}</h3>
-          <p><strong>Lieu :</strong> {{ startedTournaments()[currentLiveIndex()].location }}</p>
-          <p><strong>Elo :</strong> {{ startedTournaments()[currentLiveIndex()].minElo }} - {{ startedTournaments()[currentLiveIndex()].maxElo }}</p>
-          @if (isAdmin()) {
-            <a [routerLink]="['/admin/tournament', startedTournaments()[currentLiveIndex()].id]" class="btn-manage">Gérer</a>
-          } @else {
-            <a [routerLink]="['/tournament', startedTournaments()[currentLiveIndex()].id]" class="btn-live">Voir le live</a>
+    <!-- grande fenetre principal -->
+    <div class="hero-slide">
+      <div class="hero-content">
+        <span class="t-badge t-badge--live">EN COURS</span>
+        <h2 class="hero-title">{{ startedTournaments()[currentLiveIndex()].name }}</h2>
+        <div class="hero-meta">
+          <span>📍 {{ startedTournaments()[currentLiveIndex()].location }}</span>
+          <span>🔄 Ronde {{ startedTournaments()[currentLiveIndex()].currentRound }}</span>
+          <span>{{ startedTournaments()[currentLiveIndex()].minElo }} – {{ startedTournaments()[currentLiveIndex()].maxElo }} ELO</span>
+        </div>
+        @if (isAdmin()) {
+          <a [routerLink]="['/admin/tournament', startedTournaments()[currentLiveIndex()].id]" class="hero-btn">Gérer →</a>
+        } @else {
+          <a [routerLink]="['/tournament', startedTournaments()[currentLiveIndex()].id]" class="hero-btn">Voir le live →</a>
+        }
+      </div>
+      <div class="hero-deco">♞</div>
+      @if (startedTournaments().length > 1) {
+        <div class="hero-progress">
+          <div class="hero-progress-bar" [style.animation-name]="progressAnim()"></div>
+        </div>
+      }
+    </div>
+
+    <!-- Miniatures -->
+    @if (startedTournaments().length > 1) {
+      <div class="hero-thumbs">
+        @for (tournament of startedTournaments(); track tournament.id; let i = $index) {
+          <button
+            class="hero-thumb"
+            [class.hero-thumb--active]="i === currentLiveIndex()"
+            (click)="goToLive(i)"
+            appSpotlight
+          >
+            <span class="hero-thumb__round">Ronde {{ tournament.currentRound }}</span>
+            <span class="hero-thumb__name">{{ tournament.name }}</span>
+            <span class="hero-thumb__loc">📍 {{ tournament.location }}</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+}
+
+@if (waitingTournaments().length > 0) {
+  <div class="section-waiting">
+    <div class="waiting-header">
+      <div class="section-label">À venir</div>
+      <div class="waiting-controls">
+        <div class="filter-tabs">
+          <button class="filter-tab" [class.filter-tab--active]="activeFilter() === 'all'" (click)="setFilter('all')">Tous</button>
+          <button class="filter-tab" [class.filter-tab--active]="activeFilter() === 'available'" (click)="setFilter('available')">Disponibles</button>
+          @if (isConnected()) {
+            <button class="filter-tab" [class.filter-tab--active]="activeFilter() === 'registered'" (click)="setFilter('registered')">Inscrits</button>
           }
         </div>
-        <button class="carousel-arrow" (click)="nextLive()" [disabled]="currentLiveIndex() === startedTournaments().length - 1">›</button>
+        @if (waitingPageCount() > 1) {
+          <div class="carousel-nav">
+            <button class="carousel-nav__btn" (click)="prevWaiting()" [disabled]="!canPrevWaiting()">‹</button>
+            <span class="carousel-nav__count">{{ waitingPage() + 1 }} / {{ waitingPageCount() }}</span>
+            <button class="carousel-nav__btn" (click)="nextWaiting()" [disabled]="!canNextWaiting()">›</button>
+          </div>
+        }
       </div>
-      <p class="carousel-dots">{{ currentLiveIndex() + 1 }} / {{ startedTournaments().length }}</p>
     </div>
-  }
 
-  @if (waitingTournaments().length > 0) {
-    <div class="section-waiting">
-      <h2>À venir</h2>
-      <ul class="tournament-list">
-        @for (tournament of waitingTournaments(); track tournament.id) {
-          <li class="tournament-card">
-            <h3>{{ tournament.name }}</h3>
-            <p><strong>Lieu :</strong> {{ tournament.location }}</p>
-            <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
-            @if (isAdmin()) {
-              <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
+    <div class="waiting-cards" [class.dir-next]="waitingDirection() === 'next'" [class.dir-prev]="waitingDirection() === 'prev'">
+      @for (tournament of currentPageTournaments(); track tournament.id) {
+        <div class="news-card" [class.news-card--registered]="tournament.isRegistered" appSpotlight>
+          <div class="news-card__visual">
+            <span class="news-card__piece">{{ tournament.isRegistered ? '♔' : '♟' }}</span>
+          </div>
+          <div class="news-card__body">
+            @if (tournament.isRegistered) {
+              <span class="news-card__badge news-card__badge--registered">Inscrit</span>
             } @else {
-              @if (isConnected()) {
-                @if (tournament.isRegistered) {
-                  <button (click)="leave(tournament.id)">Se désinscrire</button>
-                } @else {
-                  <button (click)="join(tournament.id)">S'inscrire</button>
-                }
-              }
-              <a [routerLink]="['/tournament', tournament.id]">Voir le détail</a>
+              <span class="news-card__badge news-card__badge--open">Inscription ouverte</span>
             }
+            <p class="news-card__elo">{{ tournament.minElo }} – {{ tournament.maxElo }} ELO</p>
+            <h3 class="news-card__title">{{ tournament.name }}</h3>
+            <p class="news-card__meta">📍 {{ tournament.location }}</p>
+            <p class="news-card__meta">👥 {{ tournament.nbrOfPlayers }} / {{ tournament.maxPlayers }} joueurs</p>
+            <p class="news-card__date">Clôture : {{ tournament.endRegistrationDate | date:'d MMM yyyy' }}</p>
+            <div class="news-card__actions">
+              @if (isAdmin()) {
+                <a [routerLink]="['/admin/tournament', tournament.id]" class="t-btn t-btn--primary">Gérer</a>
+              } @else {
+                @if (isConnected()) {
+                  @if (tournament.isRegistered) {
+                    <button class="t-btn t-btn--secondary" (click)="leave(tournament.id)">Se désinscrire</button>
+                  } @else {
+                    <button class="t-btn t-btn--primary" (click)="join(tournament.id)">S'inscrire</button>
+                  }
+                }
+                <a [routerLink]="['/tournament', tournament.id]" class="t-btn t-btn--ghost">Détails →</a>
+              }
+            </div>
             @if (errorMessages()[tournament.id]) {
               <p class="error">{{ errorMessages()[tournament.id] }}</p>
             }
-          </li>
-        }
-      </ul>
+          </div>
+        </div>
+      }
+      @if (filteredWaiting().length === 0) {
+        <p class="no-results">Aucun tournoi dans cette catégorie.</p>
+      }
     </div>
-  }
+  </div>
+}
 
-  @if (finishedTournaments().length > 0) {
-    <div class="section-finished">
-      <h2>Terminés</h2>
+@if (isAdmin()) {
+  <div class="tournament-list-wrapper">
+    <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
+  </div>
+}
+
+@if (finishedTournaments().length > 0) {
+  <div class="section-finished">
+    <div class="section-label" style="color: #4b5563">Terminés</div>
+    <div class="finished-list">
       @for (tournament of finishedTournaments().slice(0, visibleFinishedCount()); track tournament.id) {
-        <div class="tournament-row" (click)="toggleTournament(tournament.id)">
-          <span>{{ expandedTournamentId() === tournament.id ? '▲' : '▼' }}</span>
-          <span>{{ tournament.name }}</span>
-          <span>{{ tournament.location }}</span>
+        <div class="finished-row" [class.finished-row--open]="expandedTournamentId() === tournament.id" (click)="toggleTournament(tournament.id)" appSpotlight>
+          <div class="finished-row__left">
+            <span class="finished-row__piece">♚</span>
+            <div class="finished-row__info">
+              <span class="finished-row__name">{{ tournament.name }}</span>
+              <span class="finished-row__loc">📍 {{ tournament.location }}</span>
+            </div>
+          </div>
+          <div class="finished-row__right">
+            <span class="finished-row__elo">{{ tournament.minElo }} – {{ tournament.maxElo }} ELO</span>
+            <span class="finished-row__chevron">{{ expandedTournamentId() === tournament.id ? '▲' : '▼' }}</span>
+          </div>
         </div>
         @if (expandedTournamentId() === tournament.id) {
-          <div class="tournament-row-details">
-            <p><strong>Elo :</strong> {{ tournament.minElo }} - {{ tournament.maxElo }}</p>
-            <a [routerLink]="['/tournament', tournament.id]">Voir les résultats</a>
+          <div class="finished-details">
+            <a [routerLink]="['/tournament', tournament.id]" class="t-btn t-btn--primary">Voir les résultats →</a>
           </div>
         }
       }
-      @if (visibleFinishedCount() < finishedTournaments().length) {
-        <button class="btn-more" (click)="showMoreFinished()">Afficher plus</button>
-      }
     </div>
-  }
-</div>
+    @if (visibleFinishedCount() < finishedTournaments().length) {
+      <button class="btn-more" (click)="showMoreFinished()">Afficher plus</button>
+    }
+  </div>
+}

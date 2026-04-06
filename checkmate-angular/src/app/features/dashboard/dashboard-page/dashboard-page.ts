@@ -8,10 +8,11 @@ import { MyMatch, Tournament } from '@core/models/tournament.interface';
 import {TournamentStatusPipe} from '@core/pipes/tournament-status-pipe';
 import { Loading } from '@shared/components/loading/loading';
 import {MatchService} from '@core/services/match.service';
+import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [RouterLink, TournamentStatusPipe, Loading],
+  imports: [RouterLink, TournamentStatusPipe, Loading, SpotlightDirective],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.css',
 })

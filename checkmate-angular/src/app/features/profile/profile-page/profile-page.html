@@ -1,38 +1,58 @@
-<div class="profile-wrapper">
-  @if (member()) {
-    <div class="profile-card">
+@if (member()) {
 
-      <div class="profile-banner">
-        <div class="profile-avatar">
-          <img [src]="isAdmin() ? 'avatar-admin.png' : gender() === 'F' ? 'avatar-woman.png' : 'avatar-man.png'" alt="Avatar" />
-        </div>
-      </div>
-
-      <div class="profile-identity">
-        <h2>{{ member()!.username }}</h2>
-        <span class="profile-role">{{ member()!.role }}</span>
-      </div>
-
-      <div class="profile-stats">
-        <div class="stat-card">
-          <span class="stat-value">{{ member()!.elo }}</span>
-          <span class="stat-label">Elo</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-value">{{ member()!.gender }}</span>
-          <span class="stat-label">Genre</span>
-        </div>
-      </div>
-
-      <div class="profile-info">
-        <p><span>📧</span> {{ member()!.email }}</p>
-        <p><span>🎂</span> {{ member()!.birthDate | date:'dd-MM-yyyy' }}</p>
-      </div>
-
-      <a routerLink="/profile/edit" class="btn-edit">Modifier mon profil</a>
-
+  <!-- Hero bannière -->
+  <div class="profile-hero">
+    <div class="profile-hero__deco">♔</div>
+    <div class="profile-avatar-wrap">
+      <img
+        [src]="isAdmin() ? 'avatar-admin.png' : gender() === 'F' ? 'avatar-woman.png' : 'avatar-man.png'"
+        alt="Avatar"
+        class="profile-avatar"
+      />
     </div>
-  } @else {
-    <app-loading />
-  }
-</div>
+  </div>
+
+  <!-- Identité -->
+  <div class="profile-identity">
+    <h1 class="profile-username">{{ member()!.username }}</h1>
+    <span class="profile-role">{{ member()!.role }}</span>
+  </div>
+
+  <!-- Stats -->
+  <div class="profile-stats">
+    <div class="stat-card" appSpotlight>
+      <span class="stat-value">{{ member()!.elo }}</span>
+      <span class="stat-label">ELO</span>
+    </div>
+    <div class="stat-card" appSpotlight>
+      <span class="stat-value">{{ member()!.gender === 'M' ? '♙' : '♟' }}</span>
+      <span class="stat-label">{{ member()!.gender === 'M' ? 'Homme' : 'Femme' }}</span>
+    </div>
+  </div>
+
+  <!-- Infos -->
+  <div class="profile-info">
+    <div class="info-row">
+      <span class="info-icon">📧</span>
+      <div class="info-content">
+        <span class="info-label">Email</span>
+        <span class="info-value">{{ member()!.email }}</span>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="info-icon">🎂</span>
+      <div class="info-content">
+        <span class="info-label">Date de naissance</span>
+        <span class="info-value">{{ member()!.birthDate | date:'dd MMMM yyyy' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action -->
+  <div class="profile-actions">
+    <a routerLink="/profile/edit" class="hero-btn">Modifier mon profil →</a>
+  </div>
+
+} @else {
+  <app-loading />
+}

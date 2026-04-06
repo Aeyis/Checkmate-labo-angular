@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import {isConnectedGuard} from '@core/guards/isConnected.guard';
-import {isNotConnectedGuard} from '@core/guards/isNotConnected.guard';
-import {adminGuard} from '@core/guards/admin.guard';
+import { isConnectedGuard } from '@core/guards/isConnected.guard';
+import { adminGuard } from '@core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -10,94 +9,44 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'auth/login',
-    loadComponent:() =>
-      import('@features/auth/login-page/login-page').then((m) => m.LoginPage),
-      canActivate:[isNotConnectedGuard],
-
+    path: 'auth',
+    loadChildren: () =>
+      import('@features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
-    path: 'auth/register',
-    loadComponent:() =>
-      import('@features/auth/register-page/register-page').then((m) => m.RegisterPage),
-      canActivate:[isNotConnectedGuard],
+    path: 'tournament',
+    loadChildren: () =>
+      import('@features/tournament/tournament.routes').then((m) => m.TOURNAMENT_ROUTES),
   },
   {
     path: 'dashboard',
-    loadComponent:() =>
+    loadComponent: () =>
       import('@features/dashboard/dashboard-page/dashboard-page').then((m) => m.DashboardPage),
-      canActivate:[isConnectedGuard],
+    canActivate: [isConnectedGuard],
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('@features/profile/profile.routes').then((m) => m.PROFILE_ROUTES),
+  },
+  {
+    path: 'admin',
+    canActivate: [isConnectedGuard, adminGuard],
+    loadChildren: () =>
+      import('@features/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
   },
   {
     path: 'forbidden',
-    loadComponent:() =>
+    loadComponent: () =>
       import('@features/errors/forbidden-page/forbidden-page').then((m) => m.ForbiddenPage),
   },
   {
     path: 'not-found',
-    loadComponent:() =>
+    loadComponent: () =>
       import('@features/errors/not-found-page/not-found-page').then((m) => m.NotFoundPage),
   },
   {
-    path: 'tournament',
-    loadComponent:()=>
-      import('@features/tournament/tournament-list-page/tournament-list-page').then((m) => m.TournamentListPage),
-  },
-  {
-    path: 'tournament/:id',
-    loadComponent: () =>
-      import('@features/tournament/tournament-detail-page/tournament-detail-page').then((m) => m.TournamentDetailPage),
-  },
-  {
-    path: 'admin/members',
-    loadComponent: () =>
-      import('@features/admin/member-list-page/member-list-page').then((m) => m.MemberListPage),
-    canActivate: [isConnectedGuard, adminGuard],
-  },
-  {
-    path: 'admin/members/create',
-    loadComponent: () =>
-      import('@features/admin/member-create-page/member-create-page').then((m) => m.MemberCreatePage),
-    canActivate: [isConnectedGuard, adminGuard],
-  },
-  {
-    path: 'admin/tournament/create',
-    loadComponent: () =>
-      import('@features/admin/tournament-create-page/tournament-create-page').then((m) => m.TournamentCreatePage),
-    canActivate: [isConnectedGuard, adminGuard],
-  },
-  {
-    path: 'admin/tournament/:id',
-    loadComponent: () =>
-      import('@features/admin/tournament-manage-page/tournament-manage-page').then((m) => m.TournamentManagePage),
-    canActivate: [isConnectedGuard, adminGuard],
-  },
-  {
-    path: 'admin/match/:matchId',
-    loadComponent: () =>
-      import('@features/admin/match-result-page/match-result-page').then((m) => m.MatchResultPage),
-    canActivate: [isConnectedGuard, adminGuard],
-  },
-  {
-    path: 'profile',
-    loadComponent: () =>
-      import('@features/profile/profile-page/profile-page').then((m) => m.ProfilePage),
-    canActivate: [isConnectedGuard],
-  },
-  {
-    path: 'profile/edit',
-    loadComponent: () =>
-      import('@features/profile/edit-profile-page/edit-profile-page').then((m) => m.EditProfilePage),
-    canActivate: [isConnectedGuard],
-  },
-  {
-    path: 'admin/tournament',
-    loadComponent: () =>
-      import('@features/admin/tournament-list-page/tournament-list-page').then((m) => m.TournamentListPage),
-    canActivate: [isConnectedGuard, adminGuard],
-  },
-  {
-    path: "**",
+    path: '**',
     redirectTo: 'not-found',
   },
 ];

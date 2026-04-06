@@ -1,19 +1,43 @@
-.back-link {
-  position: fixed;
-  top: 80px;
-  left: 2rem;
-  color: #e2b96f;
+/* ── LAYOUT ── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  background: #111827;
+}
+
+/* ── LOGO ── */
+.auth-logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #FFD700;
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
+  letter-spacing: 1px;
   transition: opacity 0.2s;
-  z-index: 10;
+}
+
+.auth-logo:hover {
+  opacity: 0.8;
+}
+
+/* ── RETOUR ── */
+.back-link {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s;
 }
 
 .back-link:hover {
-  opacity: 0.75;
+  color: #FFD700;
 }
 
+/* ── FORM ── */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -22,27 +46,29 @@
 
 .form-group label {
   font-size: 0.875rem;
-  color: #555;
+  color: #a8a5a5;
   margin-bottom: 0.4rem;
 }
 
 .form-group input {
   padding: 0.6rem 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid #374151;
   border-radius: 4px;
   font-size: 1rem;
+  background: #1e2740;
+  color: #f0f0f0;
   transition: border-color 0.2s;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #e2b96f;
+  border-color: #FFD700;
 }
 
 .btn-submit {
   width: 100%;
   padding: 0.75rem;
-  background-color: #e2b96f;
+  background-color: #FFD700;
   color: #1a1a2e;
   font-size: 1rem;
   font-weight: 600;
@@ -58,7 +84,7 @@
 }
 
 .input-error {
-  border-color: #e05c5c;
+  border-color: #e05c5c !important;
 }
 
 .register-link {
@@ -69,7 +95,7 @@
 }
 
 .register-link a {
-  color: #e2b96f;
+  color: #FFD700;
   text-decoration: none;
   font-weight: 600;
 }

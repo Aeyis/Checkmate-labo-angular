@@ -5,10 +5,11 @@ import { Member } from '@core/models/member.interface';
 import { AuthService } from '@core/services/auth.service';
 import {DatePipe} from '@angular/common';
 import { Loading } from '@shared/components/loading/loading';
+import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 
 @Component({
   selector: 'app-profile-page',
-  imports: [RouterLink, DatePipe, Loading],
+  imports: [RouterLink, DatePipe, Loading, SpotlightDirective],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })

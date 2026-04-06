@@ -1,57 +1,106 @@
-<div class="dashboard-wrapper">
-  @if (member()) {
-    <div class="dashboard-welcome">
-      <h1>Bonjour, {{ member()!.username }} 👋</h1>
-      <p>Elo : <strong>{{ member()!.elo }}</strong> — Rôle : <strong>{{ member()!.role }}</strong></p>
-      <a routerLink="/profile" class="profile-link">Voir mon profil →</a>
-    </div>
+@if (member()) {
+  <div class="dash-hero">
+    <div class="dash-hero__content">
 
-    <div class="dashboard-links">
-      @if (isAdmin()) {
-        <a routerLink="/admin/members" class="dashboard-card admin">Admin membres</a>
-        <a routerLink="/admin/tournament/create" class="dashboard-card admin">Créer un tournoi</a>
-      }
+      <h1 class="dash-hero__title">Bonjour, {{ member()!.username }}</h1>
+      <div class="dash-hero__meta">
+        <span>♟ {{ member()!.elo }} ELO</span>
+        <span>{{ member()!.role }}</span>
+      </div>
+      <a routerLink="/profile" class="hero-btn">Mon profil →</a>
     </div>
+    <div class="dash-hero__deco">♔</div>
+  </div>
 
-    @if (myStartedTournaments().length > 0) {
-      <div class="section-live">
-        <h2>En jeu</h2>
-        <div class="live-carousel">
-          <button class="carousel-arrow" (click)="prevLive()" [disabled]="currentLiveIndex() === 0">‹</button>
-          <div class="tournament-card-live">
-            <h3>{{ myStartedTournaments()[currentLiveIndex()].name }}</h3>
-            <p><strong>Lieu :</strong> {{ myStartedTournaments()[currentLiveIndex()].location }}</p>
-            <p><strong>Elo :</strong> {{ myStartedTournaments()[currentLiveIndex()].minElo }} - {{ myStartedTournaments()[currentLiveIndex()].maxElo }}</p>
-            <a [routerLink]="['/tournament', myStartedTournaments()[currentLiveIndex()].id]" class="btn-live">Jouer</a>
+  <!-- Admin -->
+  @if (isAdmin()) {
+    <div class="section-admin">
+      <div class="section-label">Administration</div>
+      <div class="admin-cards">
+        <a routerLink="/admin/members" class="admin-card" appSpotlight>
+          <span class="admin-card__icon">♞</span>
+          <span class="admin-card__label">Gérer les membres</span>
+        </a>
+        <a routerLink="/admin/tournament/create" class="admin-card" appSpotlight>
+          <span class="admin-card__icon">♜</span>
+          <span class="admin-card__label">Créer un tournoi</span>
+        </a>
+      </div>
+    </div>
+  }
+
+  <!-- En jeu -->
+  @if (myStartedTournaments().length > 0) {
+    <div class="section-live-dash">
+      <div class="section-label">En jeu</div>
+      <div class="live-hero" appSpotlight>
+        <div class="live-hero__content">
+          <span class="t-badge t-badge--live">EN COURS</span>
+          <h2 class="live-hero__title">{{ myStartedTournaments()[currentLiveIndex()].name }}</h2>
+          <div class="live-hero__meta">
+            <span>📍 {{ myStartedTournaments()[currentLiveIndex()].location }}</span>
+            <span>{{ myStartedTournaments()[currentLiveIndex()].minElo }} – {{ myStartedTournaments()[currentLiveIndex()].maxElo }} ELO</span>
           </div>
-          <button class="carousel-arrow" (click)="nextLive()" [disabled]="currentLiveIndex() === myStartedTournaments().length - 1">›</button>
+          <a [routerLink]="['/tournament', myStartedTournaments()[currentLiveIndex()].id]" class="hero-btn">Jouer →</a>
         </div>
-        <p class="carousel-dots">{{ currentLiveIndex() + 1 }} / {{ myStartedTournaments().length }}</p>
+        <div class="live-hero__deco">♞</div>
+        @if (myStartedTournaments().length > 1) {
+          <div class="live-nav">
+            <button class="carousel-nav__btn" (click)="prevLive()" [disabled]="currentLiveIndex() === 0">‹</button>
+            <span class="carousel-nav__count">{{ currentLiveIndex() + 1 }} / {{ myStartedTournaments().length }}</span>
+            <button class="carousel-nav__btn" (click)="nextLive()" [disabled]="currentLiveIndex() === myStartedTournaments().length - 1">›</button>
+          </div>
+        }
       </div>
-    }
-    @if (myTournaments().length > 0) {
-      <div class="dashboard-section">
-        <h2>Mes tournois</h2>
-        <div class="carousel">
-          @for (tournament of myTournaments(); track tournament.id) {
-            <div class="carousel-card my-card">
-              <h3>{{ tournament.name }}</h3>
-              <p><strong>Lieu :</strong> {{ tournament.location }}</p>
-              <p><strong>Statut :</strong> {{ tournament.status | tournamentStatus }}</p>
-              <a [routerLink]="['/tournament', tournament.id]">Voir</a>
-            </div>
-          }
-        </div>
-        <a routerLink="/tournament" class="see-all">Voir tous les tournois →</a>
-      </div>
-    }
+    </div>
+  }
 
-    @if (myMatches().length > 0) {
-      <div class="dashboard-section">
-        <h2>Mes dernières parties</h2>
+  <!-- Mes tournois -->
+  @if (myTournaments().length > 0) {
+    <div class="section-my-tournaments">
+      <div class="section-label">Mes inscriptions</div>
+      <div class="my-tournament-cards">
+        @for (tournament of myTournaments(); track tournament.id) {
+          <div class="news-card" appSpotlight>
+            <div class="news-card__visual">
+              <span class="news-card__piece">♟</span>
+            </div>
+            <div class="news-card__body">
+              <span class="news-card__badge news-card__badge--registered">Inscrit</span>
+              <p class="news-card__elo">{{ tournament.minElo }} – {{ tournament.maxElo }} ELO</p>
+              <h3 class="news-card__title">{{ tournament.name }}</h3>
+              <p class="news-card__meta">📍 {{ tournament.location }}</p>
+              <p class="news-card__meta">{{ tournament.status | tournamentStatus }}</p>
+              <div class="news-card__actions">
+                <a [routerLink]="['/tournament', tournament.id]" class="t-btn t-btn--ghost">Détails →</a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <a routerLink="/tournament" class="see-all">Voir tous les tournois →</a>
+    </div>
+  }
+
+  <!-- Mes dernières parties -->
+  @if (myMatches().length > 0) {
+    <div class="section-matches">
+      <div class="section-label">Mes dernières parties</div>
+      <div class="matches-list">
         @for (match of myMatches().slice(0, visibleMatchCount()); track match.id) {
-          <div class="match-row">
-            <span class="match-tournament">{{ match.tournament.name }} · Ronde {{ match.round }}</span>
+          <div class="match-row" appSpotlight>
+            <div class="match-row__left">
+              <span class="match-row__piece">
+                @if ((match.result === 'white_win' && match.whitePlayer.id === member()!.id) || (match.result === 'black_win' && match.blackPlayer.id === member()!.id)) { ♔ }
+                @else if (match.result === 'draw') { ♟ }
+                @else if (match.result === null) { ♞ }
+                @else { ♚ }
+              </span>
+              <div class="match-row__info">
+                <span class="match-row__tournament">{{ match.tournament.name }}</span>
+                <span class="match-row__round">Ronde {{ match.round }}</span>
+              </div>
+            </div>
             <span class="match-result"
               [class.win]="(match.result === 'white_win' && match.whitePlayer.id === member()!.id) || (match.result === 'black_win' && match.blackPlayer.id === member()!.id)"
               [class.loss]="(match.result === 'black_win' && match.whitePlayer.id === member()!.id) || (match.result === 'white_win' && match.blackPlayer.id === member()!.id)"
@@ -67,9 +116,9 @@
           <button class="btn-more" (click)="showMoreMatches()">Afficher plus</button>
         }
       </div>
-    }
-
-  } @else {
-    <app-loading />
+    </div>
   }
-</div>
+
+} @else {
+  <app-loading />
+}

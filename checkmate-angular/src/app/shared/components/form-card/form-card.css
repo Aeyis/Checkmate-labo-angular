@@ -3,23 +3,24 @@
   justify-content: center;
   align-items: flex-start;
   min-height: calc(100vh - 64px);
-  background-color: #f4f4f8;
+  background-color: #111827;
   padding: 2rem 1rem;
 }
 
 .form-card {
-  background: #fff;
+  background: #1e2740;
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   width: 100%;
   max-width: 560px;
+  border: 1px solid rgba(245, 197, 24, 0.1);
 }
 
 .form-card__title {
   margin: 0 0 1.5rem;
   font-size: 1.6rem;
-  color: #1a1a2e;
+  color: #fff;
   text-align: center;
   font-weight: 700;
 }
