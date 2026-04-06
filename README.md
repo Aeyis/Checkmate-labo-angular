@@ -55,8 +55,8 @@ Application web de gestion de tournois d'échecs développée avec **Angular 21*
 
 ```bash
 # Cloner le dépôt
-git clone https://github.com/Aeyis/checkmate-angular.git
-cd checkmate-angular/checkmate-angular
+git clone https://github.com/Aeyis/Checkmate-labo-angular.git
+cd Checkmate-labo-angular/checkmate-angular
 
 # Installer les dépendances
 npm install
