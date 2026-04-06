@@ -1,59 +1,112 @@
-# CheckmateAngular
+# ♟ Checkmate — Gestion de tournois d'échecs
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+Application web de gestion de tournois d'échecs développée avec **Angular 21**. Elle permet de créer et gérer des tournois, s'inscrire, suivre les matchs en direct et consulter les classements.
 
-## Development server
+---
 
-To start a local development server, run:
+## Fonctionnalités
+
+### Joueurs
+- Inscription et connexion (authentification JWT)
+- Profil personnalisé (username, email, ELO, genre, date de naissance)
+- Tableau de bord : tournois en cours, inscriptions, historique des parties
+- Inscription / désinscription aux tournois
+- Consultation des résultats et classements
+
+### Tournois
+- Liste avec trois statuts : **À venir**, **En cours**, **Terminés**
+- Carrousel automatique pour les tournois en direct
+- Filtres : Tous / Disponibles / Inscrits
+- Support des tournois féminins et restriction par plage ELO
+
+### Administration
+- Gestion des membres (création, suppression, liste)
+- Création et gestion des tournois (démarrage, rondes, suppression)
+- Saisie des résultats de matchs (victoire blancs / noirs / nul)
+- Accès restreint par rôle Admin
+
+---
+
+## Stack technique
+
+| Technologie | Version |
+|---|---|
+| Angular | 21 |
+| TypeScript | 5.9 |
+
+- Composants **standalone** (sans NgModule)
+- **Signals** pour la gestion d'état réactive (app zoneless)
+- **Reactive Forms** avec validateurs personnalisés
+- Guards de navigation (`isConnected`, `isNotConnected`, `admin`)
+- Intercepteurs HTTP (injection du token JWT, gestion des erreurs)
+- Routing **lazy-loadé** par feature
+
+---
+
+## Prérequis
+
+- [Node.js](https://nodejs.org/) ≥ 18
+- [Angular CLI](https://angular.io/cli) ≥ 17
+- API backend disponible sur `http://localhost:8080`
+
+---
+
+## Installation
 
 ```bash
+# Cloner le dépôt
+git clone https://github.com/Aeyis/checkmate-angular.git
+cd checkmate-angular/checkmate-angular
+
+# Installer les dépendances
+npm install
+
+# Lancer en développement
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+L'application sera disponible sur [http://localhost:4200](http://localhost:4200).
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Structure du projet
 
-```bash
-ng generate component component-name
+```
+src/
+├── app/
+│   ├── core/
+│   │   ├── guards/          # isConnected, isNotConnected, admin
+│   │   ├── interceptors/    # Injection JWT, gestion erreurs HTTP
+│   │   ├── models/          # Interfaces TypeScript
+│   │   ├── pipes/           # TournamentStatus
+│   │   ├── services/        # Auth, Tournament, Member, Match
+│   │   └── validators/      # StrongPassword
+│   ├── features/
+│   │   ├── auth/            # Login, Register
+│   │   ├── dashboard/       # Tableau de bord utilisateur
+│   │   ├── tournament/      # Liste et détail des tournois
+│   │   ├── profile/         # Profil et modification
+│   │   ├── admin/           # Gestion membres et tournois
+│   │   └── errors/          # Pages 403 et 404
+│   └── shared/
+│       ├── components/      # FormCard, Loading, MessageDisplay...
+│       ├── directives/      # SpotlightDirective
+│       └── layout/          # NavBar
+└── environments/            # Configuration API par environnement
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Rôles utilisateurs
 
-## Building
+| Rôle | Accès |
+|---|---|
+| Visiteur | Liste des tournois (lecture seule) |
+| Membre | Inscription aux tournois, profil, dashboard |
+| Admin | Gestion complète des tournois et membres |
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Auteur
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Développé par **Rafael** dans le cadre d'un laboratoire Angular chez TechniFutur.

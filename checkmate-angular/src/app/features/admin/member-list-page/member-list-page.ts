@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MemberService } from '@core/services/member.service';
 import { Member } from '@core/models/member.interface';
+import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 
 @Component({
   selector: 'app-member-list-page',
-  imports: [RouterLink],
+  imports: [RouterLink, SpotlightDirective],
   templateUrl: './member-list-page.html',
   styleUrl: './member-list-page.css',
 })

@@ -4,10 +4,11 @@ import { TournamentService } from '@core/services/tournament.service';
 import {Tournament, Match, PlayerScore} from '@core/models/tournament.interface';
 
 import { Loading } from '@shared/components/loading/loading';
+import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 
 @Component({
   selector: 'app-tournament-manage-page',
-  imports: [RouterLink, Loading],
+  imports: [RouterLink, Loading, SpotlightDirective],
   templateUrl: './tournament-manage-page.html',
   styleUrl: './tournament-manage-page.css',
 })

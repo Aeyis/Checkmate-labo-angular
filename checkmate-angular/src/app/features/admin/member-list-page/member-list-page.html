@@ -1,51 +1,53 @@
-<div class="admin-wrapper">
-  <div class="admin-header">
-    <h1>Membres</h1>
-    <a routerLink="/admin/members/create" class="btn-create">+ Nouveau membre</a>
+<div class="admin-page">
+
+  <div class="admin-hero">
+    <div class="admin-hero__content">
+      <span class="admin-hero__label">Administration</span>
+      <h1 class="admin-hero__title">Membres</h1>
+    </div>
+    <a routerLink="/admin/members/create" class="hero-btn">+ Nouveau membre</a>
+    <div class="admin-hero__deco">♞</div>
   </div>
 
-  @if (members().length === 0) {
-    <p>Aucun membre.</p>
-  } @else {
-    <table class="members-table">
-      <thead>
-      <tr>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Rôle</th>
-        <th>Elo</th>
-        <th>Tournois</th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (member of members(); track member.id) {
-          <tr>
-            <td>{{ member.username }}</td>
-            <td>{{ member.email }}</td>
-            <td>{{ member.role }}</td>
-            <td>{{ member.elo }}</td>
-            <td>
-              @if (member.tournaments && member.tournaments.length > 0) {
-                <button (click)="toggleMember(member.id)">
-                  {{ expandedMemberId() === member.id ? '▲' : '▼' }} {{ member.tournaments.length }} tournoi(s)
-                </button>
-                @if (expandedMemberId() === member.id) {
-                  <table class="sub-table">
-                    @for (t of member.tournaments; track t.id) {
-                      <tr><td>{{ t.name }}</td></tr>
-                    }
-                  </table>
+  <div class="admin-list">
+    @if (members().length === 0) {
+      <p class="no-results">Aucun membre.</p>
+    } @else {
+      @for (member of members(); track member.id) {
+        <div class="member-row" [class.member-row--open]="expandedMemberId() === member.id"
+             (click)="toggleMember(member.id)" appSpotlight>
+          <div class="member-row__left">
+            <span class="member-row__piece">{{ member.role === 'Admin' ? '♔' : '♟' }}</span>
+            <div class="member-row__info">
+              <span class="member-row__name">{{ member.username }}</span>
+              <span class="member-row__email">{{ member.email }}</span>
+            </div>
+          </div>
+          <div class="member-row__right">
+            <span class="member-row__elo">{{ member.elo }} ELO</span>
+            <span class="member-row__role">{{ member.role }}</span>
+            <span class="member-row__chevron">{{ expandedMemberId() === member.id ? '▲' : '▼' }}</span>
+          </div>
+        </div>
+        @if (expandedMemberId() === member.id) {
+          <div class="member-details">
+            @if (member.tournaments && member.tournaments.length > 0) {
+              <p class="member-details__label">Tournois ({{ member.tournaments.length }})</p>
+              <div class="member-details__tournaments">
+                @for (t of member.tournaments; track t.id) {
+                  <span class="t-tag">{{ t.name }}</span>
                 }
-              } @else {
-                Aucun
-              }
-            </td>
-            <td>
-              <button class="btn-delete-member" (click)="delete(member.id, member.username)">❌</button>
-            </td>
-          </tr>
+              </div>
+            } @else {
+              <p class="member-details__label">Aucun tournoi</p>
+            }
+            <button class="btn-delete-member" (click)="delete(member.id, member.username); $event.stopPropagation()">
+              Supprimer le membre
+            </button>
+          </div>
         }
-      </tbody>
-    </table>
-  }
+      }
+    }
+  </div>
+
 </div>

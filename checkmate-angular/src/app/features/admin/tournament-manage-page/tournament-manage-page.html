@@ -1,58 +1,94 @@
-<div class="admin-wrapper">
+<div class="manage-page">
   @if (tournament()) {
-    <div class="manage-card">
-      <h1>{{ tournament()!.name }}</h1>
-      <p><strong>Statut :</strong> {{ tournament()!.status }}</p>
-      <p><strong>Lieu :</strong> {{ tournament()!.location }}</p>
-      <p><strong>Joueurs inscrits :</strong> {{ tournament()!.nbrOfPlayers }}</p>
 
+    <!-- Hero -->
+    <div class="manage-hero">
+      <div class="manage-hero__content">
+        <span class="manage-hero__label">Gestion du tournoi</span>
+        <h1 class="manage-hero__title">{{ tournament()!.name }}</h1>
+        <div class="manage-hero__meta">
+          <span>📍 {{ tournament()!.location }}</span>
+          <span>👥 {{ tournament()!.nbrOfPlayers }} joueurs inscrits</span>
+        </div>
+      </div>
+      <div class="manage-hero__deco">♜</div>
+    </div>
+
+    <!-- Actions -->
+    <div class="manage-section">
+      <div class="section-label">Actions</div>
       <div class="actions">
-        @if (errorMessage()){
-        <p class="error">{{ errorMessage() }}</p>
+        @if (errorMessage()) {
+          <p class="error-msg">{{ errorMessage() }}</p>
         }
         @if (tournament()!.status === 'waiting') {
-          <button class="btn-start" (click)="start()">Démarrer</button>
+          <button class="btn-action btn-action--start" (click)="start()">▶ Démarrer le tournoi</button>
         }
         @if (tournament()!.status === 'started') {
-          <button class="btn-next" (click)="nextRound()">Round suivant</button>
+          <button class="btn-action btn-action--next" (click)="nextRound()">⏭ Round suivant</button>
         }
-        <button class="btn-delete" (click)="delete()">Supprimer</button>
+        <button class="btn-action btn-action--delete" (click)="delete()">✕ Supprimer</button>
       </div>
-
-      @if (tournament()!.players && tournament()!.players!.length > 0) {
-        <h2>Joueurs inscrits ({{ tournament()!.players!.length }} / {{ tournament()!.maxPlayers }})</h2>
-        <ul>
-          @for (player of tournament()!.players!; track player.id) {
-            <li>{{ player.username }}</li>
-          }
-        </ul>
-      }
-
-      @if (matches().length > 0) {
-        <h2>Matchs du round {{ tournament()!.currentRound }}</h2>
-        <ul class="match-list">
-          @for (match of matches(); track match.id) {
-            <li class="match-item">
-              <span>{{ match.whitePlayer.username }} vs {{ match.blackPlayer.username }}</span>
-              @if (!match.result) {
-                <a [routerLink]="['/admin/match', match.id]" class="btn-result">Saisir résultat</a>
-              } @else {
-                <span class="match-result">{{ match.result }}</span>
-              }
-            </li>
-          }
-        </ul>
-      }
-
-      @if (tournament()!.status === 'finished' && matches().length === 0 && scores().length > 0) {
-        <div class="winner">
-          <h2>Tournoi terminé !</h2>
-          <p>Vainqueur : {{ scores()[0].player.username }} avec {{ scores()[0].score }} pts</p>
-        </div>
-      }
-
-      <a routerLink="/admin/tournament" class="btn-back">Retour</a>
     </div>
+
+    <!-- Joueurs inscrits -->
+    @if (tournament()!.players && tournament()!.players!.length > 0) {
+      <div class="manage-section">
+        <div class="section-label">Joueurs inscrits ({{ tournament()!.players!.length }} / {{ tournament()!.maxPlayers }})</div>
+        <div class="players-grid">
+          @for (player of tournament()!.players!; track player.id) {
+            <div class="player-chip">
+              <span class="player-chip__piece">♟</span>
+              <span>{{ player.username }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Matchs -->
+    @if (matches().length > 0) {
+      <div class="manage-section">
+        <div class="section-label">Matchs — Ronde {{ tournament()!.currentRound }}</div>
+        <div class="match-list">
+          @for (match of matches(); track match.id) {
+            <div class="match-item" appSpotlight>
+              <div class="match-item__players">
+                <span class="match-item__player match-item__player--white">♔ {{ match.whitePlayer.username }}</span>
+                <span class="match-item__vs">vs</span>
+                <span class="match-item__player match-item__player--black">♚ {{ match.blackPlayer.username }}</span>
+              </div>
+              @if (!match.result) {
+                <a [routerLink]="['/admin/match', match.id]" class="btn-result">Saisir résultat →</a>
+              } @else {
+                <span class="result-badge">
+                  {{ match.result === 'white_win' ? '♔ Blancs gagnent' : match.result === 'black_win' ? '♚ Noirs gagnent' : '½ Nul' }}
+                </span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Vainqueur -->
+    @if (tournament()!.status === 'finished' && matches().length === 0 && scores().length > 0) {
+      <div class="manage-section">
+        <div class="section-label">Résultat final</div>
+        <div class="winner-card">
+          <span class="winner-card__trophy">♛</span>
+          <div>
+            <p class="winner-card__name">{{ scores()[0].player.username }}</p>
+            <p class="winner-card__score">{{ scores()[0].score }} pts</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="manage-footer">
+      <a routerLink="/admin/tournament" class="back-link">← Retour aux tournois</a>
+    </div>
+
   } @else {
     <app-loading />
   }

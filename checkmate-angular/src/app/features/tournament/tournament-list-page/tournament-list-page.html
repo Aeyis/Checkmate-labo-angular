@@ -5,7 +5,12 @@
     <!-- grande fenetre principal -->
     <div class="hero-slide">
       <div class="hero-content">
-        <span class="t-badge t-badge--live">EN COURS</span>
+        <div class="hero-badges">
+          <span class="t-badge t-badge--live">EN COURS</span>
+          @if (startedTournaments()[currentLiveIndex()].womenOnly) {
+            <span class="t-badge t-badge--women">♀ Féminin</span>
+          }
+        </div>
         <h2 class="hero-title">{{ startedTournaments()[currentLiveIndex()].name }}</h2>
         <div class="hero-meta">
           <span>📍 {{ startedTournaments()[currentLiveIndex()].location }}</span>
@@ -75,11 +80,16 @@
             <span class="news-card__piece">{{ tournament.isRegistered ? '♔' : '♟' }}</span>
           </div>
           <div class="news-card__body">
-            @if (tournament.isRegistered) {
-              <span class="news-card__badge news-card__badge--registered">Inscrit</span>
-            } @else {
-              <span class="news-card__badge news-card__badge--open">Inscription ouverte</span>
-            }
+            <div class="news-card__badges">
+              @if (tournament.isRegistered) {
+                <span class="news-card__badge news-card__badge--registered">Inscrit</span>
+              } @else {
+                <span class="news-card__badge news-card__badge--open">Inscription ouverte</span>
+              }
+              @if (tournament.womenOnly) {
+                <span class="news-card__badge news-card__badge--women">♀ Féminin</span>
+              }
+            </div>
             <p class="news-card__elo">{{ tournament.minElo }} – {{ tournament.maxElo }} ELO</p>
             <h3 class="news-card__title">{{ tournament.name }}</h3>
             <p class="news-card__meta">📍 {{ tournament.location }}</p>

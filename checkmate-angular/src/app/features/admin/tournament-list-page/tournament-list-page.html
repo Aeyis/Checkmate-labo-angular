@@ -1,35 +1,44 @@
-<div class="admin-wrapper">
-  <div class="admin-header">
-    <h1>Tournois</h1>
-    <a routerLink="/admin/tournament/create" class="btn-create">+ Nouveau tournoi</a>
+<div class="admin-page">
+
+  <div class="admin-hero">
+    <div class="admin-hero__content">
+      <span class="admin-hero__label">Administration</span>
+      <h1 class="admin-hero__title">Tournois</h1>
+    </div>
+    <a routerLink="/admin/tournament/create" class="hero-btn">+ Nouveau tournoi</a>
+    <div class="admin-hero__deco">♜</div>
   </div>
 
-  @if (tournaments().length === 0) {
-    <p>Aucun tournoi.</p>
-  } @else {
-    <table class="tournaments-table">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Lieu</th>
-          <th>Statut</th>
-          <th>Elo</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (tournament of tournaments(); track tournament.id) {
-          <tr>
-            <td>{{ tournament.name }}</td>
-            <td>{{ tournament.location }}</td>
-            <td>{{ tournament.status }}</td>
-            <td>{{ tournament.minElo }} - {{ tournament.maxElo }}</td>
-            <td>
-              <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage">Gérer</a>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  }
+  <div class="admin-list">
+    @if (tournaments().length === 0) {
+      <p class="no-results">Aucun tournoi.</p>
+    } @else {
+      @for (tournament of tournaments(); track tournament.id) {
+        <div class="tournament-row" appSpotlight>
+          <div class="tournament-row__left">
+            <span class="tournament-row__piece">
+              @if (tournament.status === 'started') { ♞ }
+              @else if (tournament.status === 'finished') { ♚ }
+              @else { ♟ }
+            </span>
+            <div class="tournament-row__info">
+              <span class="tournament-row__name">{{ tournament.name }}</span>
+              <span class="tournament-row__loc">📍 {{ tournament.location }}</span>
+            </div>
+          </div>
+          <div class="tournament-row__right">
+            <span class="tournament-row__elo">{{ tournament.minElo }} – {{ tournament.maxElo }} ELO</span>
+            <span class="status-badge"
+              [class.status-badge--started]="tournament.status === 'started'"
+              [class.status-badge--finished]="tournament.status === 'finished'"
+              [class.status-badge--waiting]="tournament.status === 'waiting'">
+              {{ tournament.status === 'started' ? 'En cours' : tournament.status === 'finished' ? 'Terminé' : 'À venir' }}
+            </span>
+            <a [routerLink]="['/admin/tournament', tournament.id]" class="btn-manage" (click)="$event.stopPropagation()">Gérer →</a>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
 </div>

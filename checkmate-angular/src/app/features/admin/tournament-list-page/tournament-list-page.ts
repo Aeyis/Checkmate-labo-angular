@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TournamentService } from '@core/services/tournament.service';
 import { Tournament } from '@core/models/tournament.interface';
+import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 
 @Component({
   selector: 'app-tournament-list-page',
-  imports: [RouterLink],
+  imports: [RouterLink, SpotlightDirective],
   templateUrl: './tournament-list-page.html',
   styleUrl: './tournament-list-page.css',
 })

@@ -294,6 +294,19 @@ h1 {
   border: 1px solid rgba(224, 92, 92, 0.35);
 }
 
+.t-badge--women {
+  background: rgba(236, 72, 153, 0.15);
+  color: #ec4899;
+  border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.hero-badges {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .t-badge--live::before {
   content: '';
   width: 6px;
@@ -524,6 +537,19 @@ h1 {
 .news-card__badge--open {
   background: #f97316;
   color: #fff;
+}
+
+.news-card__badge--women {
+  background: rgba(236, 72, 153, 0.15);
+  color: #ec4899;
+  border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.news-card__badges {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
 }
 
 .news-card__body {
