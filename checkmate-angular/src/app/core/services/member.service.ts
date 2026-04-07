@@ -19,7 +19,7 @@ export class MemberService {
   updateMember(data: updateMember): Promise<Member> {
     return firstValueFrom(this._httpClient.put<Member>(this._apiURL + 'member/me', data));
   }
-  getAll(): Promise<Member[]> {
+ getAll(): Promise<Member[]> {
     return firstValueFrom(this._httpClient.get<{data: Member[] }>(this._apiURL + 'member'))
       .then(res => res.data);
   }
