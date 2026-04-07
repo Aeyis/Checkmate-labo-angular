@@ -38,6 +38,7 @@ export class TournamentCreatePage {
 
   formStatus = toSignal(this.form.statusChanges, { initialValue: this.form.status });
   isInvalid = computed(() => this.formStatus() === 'INVALID');
+  imageFile: File | null = null;
 
   onCategoryChange(id: number, checked: boolean): void {
     const current = this.form.value.categories as number[];
@@ -50,7 +51,18 @@ export class TournamentCreatePage {
 
   async onSubmit(): Promise<void> {
     if (this.form.invalid) return;
-    await this._tournamentService.create(this.form.value as CreateTournament);
+    const tournament = await this._tournamentService.create(this.form.value as CreateTournament);
+    if (this.imageFile) {
+      await this._tournamentService.uploadImage(tournament.id, this.imageFile);
+    }
     await this._router.navigate(['/admin/tournament']);
+  }
+
+
+  onImageChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.imageFile = input.files[0];
+    }
   }
 }

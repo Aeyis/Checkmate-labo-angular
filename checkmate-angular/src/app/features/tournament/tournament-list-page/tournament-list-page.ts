@@ -5,6 +5,7 @@ import { TournamentService } from '@core/services/tournament.service';
 import { Tournament } from '@core/models/tournament.interface';
 import { AuthService } from '@core/services/auth.service';
 import { SpotlightDirective } from '@shared/directives/spotlight.directive';
+import { environment } from '@env';
 
 const SLIDE_INTERVAL_MS = 5000;
 
@@ -25,6 +26,7 @@ export class TournamentListPage implements OnInit, OnDestroy {
   visibleFinishedCount = signal(5);
   currentLiveIndex = signal<number>(0);
   progressKey = signal<number>(0);
+  readonly apiUrl = environment.apiURL.replace(/\/$/, '');
   isAdmin = this._authService.isAdmin;
   isConnected = this._authService.isConnected;
   errorMessages = signal<Record<number, string>>({});
