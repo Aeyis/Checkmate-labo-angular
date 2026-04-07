@@ -36,6 +36,6 @@
       <app-forms-error-display [control]="gender" name="Genre" />
     </div>
     <app-message-display [error]="errorMessage" />
-    <button class="btn-submit" type="submit">Créer</button>
+    <button class="btn-submit" type="submit" [disabled]="isInvalid()">Créer</button>
   </form>
 </app-form-card>

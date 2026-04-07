@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MemberService } from '@core/services/member.service';
@@ -24,6 +25,8 @@ export class MemberCreatePage {
   gender = new FormControl('', [Validators.required]);
 
   form = new FormGroup({ username: this.username, email: this.email, password: this.password, birthdate: this.birthdate, gender: this.gender });
+  formStatus = toSignal(this.form.statusChanges, { initialValue: this.form.status });
+  isInvalid = computed(() => this.formStatus() === 'INVALID');
 
   errorMessage: string = '';
 

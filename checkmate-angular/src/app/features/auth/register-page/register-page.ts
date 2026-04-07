@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import {Router, RouterLink} from '@angular/router';
@@ -7,6 +7,7 @@ import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-
 import { PasswordRules } from '@shared/components/password-rules/password-rules';
 import { FormCard } from '@shared/components/form-card/form-card';
 import { MessageDisplay } from '@shared/components/message-display/message-display';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-register-page',
@@ -26,6 +27,8 @@ export class RegisterPage {
   elo = new FormControl('', [Validators.required]);
 
   form = new FormGroup({ username: this.username, email: this.email, password: this.password, gender: this.gender, birthDate: this.birthDate, elo: this.elo });
+  formStatus = toSignal(this.form.statusChanges, { initialValue: this.form.status });
+  isInvalid = computed(() => this.formStatus() === 'INVALID');
   showPasswordRules = signal(false);
   errorMessage: string = '';
 

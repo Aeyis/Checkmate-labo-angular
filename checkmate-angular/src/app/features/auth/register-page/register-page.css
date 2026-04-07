@@ -128,3 +128,10 @@
 .login-link a:hover {
   opacity: 0.85;
 }
+
+.btn-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
