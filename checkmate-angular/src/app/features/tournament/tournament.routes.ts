@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
+import {TournamentListPage} from '@features/tournament/tournament-list-page/tournament-list-page';
 
 export const TOURNAMENT_ROUTES: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./tournament-list-page/tournament-list-page').then((m) => m.TournamentListPage),
+    component: TournamentListPage,
   },
   {
     path: ':id',

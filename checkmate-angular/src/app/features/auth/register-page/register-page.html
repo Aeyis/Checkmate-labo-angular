@@ -59,7 +59,7 @@
 
       <app-message-display [error]="errorMessage" />
 
-      <button class="btn-submit" type="submit">S'inscrire</button>
+      <button class="btn-submit" type="submit" [disabled]="isInvalid()">S'inscrire</button>
 
       <p class="login-link">Déjà un compte ? <a routerLink="/auth/login">Se connecter</a></p>
 

@@ -38,11 +38,11 @@
       @for (category of categories; track category.id) {
         <label class="checkbox-label">
           <input type="checkbox"
-                 (change)="onCategoryChange(category.id, $event.target.checked)" />
+                 (change)="onCategoryChange(category.id, $any($event.target).checked)" />
           {{ category.name }}
         </label>
       }
     </div>
-    <button class="btn-submit" type="submit">Créer</button>
+    <button class="btn-submit" type="submit" [disabled]="isInvalid()">Créer</button>
   </form>
 </app-form-card>

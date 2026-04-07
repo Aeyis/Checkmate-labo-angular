@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CreateTournament } from '@core/models/tournament.interface';
@@ -31,9 +32,12 @@ export class TournamentCreatePage {
     minElo: [0],
     maxElo: [3000],
     womenOnly: [false],
-    endRegistrationDate: ['', Validators.required],
+    endRegistrationDate: [new Date().toISOString().split('T')[0], Validators.required],
     categories: [[] as number[], Validators.required],
   });
+
+  formStatus = toSignal(this.form.statusChanges, { initialValue: this.form.status });
+  isInvalid = computed(() => this.formStatus() === 'INVALID');
 
   onCategoryChange(id: number, checked: boolean): void {
     const current = this.form.value.categories as number[];

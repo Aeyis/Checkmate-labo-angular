@@ -17,7 +17,13 @@
         <app-forms-error-display [control]="password" name="Mot de passe" />
       </div>
       <app-message-display [error]="errorMessage" />
-      <button class="btn-submit" type="submit">Se connecter</button>
+      <button class="btn-submit" type="submit" [disabled]="isInvalid() || isLoading()">
+        @if (isLoading()) {
+          <span class="loader"></span>
+        } @else {
+          Se connecter
+        }
+      </button>
       <p class="register-link">Pas encore de compte ? <a routerLink="/auth/register">S'inscrire</a></p>
     </form>
   </app-form-card>

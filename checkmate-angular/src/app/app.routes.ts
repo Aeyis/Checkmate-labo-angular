@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { isConnectedGuard } from '@core/guards/isConnected.guard';
 import { adminGuard } from '@core/guards/admin.guard';
+import {isNotConnectedGuard} from '@core/guards/isNotConnected.guard';
+import {TOURNAMENT_ROUTES} from '@features/tournament/tournament.routes';
 
 export const routes: Routes = [
   {
@@ -12,11 +14,11 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('@features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+    canActivate: [isNotConnectedGuard],
   },
   {
     path: 'tournament',
-    loadChildren: () =>
-      import('@features/tournament/tournament.routes').then((m) => m.TOURNAMENT_ROUTES),
+    children: TOURNAMENT_ROUTES,
   },
   {
     path: 'dashboard',
@@ -31,7 +33,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [isConnectedGuard, adminGuard],
+    canActivate: [adminGuard],
     loadChildren: () =>
       import('@features/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
   },
