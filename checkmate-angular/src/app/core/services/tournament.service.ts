@@ -53,12 +53,17 @@ export class TournamentService {
     return firstValueFrom(
       this._httpClient.get<{ data: PlayerScore[] }>(this._apiURL + 'tournament/' + id + '/scores')
     ).then(res => res.data);
-  }
+  };
 
+  uploadImage(id: number,file:File): Promise<void> {
+    const formData = new FormData();
+    formData.append('image', file);
+    return firstValueFrom(this._httpClient.patch<void>(`${this._apiURL}tournament/${id}/image`, formData));
+  }
 
   getCurrentMatches(id: number): Promise<Match[]> {
     return firstValueFrom(
       this._httpClient.get<RoundMatches>(this._apiURL + 'tournament/' + id + '/match/current')
     ).then(res => res.data.matches);
-  }
+  };
 }
