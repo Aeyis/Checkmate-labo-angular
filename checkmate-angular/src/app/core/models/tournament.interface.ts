@@ -15,6 +15,7 @@ export interface Tournament {
   isRegistered: boolean;
   canRegister: boolean;
   players?: MatchPlayer[];
+  image?: string;
 }
 export interface TournamentList{
   data: Tournament[];
@@ -35,6 +36,7 @@ export interface CreateTournament {
   womenOnly?: boolean;
   endRegistrationDate: string;
   categories: number[];
+  image?: string;
 }
 
 export interface PlayerScore {
