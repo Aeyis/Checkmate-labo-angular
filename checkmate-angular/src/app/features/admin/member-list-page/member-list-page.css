@@ -225,3 +225,8 @@
   background: #e05c5c;
   color: #fff;
 }
+
+.error-message {
+  color: #e05c5c;
+  font-size: 0.9rem;
+}

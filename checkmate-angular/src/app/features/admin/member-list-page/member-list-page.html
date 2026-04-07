@@ -8,7 +8,9 @@
     <a routerLink="/admin/members/create" class="hero-btn">+ Nouveau membre</a>
     <div class="admin-hero__deco">♞</div>
   </div>
-
+  @if (errorMessage()) {
+    <p class="error-message">{{ errorMessage() }}</p>
+  }
   <div class="admin-list">
     @if (members().length === 0) {
       <p class="no-results">Aucun membre.</p>
