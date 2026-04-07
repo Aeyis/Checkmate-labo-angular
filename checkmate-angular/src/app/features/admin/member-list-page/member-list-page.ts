@@ -15,6 +15,7 @@ export class MemberListPage implements OnInit {
 
   members = signal<Member[]>([]);
   expandedMemberId = signal<number | null>(null);
+  errorMessage = signal('');
 
   async ngOnInit(): Promise<void> {
     this.members.set(await this._memberService.getAll());
@@ -23,9 +24,14 @@ export class MemberListPage implements OnInit {
   async delete(id: number, username: string): Promise<void> {
     const confirmed = confirm(`Supprimer le membre ${username} ?`);
     if (!confirmed) return;
-    await this._memberService.delete(id);
-    this.members.set(this.members().filter( m => m.id !== id));
+    try {
+      await this._memberService.delete(id);
+      this.members.set(this.members().filter(m => m.id !== id));
+    } catch {
+      this.errorMessage.set(`Impossible de supprimer le membre ${username}.`);
+    }
   }
+
 
   toggleMember(id: number): void {
     this.expandedMemberId.set(this.expandedMemberId() === id ? null : id);
