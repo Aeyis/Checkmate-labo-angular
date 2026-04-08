@@ -273,3 +273,8 @@
 .back-link:hover {
   color: #FFD700;
 }
+.success-msg {
+  color: #4ade80;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}

@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TournamentService } from '@core/services/tournament.service';
 import {Tournament, Match, PlayerScore} from '@core/models/tournament.interface';
-
+import { environment } from '@env';
 import { Loading } from '@shared/components/loading/loading';
 import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 
@@ -21,6 +21,26 @@ export class TournamentManagePage implements OnInit {
   matches = signal<Match[]>([]);
   scores = signal<PlayerScore[]>([]);
   errorMessage = signal<string>('');
+  readonly apiUrl = environment.apiURL.replace(/\/$/, '');
+  imageFile = signal<File | null>(null);
+  uploadSuccess = signal(false);
+
+  onImageChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.imageFile.set(input.files[0]);
+    }
+  }
+
+  async uploadImage(): Promise<void> {
+    if (!this.imageFile()) return;
+    const id = this.tournament()!.id;
+    await this._tournamentService.uploadImage(id, this.imageFile()!);
+    this.tournament.set(await this._tournamentService.getById(id));
+    this.imageFile.set(null);
+    this.uploadSuccess.set(true);
+    setTimeout(() => this.uploadSuccess.set(false), 3000);
+  }
 
   async ngOnInit(): Promise<void> {
     const id = +this._route.snapshot.params['id'];

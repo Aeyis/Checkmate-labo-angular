@@ -1,12 +1,174 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* ── Design tokens ── */
+:root {
+  --glass-white: rgba(255, 255, 255, 0.08);
+  --glass-white-md: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-border-bright: rgba(255, 255, 255, 0.28);
+  --blur-md: blur(18px);
+  --blur-lg: blur(32px);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --shadow-float: 0 20px 60px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.25);
+  --reflection-top: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 50%);
+  --ease-liquid: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-glass: cubic-bezier(0.22, 0.68, 0, 1.2);
+}
+
 body {
-  background-color: #111827;
+  background-color: #0f172a;
   color: #f0f0f0;
   margin: 0;
   font-family: system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 .main-content {
   padding-top: 64px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ── Scène de fond (blobs animés) ── */
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scene__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25;
+  animation: blob-drift var(--dur, 18s) ease-in-out infinite alternate;
+}
+
+.scene__blob--1 {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, #3b82f6, #1e3a8a);
+  top: -200px;
+  left: -150px;
+  --dur: 22s;
+}
+
+.scene__blob--2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #7c3aed, #4f46e5);
+  bottom: -200px;
+  right: -100px;
+  --dur: 17s;
+  animation-delay: -8s;
+}
+
+.scene__blob--3 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #ffd700, #f59e0b);
+  top: 45%;
+  left: 48%;
+  --dur: 25s;
+  animation-delay: -13s;
+  opacity: 0.25;
+}
+
+@keyframes blob-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(55px, -35px) scale(1.07); }
+  66%  { transform: translate(-35px, 55px) scale(0.94); }
+  100% { transform: translate(25px, 25px) scale(1.03); }
+}
+
+/* ── Utilitaire glass ── */
+.glass {
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  background: var(--glass-white);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--reflection-top);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* ── Neumorphic buttons (dark theme — fond #0f172a) ── */
+.btn-neo {
+  background: #0f172a;
+  border: none;
+  border-radius: 14px;
+  padding: 0.75rem 1.75rem;
+  color: #cbd5e1;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: box-shadow 0.2s ease, transform 0.1s ease, color 0.2s;
+  box-shadow:
+    -6px -6px 14px rgba(30, 55, 100, 0.55),
+     6px  6px 14px rgba(0,   0,   0, 0.65);
+}
+
+.btn-neo:hover {
+  color: #f1f5f9;
+  box-shadow:
+    -9px -9px 20px rgba(30, 55, 100, 0.65),
+     9px  9px 20px rgba(0,   0,   0, 0.75);
+}
+
+.btn-neo:active {
+  transform: scale(0.97);
+  box-shadow:
+    -6px -6px 14px rgba(30, 55, 100, 0.55),
+     6px  6px 14px rgba(0,   0,   0, 0.65),
+    inset -4px -4px 10px rgba(30, 55, 100, 0.45),
+    inset  4px  4px 10px rgba(0,   0,   0, 0.55);
+}
+
+.btn-neo--primary {
+  color: #ffd700;
+}
+.btn-neo--primary:hover {
+  color: #ffe44d;
+}
+
+.btn-neo--sm {
+  padding: 0.5rem 1.1rem;
+  font-size: 0.8rem;
+  border-radius: 10px;
+}
+
+.btn-neo--lg {
+  padding: 1rem 2.25rem;
+  font-size: 1rem;
+  border-radius: 18px;
+}
+
+.btn-neo--round {
+  border-radius: 9999px;
+}
+
+.btn-neo--icon {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.1rem;
 }
