@@ -31,6 +31,21 @@
       </div>
     </div>
 
+    <!-- Image de fond -->
+    <div class="manage-section">
+      <div class="section-label">Image de fond</div>
+      @if (tournament()!.image) {
+        <img [src]="apiUrl + tournament()!.image" alt="Image du tournoi" class="tournament-preview-img" />
+      }
+      <div class="image-upload">
+        <input type="file" accept="image/*" (change)="onImageChange($event)" />
+        <button class="btn-action btn-action--start" (click)="uploadImage()" [disabled]="imageFile() === null">Enregistrer l'image</button>
+        @if (uploadSuccess()) {
+          <p class="success-msg">Image enregistrée ✓</p>
+        }
+      </div>
+    </div>
+
     <!-- Joueurs inscrits -->
     @if (tournament()!.players && tournament()!.players!.length > 0) {
       <div class="manage-section">
