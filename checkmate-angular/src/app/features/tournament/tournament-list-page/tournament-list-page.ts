@@ -25,15 +25,14 @@ export class TournamentListPage implements OnInit, OnDestroy {
   expandedTournamentId = signal<number | null>(null);
   visibleFinishedCount = signal(5);
   currentLiveIndex = signal<number>(0);
-  progressKey = signal<number>(0);
+  progressPercent = signal(0);
   readonly apiUrl = environment.apiURL.replace(/\/$/, '');
   isAdmin = this._authService.isAdmin;
   isConnected = this._authService.isConnected;
   errorMessages = signal<Record<number, string>>({});
 
-  progressAnim = computed(() =>
-    this.progressKey() % 2 === 0 ? 'slideProgress' : 'slideProgressAlt'
-  );
+  private _elapsed = 0;
+  private _lastTick = 0;
 
   activeFilter = signal<'all' | 'available' | 'registered'>('all');
   waitingPage = signal(0);
@@ -92,20 +91,40 @@ export class TournamentListPage implements OnInit, OnDestroy {
   }
 
   goToLive(index: number): void {
+    this._elapsed = 0;
+    this.progressPercent.set(0);
     this.currentLiveIndex.set(index);
-    this.progressKey.update(k => k + 1);
+    this._startTimer();
+  }
+
+  pauseCarousel(): void {
+    this._clearTimer();
+  }
+
+  resumeCarousel(): void {
     this._startTimer();
   }
 
   private _nextLive(): void {
+    this._elapsed = 0;
+    this.progressPercent.set(0);
     const next = (this.currentLiveIndex() + 1) % this.startedTournaments().length;
     this.currentLiveIndex.set(next);
-    this.progressKey.update(k => k + 1);
   }
 
   private _startTimer(): void {
     this._clearTimer();
-    this._timer = setInterval(() => this._nextLive(), SLIDE_INTERVAL_MS);
+    this._lastTick = Date.now();
+    this._timer = setInterval(() => {
+      const now = Date.now();
+      this._elapsed += now - this._lastTick;
+      this._lastTick = now;
+      this.progressPercent.set(Math.min((this._elapsed / SLIDE_INTERVAL_MS) * 100, 100));
+      if (this._elapsed >= SLIDE_INTERVAL_MS) {
+        this._elapsed = 0;
+        this._nextLive();
+      }
+    }, 50);
   }
 
   private _clearTimer(): void {

@@ -24,16 +24,11 @@
         }
       </div>
       <div class="hero-deco">♞</div>
-      @if (startedTournaments().length > 1) {
-        <div class="hero-progress">
-          <div class="hero-progress-bar" [style.animation-name]="progressAnim()"></div>
-        </div>
-      }
     </div>
 
     <!-- Miniatures -->
     @if (startedTournaments().length > 1) {
-      <div class="hero-thumbs">
+      <div class="hero-thumbs" (mouseenter)="pauseCarousel()" (mouseleave)="resumeCarousel()">
         @for (tournament of startedTournaments(); track tournament.id; let i = $index) {
           <button
             class="hero-thumb"
@@ -41,9 +36,19 @@
             (click)="goToLive(i)"
             appSpotlight
           >
-            <span class="hero-thumb__round">Ronde {{ tournament.currentRound }}</span>
-            <span class="hero-thumb__name">{{ tournament.name }}</span>
-            <span class="hero-thumb__loc">📍 {{ tournament.location }}</span>
+            <div class="hero-thumb__content">
+              <span class="hero-thumb__round">Ronde {{ tournament.currentRound }}</span>
+              <span class="hero-thumb__name">{{ tournament.name }}</span>
+              <span class="hero-thumb__loc">📍 {{ tournament.location }}</span>
+              <div class="hero-thumb__progress">
+                <div class="hero-thumb__progress-bar"
+                     [style.width.%]="i === currentLiveIndex() ? progressPercent() : 0">
+                </div>
+              </div>
+            </div>
+            @if (tournament.image) {
+              <div class="hero-thumb__img" [style.backgroundImage]="'url(' + apiUrl + tournament.image + ')'"></div>
+            }
           </button>
         }
       </div>
@@ -76,7 +81,7 @@
     <div class="waiting-cards" [class.dir-next]="waitingDirection() === 'next'" [class.dir-prev]="waitingDirection() === 'prev'">
       @for (tournament of currentPageTournaments(); track tournament.id) {
         <div class="news-card" [class.news-card--registered]="tournament.isRegistered" appSpotlight>
-          <div class="news-card__visual" [style.backgroundImage]="tournament.image ? 'url(' + apiUrl + tournament.image + ')' : ''" [style.backgroundSize]="'cover'" [style.backgroundPosition]="'center'">
+          <div class="news-card__visual" [class.has-image]="tournament.image" [style.backgroundImage]="tournament.image ? 'url(' + apiUrl + tournament.image + ')' : ''">
             @if (!tournament.image) {
               <span class="news-card__piece">{{ tournament.isRegistered ? '♔' : '♟' }}</span>
             }
