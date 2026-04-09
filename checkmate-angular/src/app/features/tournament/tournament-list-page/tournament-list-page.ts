@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { TournamentService } from '@core/services/tournament.service';
 import { Tournament } from '@core/models/tournament.interface';
 import { AuthService } from '@core/services/auth.service';
+import { LoadingService } from '@core/services/loading.service';
 import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 import { environment } from '@env';
 
@@ -18,6 +19,7 @@ const SLIDE_INTERVAL_MS = 5000;
 export class TournamentListPage implements OnInit, OnDestroy {
   private readonly _tournamentService = inject(TournamentService);
   private readonly _authService = inject(AuthService);
+  private readonly _loadingService = inject(LoadingService);
 
   startedTournaments = signal<Tournament[]>([]);
   waitingTournaments = signal<Tournament[]>([]);
@@ -77,13 +79,33 @@ export class TournamentListPage implements OnInit, OnDestroy {
   private _timer: ReturnType<typeof setInterval> | null = null;
 
   async ngOnInit(): Promise<void> {
-    const result = await this._tournamentService.getAll();
-    this.startedTournaments.set(result.data.filter(t => t.status === 'started'));
-    this.waitingTournaments.set(result.data.filter(t => t.status === 'waiting'));
-    this.finishedTournaments.set(result.data.filter(t => t.status === 'finished'));
-    if (this.startedTournaments().length > 1) {
-      this._startTimer();
+    this._loadingService.show();
+    try {
+      const result = await this._tournamentService.getAll();
+      const started = result.data.filter(t => t.status === 'started');
+      const waiting = result.data.filter(t => t.status === 'waiting');
+      const finished = result.data.filter(t => t.status === 'finished');
+      await this._preloadImages([...started, ...waiting, ...finished]);
+      this.startedTournaments.set(started);
+      this.waitingTournaments.set(waiting);
+      this.finishedTournaments.set(finished);
+      if (started.length > 1) this._startTimer();
+    } finally {
+      this._loadingService.hide();
     }
+  }
+
+  private _preloadImages(tournaments: Tournament[]): Promise<void> {
+    const urls = tournaments
+      .filter(t => t.image)
+      .map(t => `${this.apiUrl}${t.image}`);
+    return Promise.all(
+      urls.map(url => {
+        const img = new Image();
+        img.src = url;
+        return img.decode().catch(() => {});
+      })
+    ).then(() => undefined);
   }
 
   ngOnDestroy(): void {
