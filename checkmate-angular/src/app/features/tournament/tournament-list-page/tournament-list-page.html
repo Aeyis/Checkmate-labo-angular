@@ -81,8 +81,10 @@
     <div class="waiting-cards" [class.dir-next]="waitingDirection() === 'next'" [class.dir-prev]="waitingDirection() === 'prev'">
       @for (tournament of currentPageTournaments(); track tournament.id) {
         <div class="news-card" [class.news-card--registered]="tournament.isRegistered" appSpotlight>
-          <div class="news-card__visual" [class.has-image]="tournament.image" [style.backgroundImage]="tournament.image ? 'url(' + apiUrl + tournament.image + ')' : ''">
-            @if (!tournament.image) {
+          <div class="news-card__visual" [class.has-image]="tournament.image">
+            @if (tournament.image) {
+              <img class="news-card__visual-img" [src]="apiUrl + tournament.image" [alt]="tournament.name">
+            } @else {
               <span class="news-card__piece">{{ tournament.isRegistered ? '♔' : '♟' }}</span>
             }
           </div>

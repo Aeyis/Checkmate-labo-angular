@@ -3,9 +3,14 @@
   <div class="scene__blob scene__blob--2"></div>
   <div class="scene__blob scene__blob--3"></div>
 </div>
+
 @if (!isAuthPage()) {
   <app-nav-bar />
 }
 <div [class.main-content]="!isAuthPage()">
   <router-outlet />
 </div>
+
+@if (loadingService.isLoading()) {
+  <app-loading />
+}
