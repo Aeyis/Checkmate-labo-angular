@@ -8,7 +8,7 @@ import { LoadingService } from '@core/services/loading.service';
 import { SpotlightDirective } from '@shared/directives/spotlight.directive';
 import { environment } from '@env';
 
-const SLIDE_INTERVAL_MS = 5000;
+const SLIDE_INTERVAL_MS = 6000;
 
 @Component({
   selector: 'app-tournament-list-page',

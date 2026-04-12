@@ -9,6 +9,7 @@ import {TournamentStatusPipe} from '@core/pipes/tournament-status-pipe';
 import { Loading } from '@shared/components/loading/loading';
 import {MatchService} from '@core/services/match.service';
 import { SpotlightDirective } from '@shared/directives/spotlight.directive';
+import { environment } from '@env';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -32,6 +33,7 @@ export class DashboardPage implements OnInit {
   myMatches = signal<MyMatch[]>([]);
   visibleMatchCount = signal(5);
   myStartedTournaments = signal<Tournament[]>([]);
+  readonly apiUrl = environment.apiURL.replace(/\/$/, '');
 
   async ngOnInit(): Promise<void> {
     const result = await this._tournamentService.getAll();
