@@ -109,7 +109,7 @@ src/
 │   │   ├── admin/           # Gestion membres et tournois
 │   │   └── errors/          # Pages 403 et 404
 │   └── shared/
-│       ├── components/      # FormCard, Loading, MessageDisplay...
+│       ├── components/      # FormCard, Loading, MessageDisplay, FormsErrorDisplay, PasswordRules
 │       ├── directives/      # SpotlightDirective
 │       └── layout/          # NavBar
 └── environments/            # Configuration API par environnement
