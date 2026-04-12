@@ -67,7 +67,7 @@ Application web de gestion de tournois d'échecs développée avec **Angular 21*
 
 - [Node.js](https://nodejs.org/) ≥ 18
 - [Angular CLI](https://angular.io/cli) ≥ 17
-- API backend disponible sur `http://localhost:8080`
+- API backend disponible sur `http://localhost:8080` — [Checkmate API](https://github.com/Aeyis/Checkmate-api-Labo)
 
 ---
 
