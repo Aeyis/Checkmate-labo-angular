@@ -207,21 +207,6 @@ h1 {
 .hero-thumb:hover .hero-thumb__img{
   background-size: 140% ;
 }
-.hero-thumb__progress {
-  width: 100%;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  margin-top: auto;
-  overflow: hidden;
-}
-
-.hero-thumb__progress-bar {
-  height: 100%;
-  background: #FFD700;
-  width: 0%;
-  transition: width 0.05s linear;
-}
 
 
 
@@ -230,10 +215,14 @@ h1 {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 2px;
-  background: transparent;
-  transition: background 0.2s;
+  bottom: 0;
+  width: var(--progress, 0%);
+  background: linear-gradient(to right, rgba(255, 215, 0, 0.05) 0%, rgba(255, 215, 0, 0.15) 100%);
+  border-right: 2px solid rgba(255, 215, 0, 0.7);
+  box-shadow: 2px 0 12px rgba(255, 215, 0, 0.4);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hero-thumb::after {
@@ -256,9 +245,6 @@ h1 {
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.15), var(--shadow-glass);
 }
 
-.hero-thumb--active::before {
-  background: #FFD700;
-}
 
 .hero-thumb:hover:not(.hero-thumb--active) {
   background: rgba(255, 255, 255, 0.1);
@@ -462,9 +448,7 @@ h1 {
 /* ── CARTE NEWS ── */
 .news-card {
   width: 100%;
-  backdrop-filter: var(--blur-md);
-  -webkit-backdrop-filter: var(--blur-md);
-  background: rgba(255, 255, 255, 0.06);
+  background: #1b2338;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: var(--shadow-glass);
   border-radius: 14px;

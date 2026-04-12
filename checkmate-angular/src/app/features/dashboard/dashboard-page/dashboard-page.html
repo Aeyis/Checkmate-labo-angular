@@ -43,7 +43,13 @@
           </div>
           <a [routerLink]="['/tournament', myStartedTournaments()[currentLiveIndex()].id]" class="hero-btn">Jouer →</a>
         </div>
-        <div class="live-hero__deco">♞</div>
+        @if (myStartedTournaments()[currentLiveIndex()].image) {
+          <div class="live-hero__img-wrap">
+            <img class="live-hero__img" [src]="apiUrl + myStartedTournaments()[currentLiveIndex()].image" [alt]="myStartedTournaments()[currentLiveIndex()].name">
+          </div>
+        } @else {
+          <div class="live-hero__deco">♞</div>
+        }
         @if (myStartedTournaments().length > 1) {
           <div class="live-nav">
             <button class="carousel-nav__btn" (click)="prevLive()" [disabled]="currentLiveIndex() === 0">‹</button>
@@ -62,8 +68,12 @@
       <div class="my-tournament-cards">
         @for (tournament of myTournaments(); track tournament.id) {
           <div class="news-card" appSpotlight>
-            <div class="news-card__visual">
-              <span class="news-card__piece">♟</span>
+            <div class="news-card__visual" [class.has-image]="tournament.image">
+              @if (tournament.image) {
+                <img class="news-card__visual-img" [src]="apiUrl + tournament.image" [alt]="tournament.name">
+              } @else {
+                <span class="news-card__piece">♟</span>
+              }
             </div>
             <div class="news-card__body">
               <span class="news-card__badge news-card__badge--registered">Inscrit</span>
