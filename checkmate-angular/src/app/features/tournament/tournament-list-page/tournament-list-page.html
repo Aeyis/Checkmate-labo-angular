@@ -35,16 +35,12 @@
             [class.hero-thumb--active]="i === currentLiveIndex()"
             (click)="goToLive(i)"
             appSpotlight
+            [style.--progress]="(i === currentLiveIndex() ? progressPercent() : 0) + '%'"
           >
             <div class="hero-thumb__content">
               <span class="hero-thumb__round">Ronde {{ tournament.currentRound }}</span>
               <span class="hero-thumb__name">{{ tournament.name }}</span>
               <span class="hero-thumb__loc">📍 {{ tournament.location }}</span>
-              <div class="hero-thumb__progress">
-                <div class="hero-thumb__progress-bar"
-                     [style.width.%]="i === currentLiveIndex() ? progressPercent() : 0">
-                </div>
-              </div>
             </div>
             @if (tournament.image) {
               <div class="hero-thumb__img" [style.backgroundImage]="'url(' + apiUrl + tournament.image + ')'"></div>
