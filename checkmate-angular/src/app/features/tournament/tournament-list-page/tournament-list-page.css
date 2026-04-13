@@ -164,10 +164,8 @@ h1 {
 .hero-thumb {
   flex: 1;
   min-width: 200px;
-  backdrop-filter: var(--blur-md);
-  -webkit-backdrop-filter: var(--blur-md);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #1e2740;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 1.1rem 1.25rem;
   --mouse-x: -999px;
@@ -190,6 +188,8 @@ h1 {
   gap: 0.25rem;
   flex: 1;
   min-width: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-thumb__img{
@@ -206,6 +206,24 @@ h1 {
 
 .hero-thumb:hover .hero-thumb__img{
   background-size: 140% ;
+}
+.hero-thumb__progress {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-thumb__progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: rgba(255, 215, 0, 0.15);
+  width: 0%;
+  transition: width 0.3s linear;
 }
 
 
@@ -242,7 +260,7 @@ h1 {
 .hero-thumb--active {
   background: rgba(255, 215, 0, 0.1);
   border-color: #FFD700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.15), var(--shadow-glass);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
 }
 
 
@@ -448,9 +466,8 @@ h1 {
 /* ── CARTE NEWS ── */
 .news-card {
   width: 100%;
-  background: #1b2338;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: var(--shadow-glass);
+  background: #1e2740;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   overflow: hidden;
   display: flex;
@@ -465,7 +482,7 @@ h1 {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--reflection-top);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%);
   pointer-events: none;
   border-radius: inherit;
   z-index: 1;
@@ -487,8 +504,8 @@ h1 {
 
 .news-card:hover {
   transform: translateY(-6px) scale(1.01);
-  box-shadow: var(--shadow-float);
-  background: rgba(255, 255, 255, 0.11);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  background: #243056;
 }
 
 .news-card__visual {

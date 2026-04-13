@@ -23,6 +23,7 @@ export class DashboardPage implements OnInit {
   private readonly _tournamentService = inject(TournamentService);
   private readonly _matchService = inject(MatchService);
 
+  readonly apiUrl = environment.apiURL.replace(/\/$/, '');
   startedTournaments = signal<Tournament[]>([]);
   waitingTournaments = signal<Tournament[]>([]);
   finishedTournaments = signal<Tournament[]>([]);
