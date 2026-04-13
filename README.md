@@ -19,8 +19,65 @@ Application web de gestion de tournois d'échecs développée avec **Angular 21*
 
 ## 📸 Aperçu
 
-<!-- Remplacer par un screenshot : ![Aperçu](./screenshot.png) -->
-> *Screenshot à venir*
+### Tournois
+<table>
+  <tr>
+    <td align="center"><b>Carrousel en cours</b></td>
+    <td align="center"><b>Tournois à venir</b></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/screenshots/1.png" width="400"/></td>
+    <td><img src="./docs/screenshots/2.png" width="400"/></td>
+  </tr>
+</table>
+
+### Dashboard
+<table>
+  <tr>
+    <td align="center"><b>Tournois en cours</b></td>
+    <td align="center"><b>Dernières parties</b></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/screenshots/3.png" width="400"/></td>
+    <td><img src="./docs/screenshots/4.png" width="400"/></td>
+  </tr>
+</table>
+
+### Tournoi & Profil
+<table>
+  <tr>
+    <td align="center"><b>Joueurs inscrits</b></td>
+    <td align="center"><b>Profil</b></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/screenshots/5.png" width="400"/></td>
+    <td><img src="./docs/screenshots/6.png" width="400"/></td>
+  </tr>
+</table>
+
+### Authentification
+<table>
+  <tr>
+    <td align="center"><b>Connexion</b></td>
+    <td align="center"><b>Inscription</b></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/screenshots/7.png" width="400"/></td>
+    <td><img src="./docs/screenshots/8.png" width="400"/></td>
+  </tr>
+</table>
+
+### Administration
+<table>
+  <tr>
+    <td align="center"><b>Gestion des membres</b></td>
+    <td align="center"><b>Création d'un tournoi</b></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/screenshots/9.png" width="400"/></td>
+    <td><img src="./docs/screenshots/10.png" width="400"/></td>
+  </tr>
+</table>
 
 ---
 
@@ -109,7 +166,7 @@ src/
 │   │   ├── admin/           # Gestion membres et tournois
 │   │   └── errors/          # Pages 403 et 404
 │   └── shared/
-│       ├── components/      # FormCard, Loading, MessageDisplay, FormsErrorDisplay, PasswordRules
+│       ├── components/      # FormCard, Loading, MessageDisplay...
 │       ├── directives/      # SpotlightDirective
 │       └── layout/          # NavBar
 └── environments/            # Configuration API par environnement
