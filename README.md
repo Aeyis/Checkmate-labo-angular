@@ -1,6 +1,26 @@
 # ♟ Checkmate — Gestion de tournois d'échecs
 
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=angular,ts,html,css" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Angular-21-DD0031?style=flat-square&logo=angular&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Auth-JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white" />
+  <img src="https://img.shields.io/badge/Signals-Zoneless-DD0031?style=flat-square&logo=angular&logoColor=white" />
+</p>
+
+<br/>
+
 Application web de gestion de tournois d'échecs développée avec **Angular 21**. Elle permet de créer et gérer des tournois, s'inscrire, suivre les matchs en direct et consulter les classements.
+
+---
+
+## 📸 Aperçu
+
+<!-- Remplacer par un screenshot : ![Aperçu](./screenshot.png) -->
+> *Screenshot à venir*
 
 ---
 
@@ -109,4 +129,7 @@ src/
 
 ## Auteur
 
-Développé par **Rafael** dans le cadre d'un laboratoire Angular chez TechniFutur.
+Développé par **Rafael** dans le cadre d'un laboratoire Angular chez [TechniFutur](https://www.technifutur.be/).
+
+[![GitHub](https://img.shields.io/badge/GitHub-Aeyis-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Aeyis)
+[![Email](https://img.shields.io/badge/Email-raf045@hotmail.com-0078D4?style=flat-square&logo=microsoftoutlook&logoColor=white)](mailto:raf045@hotmail.com)
