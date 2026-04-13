@@ -37,6 +37,11 @@
             appSpotlight
             [style.--progress]="(i === currentLiveIndex() ? progressPercent() : 0) + '%'"
           >
+            <div class="hero-thumb__progress">
+              <div class="hero-thumb__progress-bar"
+                   [style.width.%]="i === currentLiveIndex() ? progressPercent() : 0">
+              </div>
+            </div>
             <div class="hero-thumb__content">
               <span class="hero-thumb__round">Ronde {{ tournament.currentRound }}</span>
               <span class="hero-thumb__name">{{ tournament.name }}</span>

@@ -34,6 +34,12 @@
     <div class="section-live-dash">
       <div class="section-label">En jeu</div>
       <div class="live-hero" appSpotlight>
+        @if (myStartedTournaments()[currentLiveIndex()].image) {
+          <div class="live-hero__img"
+               [style.backgroundImage]="'url(' + apiUrl + myStartedTournaments()[currentLiveIndex()].image + ')'">
+          </div>
+          <div class="live-hero__gradient"></div>
+        }
         <div class="live-hero__content">
           <span class="t-badge t-badge--live">EN COURS</span>
           <h2 class="live-hero__title">{{ myStartedTournaments()[currentLiveIndex()].name }}</h2>
