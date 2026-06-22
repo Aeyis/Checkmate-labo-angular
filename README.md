@@ -22,11 +22,9 @@ Application web de gestion de tournois d'échecs développée avec **Angular 21*
 ### Tournois
 <table>
   <tr>
-    <td align="center"><b>Carrousel en cours</b></td>
     <td align="center"><b>Tournois à venir</b></td>
   </tr>
   <tr>
-    <td><img src="./docs/screenshots/1.png" width="400"/></td>
     <td><img src="./docs/screenshots/2.png" width="400"/></td>
   </tr>
 </table>
